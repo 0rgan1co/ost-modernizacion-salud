@@ -7,46 +7,52 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 :root{
-  --blue-900:#1a365d;--blue-800:#2c5282;--blue-700:#2b6cb0;--blue-600:#3182ce;
-  --blue-500:#4299e1;--blue-400:#63b3ed;--blue-200:#bee3f8;--blue-100:#ebf8ff;
-  --green-800:#22543d;--green-700:#276749;--green-600:#38a169;--green-500:#48bb78;--green-100:#f0fff4;
-  --orange-700:#c05621;--orange-600:#dd6b20;--orange-500:#ed8936;--orange-100:#fffaf0;
-  --purple-700:#553c9a;--purple-600:#805ad5;--purple-100:#faf5ff;
+  --blue-900:#1a365d;--blue-700:#2b6cb0;--blue-600:#3182ce;--blue-500:#4299e1;--blue-400:#63b3ed;--blue-100:#ebf8ff;
+  --green-700:#276749;--green-600:#38a169;--green-500:#48bb78;--green-100:#f0fff4;
+  --orange-700:#c05621;--orange-600:#dd6b20;--orange-100:#fffaf0;
+  --purple-700:#553c9a;--purple-100:#faf5ff;
   --red-700:#c53030;--red-600:#e53e3e;--red-300:#feb2b2;--red-100:#fff5f5;
+  --amber-100:#fffbeb;--amber-700:#92400e;--amber-600:#d97706;
   --gray-900:#1a202c;--gray-800:#2d3748;--gray-700:#4a5568;--gray-600:#718096;
   --gray-500:#a0aec0;--gray-400:#cbd5e0;--gray-300:#e2e8f0;--gray-200:#edf2f7;--gray-100:#f7fafc;
-  --shadow-sm:0 1px 2px rgba(0,0,0,.06);--shadow:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -1px rgba(0,0,0,.06);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.06);--shadow:0 4px 6px -1px rgba(0,0,0,.1);
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'Inter',-apple-system,sans-serif;background:#f0f4f8;color:var(--gray-900);line-height:1.5;height:100vh;display:flex;flex-direction:column;overflow:hidden;}
 
-/* ── HEADER ── */
-.header{background:linear-gradient(135deg,var(--blue-900) 0%,var(--blue-700) 60%,var(--blue-500) 100%);color:#fff;padding:11px 16px 10px;flex-shrink:0;}
-.header h1{font-size:14px;font-weight:800;letter-spacing:-.2px;}
-.header .sub{font-size:10px;opacity:.7;margin-top:1px;}
-.outcome-pill{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:16px;padding:3px 10px;font-size:9px;font-weight:600;margin-top:5px;}
+/* HEADER */
+.header{background:linear-gradient(135deg,var(--blue-900) 0%,var(--blue-700) 60%,var(--blue-500) 100%);color:#fff;padding:10px 16px 9px;flex-shrink:0;}
+.header h1{font-size:13px;font-weight:800;letter-spacing:-.2px;}
+.header .sub{font-size:9px;opacity:.7;margin-top:1px;}
+.outcome-pill{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:14px;padding:2px 9px;font-size:9px;font-weight:600;margin-top:4px;}
 
-/* ── TABS ── */
+/* TABS */
 .tabs{background:#fff;border-bottom:2px solid var(--gray-300);display:flex;flex-shrink:0;}
 .tab{flex:1;padding:9px 6px;text-align:center;font-size:12px;font-weight:600;cursor:pointer;color:var(--gray-500);border-bottom:2.5px solid transparent;margin-bottom:-2px;transition:.15s;display:flex;align-items:center;justify-content:center;gap:5px;}
 .tab.active{color:var(--blue-700);border-color:var(--blue-600);}
 .sync-dot{width:6px;height:6px;border-radius:50%;background:var(--green-500);}
 .sync-dot.offline{background:var(--gray-400);}
 
-/* ── PRIORITY VIEW ── */
+/* ═══════════════ PRIORITY VIEW ═══════════════ */
 .prio-scroll{flex:1;overflow-y:auto;padding:10px 12px 24px;}
-.prio-hint{background:linear-gradient(135deg,#ebf8ff 0%,#e6fffa 100%);border-radius:9px;padding:10px 13px;margin-bottom:10px;border-left:3px solid var(--blue-500);}
+.prio-hint{background:linear-gradient(135deg,#ebf8ff,#e6fffa);border-radius:9px;padding:10px 13px;margin-bottom:10px;border-left:3px solid var(--blue-500);}
 .prio-hint p{font-size:11px;color:var(--gray-700);line-height:1.5;}
 .prio-hint strong{color:var(--blue-700);}
 .prio-section-hdr{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--gray-500);padding:6px 2px 4px;}
-.prio-card{background:#fff;border-radius:9px;margin-bottom:6px;padding:10px 12px;display:flex;align-items:center;gap:10px;box-shadow:var(--shadow-sm);border:1.5px solid var(--gray-200);cursor:pointer;transition:.15s;}
+
+/* PRIORITY CARD — expanded with desc + impact */
+.prio-card{background:#fff;border-radius:10px;margin-bottom:8px;padding:11px 12px;box-shadow:var(--shadow-sm);border:1.5px solid var(--gray-200);cursor:pointer;transition:.15s;}
 .prio-card.top{border-color:var(--red-300);background:#fff8f8;}
-.prio-card:active{background:var(--gray-100);}
-.prio-rank{font-size:16px;font-weight:900;color:var(--gray-300);width:22px;text-align:center;flex-shrink:0;line-height:1;}
+.prio-card:active{opacity:.88;}
+.prio-card-row{display:flex;align-items:flex-start;gap:9px;}
+.prio-rank{font-size:15px;font-weight:900;color:var(--gray-300);width:20px;text-align:center;flex-shrink:0;padding-top:1px;line-height:1;}
 .prio-rank.top{color:var(--red-400);}
 .prio-body{flex:1;min-width:0;}
-.prio-title{font-size:12px;font-weight:700;color:var(--gray-900);line-height:1.3;}
-.prio-badges{display:flex;gap:3px;margin-top:4px;flex-wrap:wrap;}
+.prio-title{font-size:12px;font-weight:700;color:var(--gray-900);line-height:1.35;}
+.prio-desc{font-size:11px;color:var(--gray-600);margin-top:4px;line-height:1.45;}
+.prio-impact{font-size:10px;color:var(--amber-700);background:var(--amber-100);border-radius:6px;padding:4px 8px;margin-top:5px;line-height:1.4;border-left:2px solid var(--amber-600);}
+.prio-impact::before{content:"⚠️ Sin resolver: ";}
+.prio-badges{display:flex;gap:3px;margin-top:6px;flex-wrap:wrap;}
 .tag{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;padding:2px 5px;border-radius:4px;white-space:nowrap;}
 .tag-pain{background:var(--red-100);color:var(--red-700);}
 .tag-desire{background:var(--green-100);color:var(--green-700);}
@@ -54,7 +60,7 @@ body{font-family:'Inter',-apple-system,sans-serif;background:#f0f4f8;color:var(-
 .tag-ph1{background:var(--green-100);color:var(--green-700);}
 .tag-ph2{background:var(--blue-100);color:var(--blue-700);}
 .tag-ph3{background:var(--orange-100);color:var(--orange-700);}
-.vote-btn{display:flex;flex-direction:column;align-items:center;gap:1px;background:none;border:none;cursor:pointer;padding:4px 6px;border-radius:7px;transition:.15s;flex-shrink:0;}
+.vote-btn{display:flex;flex-direction:column;align-items:center;gap:1px;background:none;border:none;cursor:pointer;padding:4px 5px;border-radius:7px;transition:.15s;flex-shrink:0;}
 .vote-btn:hover{background:var(--red-100);}
 .vote-btn.voted{background:var(--red-100);}
 .heart{font-size:18px;line-height:1;}
@@ -63,9 +69,23 @@ body{font-family:'Inter',-apple-system,sans-serif;background:#f0f4f8;color:var(-
 @keyframes heartPop{0%{transform:scale(1)}40%{transform:scale(1.5)}100%{transform:scale(1)}}
 .vote-btn.voted .heart{animation:heartPop .3s ease;}
 
-/* ── TREE VIEW ── */
-.tree-view{flex:1;overflow:hidden;position:relative;background:#dde3ec;}
-.tree-stage{position:absolute;inset:0;overflow:hidden;cursor:grab;user-select:none;-webkit-user-select:none;}
+/* ═══════════════ TREE VIEW ═══════════════ */
+.tree-view{flex:1;overflow:hidden;position:relative;background:#dde3ec;display:flex;flex-direction:column;}
+
+/* TREE CONTROLS (toggle bar) */
+.tree-controls{background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--gray-300);padding:6px 12px;display:flex;gap:6px;flex-wrap:wrap;align-items:center;flex-shrink:0;}
+.tc-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--gray-500);margin-right:2px;}
+.tc-chip{font-family:inherit;font-size:10px;font-weight:600;padding:3px 9px;border-radius:14px;border:1.5px solid var(--gray-300);background:#fff;color:var(--gray-600);cursor:pointer;transition:.15s;display:flex;align-items:center;gap:4px;user-select:none;}
+.tc-chip.on{color:#fff;}
+.tc-chip.on.layer-sol{background:var(--blue-600);border-color:var(--blue-600);}
+.tc-chip.on.layer-exp{background:var(--purple-700);border-color:var(--purple-700);}
+.tc-chip.on.ph1{background:#276749;border-color:#276749;}
+.tc-chip.on.ph2{background:var(--blue-700);border-color:var(--blue-700);}
+.tc-chip.on.ph3{background:#c05621;border-color:#c05621;}
+.tc-sep{width:1px;height:18px;background:var(--gray-300);flex-shrink:0;}
+
+/* TREE STAGE */
+.tree-stage{flex:1;overflow:hidden;position:relative;cursor:grab;user-select:none;-webkit-user-select:none;}
 .tree-stage.panning{cursor:grabbing;}
 .tree-canvas{position:absolute;top:0;left:0;transform-origin:0 0;}
 .tree-svg{position:absolute;top:0;left:0;pointer-events:none;overflow:visible;}
@@ -74,8 +94,8 @@ body{font-family:'Inter',-apple-system,sans-serif;background:#f0f4f8;color:var(-
 /* TREE NODES */
 .tn{position:absolute;border-radius:10px;cursor:pointer;transition:box-shadow .15s;font-family:'Inter',-apple-system,sans-serif;}
 .tn:hover{box-shadow:0 0 0 3px rgba(66,153,225,.35);}
-.tn.voted-node{box-shadow:0 0 0 3px rgba(229,62,62,.35);}
-.tn.expanded-border{box-shadow:0 0 0 2px rgba(99,179,237,.6);}
+.tn.voted-node{box-shadow:0 0 0 3px rgba(229,62,62,.4);}
+.tn.expanded-border{box-shadow:0 0 0 2px rgba(99,179,237,.65);}
 .badge{font-size:8px;font-weight:600;padding:2px 5px;border-radius:3px;white-space:nowrap;}
 .conf-high{background:var(--green-100);color:var(--green-700);}
 .conf-med{background:var(--orange-100);color:var(--orange-700);}
@@ -85,10 +105,9 @@ body{font-family:'Inter',-apple-system,sans-serif;background:#f0f4f8;color:var(-
 .eff-high{background:#fce4ec;color:#c62828;}
 
 /* ZOOM CONTROLS */
-.zoom-wrap{position:absolute;bottom:14px;right:12px;display:flex;flex-direction:column;gap:5px;z-index:10;}
-.zoom-btn{width:34px;height:34px;border-radius:8px;border:1px solid var(--gray-300);background:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,.14);font-family:inherit;font-weight:700;color:var(--gray-700);}
+.zoom-wrap{position:absolute;bottom:12px;right:10px;display:flex;flex-direction:column;gap:5px;z-index:10;}
+.zoom-btn{width:32px;height:32px;border-radius:8px;border:1px solid var(--gray-300);background:#fff;font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,.14);font-family:inherit;font-weight:700;color:var(--gray-700);}
 .zoom-btn:active{background:var(--gray-100);}
-.tree-legend{position:absolute;top:8px;left:50%;transform:translateX(-50%);background:rgba(26,54,93,.82);color:#fff;font-size:10px;padding:4px 12px;border-radius:14px;pointer-events:none;z-index:10;white-space:nowrap;}
 </style>
 </head>
 <body>
@@ -102,12 +121,8 @@ body{font-family:'Inter',-apple-system,sans-serif;background:#f0f4f8;color:var(-
 
 <!-- TABS -->
 <div class="tabs">
-  <div class="tab active" id="tab-prio" onclick="switchTab('prio')">
-    🗳️ Priorizar
-  </div>
-  <div class="tab" id="tab-tree" onclick="switchTab('tree')">
-    🌳 Ver árbol OST <span class="sync-dot offline" id="syncDot"></span>
-  </div>
+  <div class="tab active" id="tab-prio" onclick="switchTab('prio')">🗳️ Priorizar</div>
+  <div class="tab" id="tab-tree" onclick="switchTab('tree')">🌳 Ver árbol OST <span class="sync-dot offline" id="syncDot"></span></div>
 </div>
 
 <!-- PRIORITY VIEW -->
@@ -117,7 +132,18 @@ body{font-family:'Inter',-apple-system,sans-serif;background:#f0f4f8;color:var(-
 
 <!-- TREE VIEW -->
 <div id="view-tree" class="tree-view" style="display:none;">
-  <div class="tree-legend">Arrastrá para mover · Pinzá para zoom · Tocá nodo para expandir</div>
+  <!-- TOGGLE BAR -->
+  <div class="tree-controls">
+    <span class="tc-label">Capas</span>
+    <button class="tc-chip layer-sol on" id="tc-sol" onclick="toggleLayer('sol')">🔵 Soluciones</button>
+    <button class="tc-chip layer-exp on" id="tc-exp" onclick="toggleLayer('exp')">🟣 Experimentos</button>
+    <div class="tc-sep"></div>
+    <span class="tc-label">Fases</span>
+    <button class="tc-chip ph1 on" id="tc-ph1" onclick="togglePhase(1)">📦 Proveedores</button>
+    <button class="tc-chip ph2 on" id="tc-ph2" onclick="togglePhase(2)">🏭 Almacenamiento</button>
+    <button class="tc-chip ph3 on" id="tc-ph3" onclick="togglePhase(3)">💊 Dispensación</button>
+  </div>
+  <!-- STAGE -->
   <div class="tree-stage" id="treeStage">
     <div class="tree-canvas" id="treeCanvas">
       <svg class="tree-svg" id="treeSvg"></svg>
@@ -127,7 +153,7 @@ body{font-family:'Inter',-apple-system,sans-serif;background:#f0f4f8;color:var(-
   <div class="zoom-wrap">
     <button class="zoom-btn" onclick="zoomIn()">+</button>
     <button class="zoom-btn" onclick="zoomOut()">−</button>
-    <button class="zoom-btn" onclick="fitView()" style="font-size:13px;">⌂</button>
+    <button class="zoom-btn" onclick="fitView()" style="font-size:12px;">⌂</button>
   </div>
 </div>
 
@@ -147,7 +173,7 @@ async function sbFetch(path,opts={}){
 }
 
 // ══════════════════════════════════════════
-// DATA
+// DATA — con descripción e impacto de no resolver
 // ══════════════════════════════════════════
 const DATA={
   phases:[
@@ -156,7 +182,10 @@ const DATA={
     {id:3,name:"Dispensación",icon:"💊",color:"orange",sprint:"90"}
   ],
   opportunities:[
-    {id:"O1.1",phase:1,type:"pain",title:"Compras ciegas: sin datos reales de consumo",
+    {id:"O1.1",phase:1,type:"pain",
+     title:"Compras ciegas: sin datos reales de consumo",
+     desc:"Las compras de medicamentos se hacen sin datos de consumo histórico, dependiendo de estimaciones subjetivas o pedidos por costumbre.",
+     noResolve:"El hospital seguirá gastando el doble de lo necesario. Sin línea base, cualquier intento de eficiencia es a ciegas.",
      quote:"Acomodando los proveedores sin sistema, sin nada, a los latigazos... el año siguiente gastamos 5 mil millones. La mitad redujimos.",
      source:"Entrevista Pablo",timestamp:"min 19:41",
      solutions:[
@@ -169,7 +198,10 @@ const DATA={
         confidence:"high",effort:"medium",impact:"high",
         experiments:[{id:"E1.1B",title:"Renegociar los 5 insumos de mayor gasto en 30 días",detail:"Hipótesis: ahorro ≥15% en esos ítems.",effort:"low",impact:"high",days:30}]}
      ]},
-    {id:"O1.2",phase:1,type:"pain",title:"Mercado concentrado: dependencia de proveedores comunes",
+    {id:"O1.2",phase:1,type:"pain",
+     title:"Mercado concentrado: dependencia de proveedores comunes",
+     desc:"Un grupo reducido de proveedores controla el abastecimiento, eliminando la competencia real y el poder de negociación.",
+     noResolve:"Los precios seguirán siendo inflados. Cualquier proveedor puede condicionar el acceso a insumos críticos sin consecuencias.",
      quote:"Son nueve proveedores que están entongados... todos tienen el mismo problema y están atados a las mismas personas.",
      source:"Entrevista Pablo",timestamp:"min 11:25",
      solutions:[
@@ -182,7 +214,10 @@ const DATA={
         confidence:"low",effort:"high",impact:"high",
         experiments:[{id:"E1.2B",title:"Mesa de trabajo con 2 municipios para 3 insumos críticos",detail:"Hipótesis: precio conjunto ≥10% menor que individual.",effort:"medium",impact:"medium",days:60}]}
      ]},
-    {id:"O1.3",phase:1,type:"need",title:"Software arcaico en el punto de ingreso",
+    {id:"O1.3",phase:1,type:"need",
+     title:"Software arcaico en el punto de ingreso",
+     desc:"El sistema usado al recibir mercadería no registra datos confiables de lote, vencimiento ni proveedor, contaminando toda la cadena.",
+     noResolve:"Cualquier inversión en trazabilidad aguas abajo será inútil: sin datos limpios en el origen, todo se construye sobre arena.",
      quote:"Ese software inicial que es arcaico, se podría hacer más nuevo... la modernización debe comenzar desde el ingreso.",
      source:"Entrevista Pablo",timestamp:"min 5:08",
      solutions:[
@@ -195,7 +230,10 @@ const DATA={
         confidence:"high",effort:"low",impact:"high",
         experiments:[{id:"E1.3B",title:"Auditoría: % de registros actuales con campos vacíos",detail:"Hipótesis: >40% de registros tienen datos incompletos.",effort:"low",impact:"medium",days:7}]}
      ]},
-    {id:"O2.1",phase:2,type:"need",title:"Medicamento anónimo: sin identidad unitaria",
+    {id:"O2.1",phase:2,type:"need",
+     title:"Medicamento anónimo: sin identidad unitaria",
+     desc:"Los medicamentos circulan sin identificación individual. No se puede saber qué unidad específica llegó a qué paciente, ni cuándo.",
+     noResolve:"Ante cualquier error de medicación o alerta de vencimiento, es imposible rastrear el origen o el alcance del problema.",
      quote:"Sin identificación unitaria, el medicamento es anónimo. Cuando algo sale mal, es imposible rastrear qué ocurrió.",
      source:"Framework Módulo C",timestamp:"Pág. 7",
      solutions:[
@@ -208,7 +246,10 @@ const DATA={
         confidence:"high",effort:"medium",impact:"high",
         experiments:[{id:"E2.1B",title:"Test integración: 500 unidades, tasa error <1%",detail:"Validar que 100% de QR generados sean legibles y correspondan al registro.",effort:"low",impact:"high",days:14}]}
      ]},
-    {id:"O2.2",phase:2,type:"pain",title:"~30% de insumos se desperdician por vencimiento",
+    {id:"O2.2",phase:2,type:"pain",
+     title:"~30% de insumos se desperdician por vencimiento",
+     desc:"Sin control de fechas de vencimiento, los medicamentos caducan en stock sin ser utilizados ni redistribuidos a tiempo.",
+     noResolve:"El desperdicio seguirá consumiendo entre 15–30% del presupuesto anual, mientras faltan medicamentos en áreas que los necesitan.",
      quote:"En Estados Unidos hace años que se pierde el 30% de los insumos médicos... imaginate lo que debe ser en nuestro sistema.",
      source:"Entrevista Pablo",timestamp:"min 18:22",
      solutions:[
@@ -221,7 +262,10 @@ const DATA={
         confidence:"high",effort:"medium",impact:"high",
         experiments:[{id:"E2.2B",title:"Piloto distribución trazada a 2 salas × 2 semanas",detail:"Medir: % de dosis recibidas con QR legible vs total.",effort:"low",impact:"high",days:14}]}
      ]},
-    {id:"O2.3",phase:2,type:"pain",title:"Empaque manual propenso a errores",
+    {id:"O2.3",phase:2,type:"pain",
+     title:"Empaque manual propenso a errores",
+     desc:"El fraccionamiento y empaque de dosis individuales se hace a mano, generando errores de cantidad, identificación y destino.",
+     noResolve:"Los errores de empaque se traducen directamente en errores de medicación. No hay registro de qué se empacó ni para quién.",
      quote:"De esa caja, fraccionar lo que hay dentro... la máquina no lo va a poder hacer, pero te puede ahorrar que agarre la caja y te dé lo que tiene que ir a buscar.",
      source:"Entrevista Pablo",timestamp:"min 2:40",
      solutions:[
@@ -230,7 +274,10 @@ const DATA={
         confidence:"high",effort:"high",impact:"high",
         experiments:[{id:"E2.3A",title:"Comparar errores: empaque manual vs centralizado × 2 semanas",detail:"Hipótesis: reducción ≥50% de errores de distribución.",effort:"medium",impact:"high",days:14}]}
      ]},
-    {id:"O3.1",phase:3,type:"need",title:"Riesgo de error de medicación sin verificación cruzada",
+    {id:"O3.1",phase:3,type:"need",
+     title:"Riesgo de error de medicación sin verificación cruzada",
+     desc:"Al administrar medicamentos no existe validación de que el fármaco correcto llega al paciente correcto en el momento correcto.",
+     noResolve:"Los errores de medicación seguirán ocurriendo sin posibilidad de detección preventiva, con consecuencias legales y clínicas graves.",
      quote:"Al momento de dispensar va a escanear el medicamento y escanea la pulsera del paciente... ahí matcheó el lote, vencimiento, medicación con el paciente.",
      source:"Entrevista Pablo",timestamp:"min 0:36",
      solutions:[
@@ -243,7 +290,10 @@ const DATA={
         confidence:"high",effort:"low",impact:"high",
         experiments:[{id:"E3.1B",title:"Comparar tiempo: registro papel vs escaneo digital (1 turno)",detail:"Hipótesis: reducción ≥40% del tiempo administrativo.",effort:"low",impact:"medium",days:3}]}
      ]},
-    {id:"O3.2",phase:3,type:"desire",title:"Áreas críticas (Guardia, UTI, Cardio) sin fricciones",
+    {id:"O3.2",phase:3,type:"desire",
+     title:"Áreas críticas (Guardia, UTI, Cardio) sin fricciones",
+     desc:"Las áreas de mayor urgencia clínica tienen el mismo proceso lento de dispensación que cualquier sala, generando cuellos de botella peligrosos.",
+     noResolve:"Las demoras en Guardia y UTI continuarán comprometiendo la atención de emergencia. La fricción del sistema se convierte en riesgo vital.",
      quote:"Imaginate vos, tener varias máquinas de eso dentro del hospital y no tener que hacer una cola... tiki, tiki, tiki, tiki.",
      source:"Entrevista Pablo",timestamp:"min 2:56",
      solutions:[
@@ -256,7 +306,10 @@ const DATA={
         confidence:"high",effort:"medium",impact:"high",
         experiments:[]}
      ]},
-    {id:"O3.3",phase:3,type:"pain",title:"Pérdida masiva de facturación a obras sociales",
+    {id:"O3.3",phase:3,type:"pain",
+     title:"Pérdida masiva de facturación a obras sociales",
+     desc:"Sin documentación del acto de administración, el hospital no puede cobrar a las obras sociales los medicamentos que efectivamente entregó.",
+     noResolve:"El hospital continuará perdiendo millones en facturación anual. Los servicios prestados quedan invisibles y sin recupero económico.",
      quote:"La obra social te dice no, te falta acá un anexo que te lo tiene que firmar el médico. Vas al médico y el médico te dice, no, ese no es mi trabajo.",
      source:"Entrevista Pablo",timestamp:"min 17:02",
      solutions:[
@@ -269,7 +322,10 @@ const DATA={
         confidence:"medium",effort:"medium",impact:"medium",
         experiments:[{id:"E3.3B",title:"Piloto incentivos en 1 sala × 1 trimestre",detail:"Hipótesis: aumento ≥20% en adopción voluntaria del sistema.",effort:"medium",impact:"medium",days:90}]}
      ]},
-    {id:"O3.4",phase:3,type:"pain",title:'Resistencia médica al sistema: "El Ojo de Sauron"',
+    {id:"O3.4",phase:3,type:"pain",
+     title:'Resistencia médica al sistema: "El Ojo de Sauron"',
+     desc:"El personal médico percibe el sistema de trazabilidad como vigilancia y control, generando resistencia activa a la adopción.",
+     noResolve:"Sin adopción del personal clínico, cualquier sistema implementado fracasará en campo. La tecnología sin cultura es hardware inutilizado.",
      quote:"Los tipos saben que hay control, el panóptico... El ojo de Sauron, digamos, lo perciben. Allá lo usan y nadie se queja, y está perfecto. Y acá no.",
      source:"Entrevista Pablo",timestamp:"min 23:33",
      solutions:[
@@ -294,11 +350,11 @@ let treeRoot=null;
 let _treeInited=false;
 let _treeFitted=false;
 
-const phCols={
-  1:{bg:'#276749',text:'#fff'},
-  2:{bg:'#2b6cb0',text:'#fff'},
-  3:{bg:'#c05621',text:'#fff'}
-};
+// Toggle state
+const showLayers={sol:true,exp:true};
+const showPhases={1:true,2:true,3:true};
+
+const phCols={1:{bg:'#276749',text:'#fff'},2:{bg:'#2b6cb0',text:'#fff'},3:{bg:'#c05621',text:'#fff'}};
 const typeIcon={pain:'😖',desire:'✨',need:'🎯'};
 const typeLabel={pain:'Dolor',desire:'Deseo',need:'Necesidad'};
 const confLabel={high:'✅ Validado',medium:'🔶 Hipótesis',low:'🧪 Experimental'};
@@ -314,12 +370,33 @@ function switchTab(tab){
   document.getElementById('tab-prio').classList.toggle('active',tab==='prio');
   document.getElementById('tab-tree').classList.toggle('active',tab==='tree');
   document.getElementById('view-prio').style.display=tab==='prio'?'flex':'none';
-  document.getElementById('view-tree').style.display=tab==='tree'?'block':'none';
+  document.getElementById('view-tree').style.display=tab==='tree'?'flex':'none';
   if(tab==='tree') renderTree();
 }
 
 // ══════════════════════════════════════════
-// SUPABASE VOTES
+// TOGGLE CONTROLS
+// ══════════════════════════════════════════
+function toggleLayer(layer){
+  showLayers[layer]=!showLayers[layer];
+  const btn=document.getElementById('tc-'+layer);
+  btn.classList.toggle('on',showLayers[layer]);
+  // If sol is turned off, exp also can't show
+  if(layer==='sol'&&!showLayers.sol&&showLayers.exp){
+    showLayers.exp=false;
+    document.getElementById('tc-exp').classList.remove('on');
+  }
+  renderTree();fitView();
+}
+
+function togglePhase(ph){
+  showPhases[ph]=!showPhases[ph];
+  document.getElementById('tc-ph'+ph).classList.toggle('on',showPhases[ph]);
+  renderTree();fitView();
+}
+
+// ══════════════════════════════════════════
+// SUPABASE
 // ══════════════════════════════════════════
 async function loadVotes(){
   try{
@@ -333,17 +410,16 @@ async function loadVotes(){
     if(toInsert.length) await sbFetch('/rest/v1/ost_opportunities',{method:'POST',body:JSON.stringify(toInsert),headers:{'Prefer':'resolution=ignore-duplicates,return=minimal'}});
     document.getElementById('syncDot').className='sync-dot';
   }catch(e){
-    console.warn('Supabase offline:',e.message);
     DATA.opportunities.forEach(o=>{if(!votes[o.id])votes[o.id]={count:0,voted:false};});
   }
   renderPrio();
 }
 
-async function doVote(oppId,inTree){
+async function doVote(oppId){
   const v=votes[oppId]||{count:0,voted:false};
   votes[oppId]={count:v.count+(v.voted?-1:1),voted:!v.voted};
   renderPrio();
-  if(activeTab==='tree'||inTree) renderTree();
+  if(activeTab==='tree') renderTree();
   try{
     if(v.voted){
       await sbFetch('/rest/v1/ost_votes?opportunity_id=eq.'+oppId+'&voter_id=eq.'+VOTER_ID,{method:'DELETE'});
@@ -352,7 +428,7 @@ async function doVote(oppId,inTree){
       await sbFetch('/rest/v1/ost_votes',{method:'POST',body:JSON.stringify({opportunity_id:oppId,voter_id:VOTER_ID})});
       await sbFetch('/rest/v1/rpc/increment_vote',{method:'POST',body:JSON.stringify({opp_id:oppId})});
     }
-  }catch(err){votes[oppId]=v;renderPrio();if(activeTab==='tree')renderTree();}
+  }catch(err){votes[oppId]=v;renderPrio();}
 }
 
 // ══════════════════════════════════════════
@@ -360,16 +436,15 @@ async function doVote(oppId,inTree){
 // ══════════════════════════════════════════
 function renderPrio(){
   const sorted=[...DATA.opportunities].sort((a,b)=>{
-    const va=votes[a.id]||{count:0};
-    const vb=votes[b.id]||{count:0};
+    const va=votes[a.id]||{count:0};const vb=votes[b.id]||{count:0};
     return vb.count-va.count||a.id.localeCompare(b.id);
   });
   const totalVotes=Object.values(votes).reduce((s,v)=>s+(v.count||0),0);
   let html='';
   if(totalVotes===0){
-    html+=`<div class="prio-hint"><p><strong>¿Cuáles son los problemas más urgentes?</strong><br>Votá ❤️ los que más impactan. Los más votados aparecen arriba y guían la prioridad del OST.</p></div>`;
+    html+=`<div class="prio-hint"><p><strong>¿Cuáles son los problemas más urgentes?</strong><br>Votá ❤️ los que más impactan. Los más votados aparecen arriba y guían la prioridad del árbol OST.</p></div>`;
   }else{
-    html+=`<div class="prio-hint"><p><strong>${totalVotes} voto${totalVotes!==1?'s':''} registrados.</strong> Tocá 🌳 Ver árbol OST para explorar las soluciones a los problemas prioritarios.</p></div>`;
+    html+=`<div class="prio-hint"><p><strong>${totalVotes} voto${totalVotes!==1?'s':''} registrados.</strong> Tocá 🌳 Ver árbol para explorar las soluciones a los problemas prioritarios.</p></div>`;
   }
   html+=`<div class="prio-section-hdr">Problemas — ordená por importancia</div>`;
   sorted.forEach((opp,i)=>{
@@ -377,18 +452,22 @@ function renderPrio(){
     const isTop=v.count>0&&i<3;
     const ph=DATA.phases.find(p=>p.id===opp.phase);
     html+=`<div class="prio-card${isTop?' top':''}" onclick="goToTree('${opp.id}')">
-      <div class="prio-rank${isTop?' top':''}">${i+1}</div>
-      <div class="prio-body">
-        <div class="prio-title">${opp.title}</div>
-        <div class="prio-badges">
-          <span class="tag tag-${opp.type}">${typeIcon[opp.type]} ${typeLabel[opp.type]}</span>
-          <span class="tag tag-ph${opp.phase}">${ph.icon} ${ph.name}</span>
+      <div class="prio-card-row">
+        <div class="prio-rank${isTop?' top':''}">${i+1}</div>
+        <div class="prio-body">
+          <div class="prio-title">${opp.title}</div>
+          <div class="prio-desc">${opp.desc}</div>
+          <div class="prio-impact">${opp.noResolve}</div>
+          <div class="prio-badges">
+            <span class="tag tag-${opp.type}">${typeIcon[opp.type]} ${typeLabel[opp.type]}</span>
+            <span class="tag tag-ph${opp.phase}">${ph.icon} ${ph.name}</span>
+          </div>
         </div>
+        <button class="vote-btn${v.voted?' voted':''}" onclick="event.stopPropagation();doVote('${opp.id}')">
+          <span class="heart">${v.voted?'❤️':'🤍'}</span>
+          <span class="vote-count">${v.count}</span>
+        </button>
       </div>
-      <button class="vote-btn${v.voted?' voted':''}" onclick="event.stopPropagation();doVote('${opp.id}',false)">
-        <span class="heart">${v.voted?'❤️':'🤍'}</span>
-        <span class="vote-count">${v.count}</span>
-      </button>
     </div>`;
   });
   document.getElementById('prioList').innerHTML=html;
@@ -398,94 +477,110 @@ function goToTree(oppId){
   switchTab('tree');
   setTimeout(()=>{
     if(!treeRoot)return;
+    if(!showPhases[DATA.opportunities.find(o=>o.id===oppId)?.phase]) return;
     const node=findNode(treeRoot,oppId);
-    if(node){node.collapsed=false;renderTree();centerNode(node);}
+    if(node&&showLayers.sol){node.collapsed=false;renderTree();centerNode(node);}
   },120);
 }
 
 // ══════════════════════════════════════════
 // TREE ENGINE
 // ══════════════════════════════════════════
-const NW=190; // node width
-const VG=56;  // vertical gap between levels
-const HG=12;  // horizontal gap between siblings
-
-const NH={outcome:54,phase:62,opp:78,sol:72,exp:58};
+const NW=190,VG=54,HG=10;
+const NH={outcome:52,phase:60,opp:76,sol:70,exp:56};
 
 function buildTreeData(){
   return {
-    id:'outcome',type:'outcome',
-    collapsed:false,
+    id:'outcome',type:'outcome',collapsed:false,
     children:DATA.phases.map(ph=>({
-      id:'ph-'+ph.id,type:'phase',phase:ph,
-      collapsed:false,
+      id:'ph-'+ph.id,type:'phase',phase:ph,collapsed:false,
       children:DATA.opportunities.filter(o=>o.phase===ph.id).map(opp=>({
-        id:opp.id,type:'opp',opp:opp,
-        collapsed:true,
+        id:opp.id,type:'opp',opp:opp,collapsed:true,
         children:opp.solutions.map(sol=>({
-          id:sol.id,type:'sol',sol:sol,
-          collapsed:true,
-          children:sol.experiments.map(exp=>({
-            id:exp.id,type:'exp',exp:exp,
-            collapsed:true,children:[]
-          }))
+          id:sol.id,type:'sol',sol:sol,collapsed:true,
+          children:sol.experiments.map(exp=>({id:exp.id,type:'exp',exp:exp,collapsed:true,children:[]}))
         }))
       }))
     }))
   };
 }
 
-function nh(node){return NH[node.type]||68;}
+// Effective collapsed: respects toggle layers + phase visibility
+function isCollapsed(node){
+  if(node.collapsed) return true;
+  if(node.type==='opp'&&!showLayers.sol) return true;
+  if(node.type==='sol'&&!showLayers.exp) return true;
+  return false;
+}
+function isVisible(node){
+  if(node.type==='phase'&&!showPhases[node.phase.id]) return false;
+  if(node.type==='opp'&&!showPhases[node.opp.phase]) return false;
+  if(node.type==='sol'&&!showPhases[node.sol.id.charAt(1)]) return false; // e.g. S1.1A → phase 1
+  if(node.type==='exp') {
+    // check parent phase via id prefix
+    const phNum=parseInt(node.exp.id.charAt(1));
+    if(!showPhases[phNum]) return false;
+  }
+  return true;
+}
+
+function getVisibleChildren(node){
+  if(isCollapsed(node)) return [];
+  return node.children.filter(c=>isVisible(c));
+}
+
+function nh(node){return NH[node.type]||66;}
 
 function layout(node,startX,y){
+  if(!isVisible(node)){node.x=startX;node._w=0;return 0;}
   node.y=y;
-  const visChildren=node.collapsed?[]:node.children;
-  if(!visChildren.length){node.x=startX;node._w=NW+HG;return node._w;}
+  const visChildren=getVisibleChildren(node);
+  if(!visChildren.length){node.x=startX;node._w=NW+HG;return NW+HG;}
   let cx=startX,totalW=0;
-  visChildren.forEach(child=>{
-    const w=layout(child,cx,y+nh(node)+VG);
-    cx+=w;totalW+=w;
-  });
+  visChildren.forEach(child=>{const w=layout(child,cx,y+nh(node)+VG);cx+=w;totalW+=w;});
   node.x=startX+(totalW-HG)/2-NW/2;
   node._w=Math.max(totalW,NW+HG);
   return node._w;
 }
 
-function allNodes(node,acc=[]){
+function allVisNodes(node,acc=[]){
+  if(!isVisible(node)) return acc;
   acc.push(node);
-  if(!node.collapsed)node.children.forEach(c=>allNodes(c,acc));
+  getVisibleChildren(node).forEach(c=>allVisNodes(c,acc));
   return acc;
 }
 
 function findNode(node,id){
-  if(node.id===id)return node;
-  for(const c of node.children){const f=findNode(c,id);if(f)return f;}
+  if(node.id===id) return node;
+  for(const c of node.children){const f=findNode(c,id);if(f) return f;}
   return null;
 }
 
 // ── PAN / ZOOM ──
 let zoom=1,panX=20,panY=20,isDragging=false,dragStart={x:0,y:0};
-let lastTouchDist=null,lastTouchMid={x:0,y:0},prevTouches=[];
+let lastTouchDist=null,lastTouchMid=null,prevTouches=[];
 
-function applyT(){
-  document.getElementById('treeCanvas').style.transform=`translate(${panX}px,${panY}px) scale(${zoom})`;
-}
+function applyT(){document.getElementById('treeCanvas').style.transform=`translate(${panX}px,${panY}px) scale(${zoom})`;}
 function zoomIn(){zoom=Math.min(3,zoom*1.2);applyT();}
 function zoomOut(){zoom=Math.max(0.1,zoom/1.2);applyT();}
+
 function fitView(){
+  if(!treeRoot) return;
   const stage=document.getElementById('treeStage');
   const sw=stage.clientWidth,sh=stage.clientHeight;
-  const nodes=allNodes(treeRoot);
+  const nodes=allVisNodes(treeRoot);
+  if(!nodes.length) return;
   const minX=Math.min(...nodes.map(n=>n.x));
   const maxX=Math.max(...nodes.map(n=>n.x+NW));
   const minY=Math.min(...nodes.map(n=>n.y));
   const maxY=Math.max(...nodes.map(n=>n.y+nh(n)));
   const tw=maxX-minX+40,th=maxY-minY+40;
-  zoom=Math.min(sw/tw,sh/th,1.2)*0.88;
+  zoom=Math.min(sw/tw,sh/th,1.4)*0.87;
   panX=(sw-(maxX-minX)*zoom)/2-minX*zoom;
-  panY=18;
+  panY=16;
   applyT();
 }
+
 function centerNode(node){
   const stage=document.getElementById('treeStage');
   panX=stage.clientWidth/2-(node.x+NW/2)*zoom;
@@ -497,25 +592,12 @@ function initPanZoom(){
   const stage=document.getElementById('treeStage');
   stage.addEventListener('mousedown',e=>{
     if(e.target.closest('.tn'))return;
-    isDragging=true;
-    dragStart={x:e.clientX-panX,y:e.clientY-panY};
+    isDragging=true;dragStart={x:e.clientX-panX,y:e.clientY-panY};
     stage.classList.add('panning');
   });
-  document.addEventListener('mousemove',e=>{
-    if(!isDragging)return;
-    panX=e.clientX-dragStart.x;panY=e.clientY-dragStart.y;applyT();
-  });
-  document.addEventListener('mouseup',()=>{
-    isDragging=false;
-    const s=document.getElementById('treeStage');
-    if(s)s.classList.remove('panning');
-  });
-  stage.addEventListener('wheel',e=>{
-    e.preventDefault();
-    const f=e.deltaY<0?1.12:0.9;
-    zoom=Math.max(0.1,Math.min(3,zoom*f));applyT();
-  },{passive:false});
-  // Touch pan + pinch
+  document.addEventListener('mousemove',e=>{if(!isDragging)return;panX=e.clientX-dragStart.x;panY=e.clientY-dragStart.y;applyT();});
+  document.addEventListener('mouseup',()=>{isDragging=false;const s=document.getElementById('treeStage');if(s)s.classList.remove('panning');});
+  stage.addEventListener('wheel',e=>{e.preventDefault();zoom=Math.max(0.1,Math.min(3,zoom*(e.deltaY<0?1.12:0.9)));applyT();},{passive:false});
   stage.addEventListener('touchstart',e=>{
     prevTouches=[...e.touches].map(t=>({x:t.clientX,y:t.clientY}));
     if(e.touches.length===2){
@@ -529,17 +611,11 @@ function initPanZoom(){
     if(tArr.length===2){
       const dist=Math.hypot(tArr[1].clientX-tArr[0].clientX,tArr[1].clientY-tArr[0].clientY);
       const mid={x:(tArr[0].clientX+tArr[1].clientX)/2,y:(tArr[0].clientY+tArr[1].clientY)/2};
-      if(lastTouchDist&&lastTouchDist>0){
-        const scale=dist/lastTouchDist;
-        zoom=Math.max(0.1,Math.min(3,zoom*scale));
-      }
+      if(lastTouchDist) zoom=Math.max(0.1,Math.min(3,zoom*dist/lastTouchDist));
       if(lastTouchMid){panX+=mid.x-lastTouchMid.x;panY+=mid.y-lastTouchMid.y;}
-      lastTouchDist=dist;lastTouchMid=mid;
-      applyT();
-    }else if(tArr.length===1&&prevTouches.length>=1){
-      panX+=tArr[0].clientX-prevTouches[0].x;
-      panY+=tArr[0].clientY-prevTouches[0].y;
-      applyT();
+      lastTouchDist=dist;lastTouchMid=mid;applyT();
+    }else if(tArr.length===1&&prevTouches.length){
+      panX+=tArr[0].clientX-prevTouches[0].x;panY+=tArr[0].clientY-prevTouches[0].y;applyT();
     }
     prevTouches=tArr.map(t=>({x:t.clientX,y:t.clientY}));
   },{passive:false});
@@ -550,35 +626,42 @@ function initPanZoom(){
 }
 
 function toggleNode(nodeId){
-  if(!treeRoot)return;
+  if(!treeRoot) return;
   const node=findNode(treeRoot,nodeId);
-  if(node&&node.children.length){node.collapsed=!node.collapsed;renderTree();}
+  // Only toggle if layer is enabled
+  if(node&&node.children.length){
+    if(node.type==='opp'&&!showLayers.sol) return;
+    if(node.type==='sol'&&!showLayers.exp) return;
+    node.collapsed=!node.collapsed;renderTree();
+  }
 }
 
 // ── RENDER TREE ──
 function renderTree(){
-  if(!treeRoot){treeRoot=buildTreeData();}
+  if(!treeRoot) treeRoot=buildTreeData();
   if(!_treeInited){_treeInited=true;initPanZoom();}
 
   const totalW=layout(treeRoot,20,20);
-  const nodes=allNodes(treeRoot);
-  const maxY=Math.max(...nodes.map(n=>n.y+nh(n)))+30;
-  const canvasW=Math.max(totalW+40,800);
+  const nodes=allVisNodes(treeRoot);
+  const maxY=nodes.length?Math.max(...nodes.map(n=>n.y+nh(n)))+30:400;
+  const canvasW=Math.max(totalW+40,700);
 
-  // SVG lines
+  // SVG edges
   const svg=document.getElementById('treeSvg');
   svg.setAttribute('width',canvasW);svg.setAttribute('height',maxY);
   svg.style.width=canvasW+'px';svg.style.height=maxY+'px';
-
   let lines='';
   function drawEdges(node){
-    if(node.collapsed)return;
+    if(!isVisible(node)) return;
+    const visChildren=getVisibleChildren(node);
+    if(!visChildren.length) return;
     const px=node.x+NW/2,py=node.y+nh(node);
-    const color=node.type==='phase'?phCols[node.phase.id]?.bg:(node.type==='opp'?'#a0aec0':'#cbd5e0');
-    node.children.forEach(child=>{
-      const cx=child.x+NW/2,cy=child.y;
-      const my=(py+cy)/2;
-      lines+=`<path d="M${px} ${py} C${px} ${my},${cx} ${my},${cx} ${cy}" fill="none" stroke="${color}" stroke-width="2" stroke-dasharray="${node.type==='sol'?'5,4':''}" opacity="0.55"/>`;
+    const color=node.type==='phase'?phCols[node.phase.id]?.bg:(node.type==='opp'?'#94a3b8':'#cbd5e0');
+    const dashed=node.type==='sol'?'stroke-dasharray="5,4"':'';
+    visChildren.forEach(child=>{
+      if(!isVisible(child)) return;
+      const cx=child.x+NW/2,cy=child.y,my=(py+cy)/2;
+      lines+=`<path d="M${px} ${py} C${px} ${my},${cx} ${my},${cx} ${cy}" fill="none" stroke="${color}" stroke-width="2" ${dashed} opacity="0.5"/>`;
       drawEdges(child);
     });
   }
@@ -590,59 +673,58 @@ function renderTree(){
   nodes.forEach(node=>{
     const h=nh(node);
     const v=node.type==='opp'?(votes[node.id]||{count:0,voted:false}):{count:0,voted:false};
-    const hasKids=node.children.length>0;
-    const expandHint=hasKids?(node.collapsed?'▸ ver más':'▾ colapsar'):'';
+    const hasKids=getVisibleChildren(node).length>0||(!isCollapsed(node)&&node.children.length>0);
+    const canExpand=node.children.length>0&&!(node.type==='opp'&&!showLayers.sol)&&!(node.type==='sol'&&!showLayers.exp);
+    const expandHint=canExpand?(node.collapsed?'▸ expandir':'▾ colapsar'):'';
     let inner='',style=`left:${node.x}px;top:${node.y}px;width:${NW}px;`;
     let cls='tn';
 
     if(node.type==='outcome'){
-      inner=`<div style="font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;opacity:.75;margin-bottom:3px;">🎯 Outcome del sistema</div>
-             <div style="font-size:11px;font-weight:700;line-height:1.3;">Reducir gasto ≥30% · Cero errores · Facturación +60%</div>`;
-      style+=`background:linear-gradient(135deg,#1a365d,#2b6cb0);color:#fff;padding:10px 13px;`;
+      inner=`<div style="font-size:7px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;opacity:.75;margin-bottom:2px;">🎯 Outcome</div>
+             <div style="font-size:10px;font-weight:700;line-height:1.3;">Reducir gasto ≥30% · Cero errores · Facturación +60%</div>`;
+      style+=`background:linear-gradient(135deg,#1a365d,#2b6cb0);color:#fff;padding:9px 12px;`;
 
     }else if(node.type==='phase'){
       const pc=phCols[node.phase.id];
-      const oCount=node.children.length;
-      inner=`<div style="font-size:12px;font-weight:800;margin-bottom:2px;">${node.phase.icon} ${node.phase.name}</div>
-             <div style="font-size:9px;opacity:.8;">Sprint ${node.phase.sprint}d · ${oCount} problema${oCount!==1?'s':''}</div>
-             ${hasKids?`<div style="font-size:8px;opacity:.6;margin-top:4px;">${expandHint}</div>`:''}`;
-      style+=`background:${pc.bg};color:${pc.text};padding:10px 13px;`;
+      inner=`<div style="font-size:12px;font-weight:800;margin-bottom:1px;">${node.phase.icon} ${node.phase.name}</div>
+             <div style="font-size:9px;opacity:.8;">Sprint ${node.phase.sprint}d · ${node.children.length} problemas</div>
+             ${canExpand?`<div style="font-size:7px;opacity:.6;margin-top:3px;">${expandHint}</div>`:''}`;
+      style+=`background:${pc.bg};color:${pc.text};padding:9px 12px;`;
 
     }else if(node.type==='opp'){
-      if(!node.collapsed)cls+=' expanded-border';
-      if(v.count>0)cls+=' voted-node';
-      const ph=DATA.phases.find(p=>p.id===node.opp.phase);
-      inner=`<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:4px;margin-bottom:4px;">
-        <div style="display:flex;gap:3px;flex-wrap:wrap;">
+      if(!node.collapsed) cls+=' expanded-border';
+      if(v.count>0) cls+=' voted-node';
+      inner=`<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:3px;margin-bottom:3px;">
+        <div style="display:flex;gap:2px;flex-wrap:wrap;">
           <span class="tag tag-${node.opp.type}" style="font-size:7px;">${typeIcon[node.opp.type]} ${typeLabel[node.opp.type]}</span>
           <span class="tag" style="background:#e2e8f0;color:#4a5568;font-size:7px;">${node.id}</span>
         </div>
-        <button class="vote-btn${v.voted?' voted':''}" onclick="event.stopPropagation();doVote('${node.id}',true)" style="padding:2px 4px;border-radius:5px;">
+        <button class="vote-btn${v.voted?' voted':''}" onclick="event.stopPropagation();doVote('${node.id}')" style="padding:2px 4px;border-radius:5px;margin-top:-1px;">
           <span class="heart" style="font-size:13px;">${v.voted?'❤️':'🤍'}</span>
           <span class="vote-count">${v.count}</span>
         </button>
       </div>
-      <div style="font-size:10px;font-weight:700;line-height:1.35;color:#1a202c;">${node.opp.title}</div>
-      ${hasKids?`<div style="font-size:8px;color:#a0aec0;margin-top:4px;">${expandHint} · ${node.children.length} soluciones</div>`:''}`;
-      style+=`background:#fff;border:1.5px solid #e2e8f0;padding:8px 10px;`;
+      <div style="font-size:10px;font-weight:700;line-height:1.3;color:#1a202c;">${node.opp.title}</div>
+      ${canExpand?`<div style="font-size:7px;color:#a0aec0;margin-top:3px;">${expandHint} · ${node.children.length} sol.</div>`:''}`;
+      style+=`background:#fff;border:1.5px solid #e2e8f0;padding:8px 9px;`;
 
     }else if(node.type==='sol'){
-      if(!node.collapsed&&node.children.length)cls+=' expanded-border';
+      if(!node.collapsed&&node.children.length) cls+=' expanded-border';
       const sol=node.sol;
-      inner=`<div style="font-size:7px;font-weight:700;color:#2b6cb0;text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px;">${node.id}</div>
+      inner=`<div style="font-size:7px;font-weight:700;color:#2b6cb0;text-transform:uppercase;letter-spacing:.3px;margin-bottom:1px;">${node.id}</div>
              <div style="font-size:10px;font-weight:700;line-height:1.3;color:#1a202c;">${sol.title}</div>
-             <div style="display:flex;gap:3px;margin-top:5px;flex-wrap:wrap;">
+             <div style="display:flex;gap:2px;margin-top:4px;flex-wrap:wrap;">
                <span class="badge ${confCss[sol.confidence]}">${confLabel[sol.confidence]}</span>
                <span class="badge ${effCss[sol.effort]}">${effLabel[sol.effort]}</span>
              </div>
-             ${hasKids?`<div style="font-size:7px;color:#a0aec0;margin-top:3px;">${expandHint} · ${node.children.length} exp.</div>`:''}`;
-      style+=`background:#fff;border:1.5px solid #e2e8f0;padding:8px 10px;`;
+             ${canExpand?`<div style="font-size:7px;color:#a0aec0;margin-top:2px;">${expandHint} · ${node.children.length} exp.</div>`:''}`;
+      style+=`background:#fff;border:1.5px solid #e2e8f0;padding:7px 9px;`;
 
     }else if(node.type==='exp'){
       const exp=node.exp;
-      inner=`<div style="font-size:7px;font-weight:700;color:#4299e1;margin-bottom:2px;">${node.id} · ⏱ ${exp.days}d</div>
-             <div style="font-size:9px;font-weight:600;line-height:1.35;color:#2d3748;">${exp.title}</div>`;
-      style+=`background:#f7fafc;border:1px solid #e2e8f0;padding:7px 9px;`;
+      inner=`<div style="font-size:7px;font-weight:700;color:#4299e1;margin-bottom:1px;">${node.id} · ⏱ ${exp.days}d</div>
+             <div style="font-size:9px;font-weight:600;line-height:1.3;color:#2d3748;">${exp.title}</div>`;
+      style+=`background:#f7fafc;border:1px solid #e2e8f0;padding:6px 8px;`;
     }
 
     html+=`<div class="${cls}" style="${style}" onclick="toggleNode('${node.id}')">${inner}</div>`;
