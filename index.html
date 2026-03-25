@@ -238,75 +238,121 @@ body{font-family:'Inter',-apple-system,sans-serif;background:#f0f4f8;color:var(-
 .canvas-mini-input{width:100%;font-family:inherit;font-size:11px;padding:6px 9px;border:1.5px solid var(--gray-300);border-radius:8px;outline:none;resize:vertical;min-height:50px;line-height:1.5;}
 .canvas-mini-input:focus{border-color:var(--purple-600);box-shadow:0 0 0 2px rgba(107,70,193,.1);}
 .canvas-link-badge{font-size:9px;background:var(--purple-100);color:var(--purple-700);padding:2px 7px;border-radius:10px;font-weight:600;margin-bottom:8px;display:inline-block;}
+
+/* ═══════════════════════════════
+   3-COLUMN BOARD LAYOUT
+═══════════════════════════════ */
+body{overflow:hidden;}
+.board{display:flex;flex:1;overflow:hidden;min-height:0;}
+.col{display:flex;flex-direction:column;overflow:hidden;}
+.col-outcome{width:240px;min-width:180px;flex-shrink:0;background:#fff;border-right:1.5px solid var(--gray-300);}
+.col-challenges{width:310px;min-width:220px;flex-shrink:0;background:var(--gray-100);border-right:1.5px solid var(--gray-300);}
+.col-tree{flex:1;min-width:0;background:#dde3ec;position:relative;display:flex;flex-direction:column;}
+.col-hdr{padding:9px 12px 8px;background:#fff;border-bottom:1.5px solid var(--gray-300);font-size:10px;font-weight:800;color:var(--gray-600);text-transform:uppercase;letter-spacing:.5px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;gap:6px;}
+.col-hdr-title{display:flex;align-items:center;gap:5px;white-space:nowrap;}
+.col-hdr-btn{background:none;border:1px solid var(--gray-300);border-radius:7px;font-family:inherit;font-size:10px;font-weight:600;color:var(--gray-600);cursor:pointer;padding:3px 8px;transition:.15s;white-space:nowrap;flex-shrink:0;}
+.col-hdr-btn:hover{background:var(--gray-200);}
+.col-hdr-btn.add-btn{background:var(--blue-700);color:#fff;border-color:var(--blue-700);}
+.col-hdr-btn.add-btn:hover{background:var(--blue-900);}
+.col-body{flex:1;overflow-y:auto;padding:10px;}
+
+/* Outcome column cards */
+.oc-card{background:linear-gradient(135deg,#1a365d,#2b6cb0);border-radius:10px;padding:13px 14px;color:#fff;margin-bottom:10px;cursor:pointer;transition:.15s;}
+.oc-card:hover{opacity:.92;}
+.oc-lbl{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;opacity:.65;margin-bottom:5px;}
+.oc-text{font-size:12px;font-weight:800;line-height:1.4;}
+.oc-ind{border-radius:8px;padding:8px 11px;margin-bottom:7px;border:1.5px solid;}
+.oc-ind.early{background:#d1fae5;border-color:#6ee7b7;color:#065f46;}
+.oc-ind.late{background:#dbeafe;border-color:#93c5fd;color:#1e40af;}
+.oc-ind-lbl{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px;opacity:.8;}
+.oc-ind-val{font-size:11px;font-weight:600;line-height:1.4;}
+.oc-impact{background:linear-gradient(135deg,#e6fffa,#ebf8ff);border-radius:8px;padding:10px 11px;border:1.5px solid var(--teal-600);margin-bottom:7px;}
+.oc-impact-lbl{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--teal-600);margin-bottom:3px;}
+.oc-impact-txt{font-size:11px;font-weight:600;color:var(--gray-800);line-height:1.4;}
+.oc-hint{font-size:10px;color:var(--gray-400);background:var(--gray-50,#f9fafb);border-radius:8px;padding:12px;text-align:center;line-height:1.5;border:1.5px dashed var(--gray-300);}
+.oc-divider{height:1px;background:var(--gray-200);margin:10px 0;}
+.oc-meta{font-size:9px;color:var(--gray-500);line-height:1.5;background:var(--gray-100);border-radius:7px;padding:8px 10px;}
 </style>
 </head>
 <body>
 
 <!-- HEADER -->
 <div class="header">
-  <h1>🏥 Opportunity Solution Tree — Modernización en Salud Municipal</h1>
-  <div class="sub">Caso San Miguel · Metodología Teresa Torres</div>
-  <div class="outcome-row">
-    <div class="outcome-pill" onclick="openOutcomeModal()" id="outcomePill">🎯 <span id="outcomeText">Reducir gasto ≥30% · Cero errores · Facturación +60%</span></div>
-    <button class="outcome-edit-btn" onclick="openOutcomeModal()">✏️ Editar</button>
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+    <div>
+      <h1>🏥 OST — Modernización en Salud Municipal · Caso San Miguel</h1>
+      <div class="sub">Opportunity Solution Tree · Metodología Teresa Torres</div>
+    </div>
+    <span class="sync-dot offline" id="syncDot" title="Sincronizando votos..."></span>
   </div>
 </div>
 
-<!-- TABS -->
-<div class="tabs">
-  <div class="tab active" id="tab-prio" onclick="switchTab('prio')">🗳️ Priorizar</div>
-  <div class="tab" id="tab-tree" onclick="switchTab('tree')">🌳 Ver árbol OST <span class="sync-dot offline" id="syncDot"></span></div>
-</div>
+<!-- BOARD: 3 COLUMNS -->
+<div class="board">
 
-<!-- PRIORITY VIEW -->
-<div id="view-prio" style="flex:1;overflow:hidden;display:flex;flex-direction:column;position:relative;">
-  <div class="prio-scroll" id="prioList"></div>
-  <button class="add-fab" onclick="openAddModal()">＋ Agregar desafío estratégico</button>
-</div>
+  <!-- COL 1: OUTCOME -->
+  <div class="col col-outcome">
+    <div class="col-hdr">
+      <span class="col-hdr-title">🎯 Outcome</span>
+      <button class="col-hdr-btn" onclick="openOutcomeModal()">✏️ Editar</button>
+    </div>
+    <div class="col-body" id="outcomeCol"></div>
+  </div>
 
-<!-- TREE VIEW -->
-<div id="view-tree" class="tree-view" style="display:none;">
-  <div class="tree-controls">
-    <!-- Row 1: Branch picker -->
-    <div class="branch-row" id="branchRow">
-      <button class="branch-btn active-ph1" data-b="1" onclick="selectBranch(1)">📦 Proveedores</button>
-      <button class="branch-btn" data-b="2" onclick="selectBranch(2)">🏭 Almacenamiento</button>
-      <button class="branch-btn" data-b="3" onclick="selectBranch(3)">💊 Dispensación</button>
-      <button class="branch-btn" data-b="0" onclick="selectBranch(0)">🌳 Ver todo</button>
+  <!-- COL 2: DESAFÍOS ESTRATÉGICOS -->
+  <div class="col col-challenges">
+    <div class="col-hdr">
+      <span class="col-hdr-title">⚡ Desafíos Estratégicos</span>
+      <button class="col-hdr-btn add-btn" onclick="openAddModal()">＋ Nuevo</button>
     </div>
-    <!-- Row 2: Layer toggles + sprint -->
-    <div class="layer-row">
-      <span class="tc-label">Ver</span>
-      <button class="tc-chip layer-ev on" id="tc-ev" onclick="toggleLayer('ev')">🟩 Evidencia</button>
-      <button class="tc-chip layer-sol on" id="tc-sol" onclick="toggleLayer('sol')">💡 Hip.</button>
-      <button class="tc-chip layer-exp on" id="tc-exp" onclick="toggleLayer('exp')">🧪 Exp.</button>
-      <div class="tc-sep"></div>
-      <button class="sprint-toggle" id="sprintToggle" onclick="toggleSprintPanel()">🎯 Sprint <span id="sprintBadge">0/3</span></button>
+    <div class="col-body" id="prioList"></div>
+  </div>
+
+  <!-- COL 3: ÁRBOL DE SOLUCIONES -->
+  <div class="col col-tree">
+    <div class="tree-controls">
+      <!-- Branch picker -->
+      <div class="branch-row" id="branchRow">
+        <button class="branch-btn active-ph1" data-b="1" onclick="selectBranch(1)">📦 Proveedores</button>
+        <button class="branch-btn" data-b="2" onclick="selectBranch(2)">🏭 Almacenamiento</button>
+        <button class="branch-btn" data-b="3" onclick="selectBranch(3)">💊 Dispensación</button>
+        <button class="branch-btn" data-b="0" onclick="selectBranch(0)">🌳 Ver todo</button>
+      </div>
+      <!-- Layer toggles + sprint -->
+      <div class="layer-row">
+        <span class="tc-label">Ver</span>
+        <button class="tc-chip layer-ev on" id="tc-ev" onclick="toggleLayer('ev')">🟩 Evidencia</button>
+        <button class="tc-chip layer-sol on" id="tc-sol" onclick="toggleLayer('sol')">💡 Hip.</button>
+        <button class="tc-chip layer-exp on" id="tc-exp" onclick="toggleLayer('exp')">🧪 Exp.</button>
+        <div class="tc-sep"></div>
+        <button class="sprint-toggle" id="sprintToggle" onclick="toggleSprintPanel()">🎯 Sprint <span id="sprintBadge">0/3</span></button>
+      </div>
     </div>
-  </div>
-  <div class="tree-stage" id="treeStage">
-    <div class="tree-canvas" id="treeCanvas">
-      <svg class="tree-svg" id="treeSvg"></svg>
-      <div class="tree-nodes" id="treeNodes"></div>
+    <div class="tree-stage" id="treeStage">
+      <div class="tree-canvas" id="treeCanvas">
+        <svg class="tree-svg" id="treeSvg"></svg>
+        <div class="tree-nodes" id="treeNodes"></div>
+      </div>
     </div>
-  </div>
-  <!-- Sprint panel -->
-  <div class="sprint-panel closed" id="sprintPanel">
-    <div class="sprint-header" onclick="toggleSprintPanel()">
-      <div class="sprint-header-title">🎯 Sprint 30 días</div>
-      <div class="sprint-dots" id="sprintDots"></div>
-      <span class="sprint-chevron" id="sprintChevron">▸</span>
+    <!-- Sprint panel -->
+    <div class="sprint-panel closed" id="sprintPanel">
+      <div class="sprint-header" onclick="toggleSprintPanel()">
+        <div class="sprint-header-title">🎯 Sprint 30 días</div>
+        <div class="sprint-dots" id="sprintDots"></div>
+        <span class="sprint-chevron" id="sprintChevron">▸</span>
+      </div>
+      <div class="sprint-body" id="sprintBody"></div>
     </div>
-    <div class="sprint-body" id="sprintBody"></div>
+    <!-- Zoom controls -->
+    <div class="zoom-wrap">
+      <button class="zoom-btn" onclick="doZoom(1.2,true)">+</button>
+      <span class="zoom-level" id="zoomLevel">100%</span>
+      <button class="zoom-btn" onclick="doZoom(0.85,true)">−</button>
+      <button class="zoom-btn" onclick="fitView(true)" style="font-size:12px;">⌂</button>
+    </div>
+    <div style="position:absolute;bottom:14px;left:10px;font-size:8px;color:rgba(0,0,0,.3);pointer-events:none;">Scroll → zoom · Doble clic → encuadrar</div>
   </div>
-  <!-- Zoom controls -->
-  <div class="zoom-wrap">
-    <button class="zoom-btn" onclick="doZoom(1.2,true)">+</button>
-    <span class="zoom-level" id="zoomLevel">100%</span>
-    <button class="zoom-btn" onclick="doZoom(0.85,true)">−</button>
-    <button class="zoom-btn" onclick="fitView(true)" style="font-size:12px;">⌂</button>
-  </div>
-  <div style="position:absolute;bottom:14px;left:10px;font-size:8px;color:rgba(0,0,0,.3);pointer-events:none;">Scroll → zoom hacia cursor · Doble clic → encuadrar</div>
+
 </div>
 
 <!-- ADD PROBLEM MODAL -->
@@ -540,16 +586,9 @@ function loadUserProblems(){
 loadUserProblems();
 
 // ══════════════════════════════════
-// TABS
+// TABS (no-op — layout is always 3 columns)
 // ══════════════════════════════════
-function switchTab(tab){
-  activeTab=tab;
-  document.getElementById('tab-prio').classList.toggle('active',tab==='prio');
-  document.getElementById('tab-tree').classList.toggle('active',tab==='tree');
-  document.getElementById('view-prio').style.display=tab==='prio'?'flex':'none';
-  document.getElementById('view-tree').style.display=tab==='tree'?'flex':'none';
-  if(tab==='tree') renderTree();
-}
+function switchTab(tab){activeTab=tab;}
 
 // ══════════════════════════════════
 // BRANCH PICKER
@@ -615,6 +654,37 @@ async function doVote(oppId){
 // ══════════════════════════════════
 // PRIORITY VIEW
 // ══════════════════════════════════
+// ══════════════════════════════════
+// OUTCOME COLUMN
+// ══════════════════════════════════
+function renderOutcomeCol(){
+  const od=outcomeData;
+  let html=`<div class="oc-card" onclick="openOutcomeModal()">
+    <div class="oc-lbl">🎯 Resultado que buscamos</div>
+    <div class="oc-text">${od.text||'Definir el outcome...'}</div>
+  </div>`;
+  if(od.earlyIndicator||od.lateIndicator){
+    if(od.earlyIndicator) html+=`<div class="oc-ind early"><div class="oc-ind-lbl">🌱 Indicador temprano</div><div class="oc-ind-val">${od.earlyIndicator}</div></div>`;
+    if(od.lateIndicator)  html+=`<div class="oc-ind late"><div class="oc-ind-lbl">🎯 Indicador tardío</div><div class="oc-ind-val">${od.lateIndicator}</div></div>`;
+  }else{
+    html+=`<div class="oc-hint">Sin indicadores definidos.<br><small>Editá el outcome para agregar señales de éxito.</small></div>`;
+  }
+  if(od.positiveImpact){
+    html+=`<div class="oc-divider"></div>
+    <div class="oc-impact">
+      <div class="oc-impact-lbl">✨ Si logramos el outcome...</div>
+      <div class="oc-impact-txt">${od.positiveImpact}</div>
+    </div>`;
+  }
+  html+=`<div class="oc-divider"></div>
+  <div class="oc-meta">
+    <strong>Caso:</strong> Hospital Municipal San Miguel<br>
+    <strong>Metodología:</strong> Teresa Torres · Continuous Discovery<br>
+    <strong>Fases:</strong> 📦 Proveedores · 🏭 Almacenamiento · 💊 Dispensación
+  </div>`;
+  document.getElementById('outcomeCol').innerHTML=html;
+}
+
 function renderPrio(){
   const sorted=[...DATA.opportunities].sort((a,b)=>{
     const va=votes[a.id]||{count:0};const vb=votes[b.id]||{count:0};
@@ -622,24 +692,9 @@ function renderPrio(){
   });
   const totalVotes=Object.values(votes).reduce((s,v)=>s+(v.count||0),0);
   let html='';
-  if(outcomeData.positiveImpact){
-    html+=`<div class="impact-banner">
-      <div class="impact-banner-head" onclick="openOutcomeModal()">
-        <div class="impact-banner-icon">✨</div>
-        <div class="impact-banner-body">
-          <div class="impact-banner-label">Si logramos el outcome...</div>
-          <div class="impact-banner-title">${outcomeData.positiveImpact}</div>
-        </div>
-      </div>
-      ${outcomeData.earlyIndicator||outcomeData.lateIndicator?`<div class="impact-results">
-        ${outcomeData.earlyIndicator?`<div class="result-chip result-early">🌱 Indicador temprano: ${outcomeData.earlyIndicator}</div>`:''}
-        ${outcomeData.lateIndicator?`<div class="result-chip result-late">🎯 Indicador tardío: ${outcomeData.lateIndicator}</div>`:''}
-      </div>`:''}
-    </div>`;
-  }
-  if(totalVotes===0){html+=`<div class="prio-hint"><p><strong>¿Cuáles son los problemas más urgentes?</strong><br>Votá ❤️ los que más impactan. Los más votados guían la prioridad del árbol OST.</p></div>`;}
-  else{html+=`<div class="prio-hint"><p><strong>${totalVotes} voto${totalVotes!==1?'s':''} registrados.</strong> Tocá 🌳 Ver árbol para explorar las hipótesis de solución.</p></div>`;}
-  html+=`<div class="prio-section-hdr">Problemas — ordená por importancia</div>`;
+  if(totalVotes===0){html+=`<div class="prio-hint"><p><strong>¿Cuáles son los desafíos más urgentes?</strong><br>Votá ❤️ los que más impactan. Los más votados priorizan el árbol OST.</p></div>`;}
+  else{html+=`<div class="prio-hint"><p><strong>${totalVotes} voto${totalVotes!==1?'s':''} registrados.</strong> Los desafíos priorizados guían el árbol de soluciones →</p></div>`;}
+  html+=`<div class="prio-section-hdr">Desafíos — ordená por importancia</div>`;
   sorted.forEach((opp,i)=>{
     const v=votes[opp.id]||{count:0,voted:false};
     const isTop=v.count>0&&i<3;
@@ -667,14 +722,11 @@ function renderPrio(){
 }
 
 function goToTree(oppId){
-  switchTab('tree');
-  setTimeout(()=>{
-    if(!treeRoot)return;
-    const opp=DATA.opportunities.find(o=>o.id===oppId);
-    if(opp&&opp.phase)selectBranch(opp.phase);
-    const node=findNode(treeRoot,oppId);
-    if(node){node.collapsed=false;renderTree();centerNode(node,true);}
-  },120);
+  const opp=DATA.opportunities.find(o=>o.id===oppId);
+  if(opp&&opp.phase)selectBranch(opp.phase);
+  if(!treeRoot)return;
+  const node=findNode(treeRoot,oppId);
+  if(node){node.collapsed=false;renderTree();setTimeout(()=>centerNode(node,true),60);}
 }
 
 // ══════════════════════════════════
@@ -713,10 +765,9 @@ function saveOutcomeForm(){
   outcomeData.lateIndicator=document.getElementById('oc-late').value.trim();
   outcomeData.positiveImpact=document.getElementById('oc-impact').value.trim();
   saveOutcome();
-  document.getElementById('outcomeText').textContent=outcomeData.text;
   treeRoot=null;_treeFitted=false;
   document.getElementById('outcomeModal').style.display='none';
-  renderPrio();if(activeTab==='tree')renderTree();
+  renderOutcomeCol();renderPrio();renderTree();
   showToast('Outcome actualizado ✓');
 }
 
@@ -1172,8 +1223,11 @@ function renderTree(){
 }
 
 // INIT
+activeTab='tree'; // layout is always 3 columns, tree is always visible
 updateSprintBadge();
-loadVotes();
+renderOutcomeCol();
+renderTree();
+loadVotes(); // async: fills votes then calls renderPrio()
 </script>
 </body>
 </html>
