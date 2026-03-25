@@ -10,7 +10,7 @@
   --blue-900:#1a365d;--blue-700:#2b6cb0;--blue-600:#3182ce;--blue-500:#4299e1;--blue-400:#63b3ed;--blue-100:#ebf8ff;
   --green-700:#276749;--green-600:#38a169;--green-500:#48bb78;--green-100:#f0fff4;
   --orange-700:#c05621;--orange-600:#dd6b20;--orange-100:#fffaf0;
-  --purple-700:#553c9a;--purple-100:#faf5ff;
+  --purple-700:#553c9a;--purple-600:#6b46c1;--purple-100:#faf5ff;
   --red-700:#c53030;--red-600:#e53e3e;--red-300:#feb2b2;--red-100:#fff5f5;
   --amber-100:#fffbeb;--amber-700:#92400e;--amber-600:#d97706;
   --teal-100:#e6fffa;--teal-600:#2c7a7b;--teal-700:#285e61;
@@ -27,7 +27,7 @@ body{font-family:'Inter',-apple-system,sans-serif;background:#f0f4f8;color:var(-
 .header .sub{font-size:9px;opacity:.7;margin-top:1px;}
 .outcome-row{display:flex;align-items:center;gap:6px;margin-top:4px;}
 .outcome-pill{display:inline-flex;gap:5px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:14px;padding:2px 9px;font-size:9px;font-weight:600;cursor:pointer;transition:.15s;flex:1;min-width:0;}
-.outcome-pill:hover{background:rgba(255,255,255,.25);border-color:rgba(255,255,255,.4);}
+.outcome-pill:hover{background:rgba(255,255,255,.25);}
 .outcome-edit-btn{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);border-radius:8px;color:#fff;cursor:pointer;font-size:10px;padding:2px 6px;flex-shrink:0;transition:.15s;}
 .outcome-edit-btn:hover{background:rgba(255,255,255,.3);}
 
@@ -38,7 +38,7 @@ body{font-family:'Inter',-apple-system,sans-serif;background:#f0f4f8;color:var(-
 .sync-dot{width:6px;height:6px;border-radius:50%;background:var(--green-500);}
 .sync-dot.offline{background:var(--gray-400);}
 
-/* ═══ IMPACT BANNER ═══ */
+/* IMPACT BANNER */
 .impact-banner{background:linear-gradient(135deg,#e6fffa,#ebf8ff);border-radius:10px;margin-bottom:10px;overflow:hidden;border:1.5px solid var(--teal-600);}
 .impact-banner-head{padding:10px 13px 6px;cursor:pointer;display:flex;align-items:flex-start;gap:8px;}
 .impact-banner-icon{font-size:20px;flex-shrink:0;margin-top:1px;}
@@ -50,7 +50,7 @@ body{font-family:'Inter',-apple-system,sans-serif;background:#f0f4f8;color:var(-
 .result-early{background:#d1fae5;color:#065f46;}
 .result-late{background:#dbeafe;color:#1e40af;}
 
-/* ═══ PRIORITY VIEW ═══ */
+/* PRIORITY VIEW */
 .prio-scroll{flex:1;overflow-y:auto;padding:10px 12px 80px;}
 .prio-hint{background:linear-gradient(135deg,#ebf8ff,#e6fffa);border-radius:9px;padding:10px 13px;margin-bottom:10px;border-left:3px solid var(--blue-500);}
 .prio-hint p{font-size:11px;color:var(--gray-700);line-height:1.5;}
@@ -84,24 +84,38 @@ body{font-family:'Inter',-apple-system,sans-serif;background:#f0f4f8;color:var(-
 .vote-btn.voted .vote-count{color:var(--red-600);}
 @keyframes heartPop{0%{transform:scale(1)}40%{transform:scale(1.5)}100%{transform:scale(1)}}
 .vote-btn.voted .heart{animation:heartPop .3s ease;}
-
-/* ADD PROBLEM FAB */
 .add-fab{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:var(--blue-700);color:#fff;border:none;border-radius:24px;padding:10px 20px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 4px 14px rgba(43,108,176,.45);display:flex;align-items:center;gap:7px;z-index:50;transition:.15s;}
 .add-fab:active{background:var(--blue-900);}
 
-/* ═══ TREE VIEW ═══ */
+/* TREE VIEW */
 .tree-view{flex:1;overflow:hidden;position:relative;background:#dde3ec;display:flex;flex-direction:column;}
-.tree-controls{background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--gray-300);padding:6px 10px;display:flex;gap:5px;flex-wrap:wrap;align-items:center;flex-shrink:0;}
-.tc-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--gray-500);margin-right:1px;}
+.tree-controls{background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--gray-300);padding:7px 10px 6px;flex-shrink:0;}
+
+/* Branch picker */
+.branch-row{display:flex;gap:5px;overflow-x:auto;padding-bottom:6px;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.branch-row::-webkit-scrollbar{display:none;}
+.branch-btn{flex-shrink:0;padding:5px 12px;border-radius:18px;border:1.5px solid var(--gray-300);background:#fff;font-family:inherit;font-size:11px;font-weight:600;color:var(--gray-600);cursor:pointer;transition:.15s;white-space:nowrap;}
+.branch-btn:hover{border-color:var(--gray-400);}
+.branch-btn.active-ph1{background:#276749;border-color:#276749;color:#fff;}
+.branch-btn.active-ph2{background:var(--blue-700);border-color:var(--blue-700);color:#fff;}
+.branch-btn.active-ph3{background:#c05621;border-color:#c05621;color:#fff;}
+.branch-btn.active-all{background:var(--gray-700);border-color:var(--gray-700);color:#fff;}
+
+/* Layer row */
+.layer-row{display:flex;gap:5px;align-items:center;flex-wrap:wrap;}
+.tc-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--gray-500);}
 .tc-chip{font-family:inherit;font-size:10px;font-weight:600;padding:3px 8px;border-radius:14px;border:1.5px solid var(--gray-300);background:#fff;color:var(--gray-600);cursor:pointer;transition:.15s;display:flex;align-items:center;gap:3px;user-select:none;}
 .tc-chip.on{color:#fff;}
-.tc-chip.on.layer-sol{background:var(--blue-600);border-color:var(--blue-600);}
-.tc-chip.on.layer-exp{background:var(--purple-700);border-color:var(--purple-700);}
 .tc-chip.on.layer-ev{background:var(--teal-600);border-color:var(--teal-600);}
-.tc-chip.on.ph1{background:#276749;border-color:#276749;}
-.tc-chip.on.ph2{background:var(--blue-700);border-color:var(--blue-700);}
-.tc-chip.on.ph3{background:#c05621;border-color:#c05621;}
-.tc-sep{width:1px;height:18px;background:var(--gray-300);flex-shrink:0;}
+.tc-chip.on.layer-sol{background:var(--purple-600);border-color:var(--purple-600);}
+.tc-chip.on.layer-exp{background:#805ad5;border-color:#805ad5;}
+.tc-sep{width:1px;height:16px;background:var(--gray-300);flex-shrink:0;}
+
+/* Sprint toggle */
+.sprint-toggle{font-family:inherit;font-size:10px;font-weight:700;padding:3px 9px;border-radius:14px;border:1.5px solid var(--blue-400);background:var(--blue-100);color:var(--blue-700);cursor:pointer;transition:.15s;display:flex;align-items:center;gap:4px;}
+.sprint-toggle.has-items{background:var(--blue-600);border-color:var(--blue-600);color:#fff;}
+
+/* Tree stage */
 .tree-stage{flex:1;overflow:hidden;position:relative;cursor:grab;user-select:none;-webkit-user-select:none;}
 .tree-stage.panning{cursor:grabbing;}
 .tree-canvas{position:absolute;top:0;left:0;transform-origin:0 0;}
@@ -114,6 +128,8 @@ body{font-family:'Inter',-apple-system,sans-serif;background:#f0f4f8;color:var(-
 .tn.user-node{box-shadow:0 0 0 2px #2c7a7b;}
 .tn.ev-node{cursor:default;}
 .tn.ev-node:hover{box-shadow:none;}
+.tn.sprint-node{box-shadow:0 0 0 2.5px #3182ce,0 0 0 5px rgba(49,130,206,.2);}
+.tn.canvas-filled{box-shadow:0 0 0 2px #805ad5;}
 .badge{font-size:8px;font-weight:600;padding:2px 5px;border-radius:3px;white-space:nowrap;}
 .conf-high{background:var(--green-100);color:var(--green-700);}
 .conf-med{background:var(--orange-100);color:var(--orange-700);}
@@ -122,18 +138,41 @@ body{font-family:'Inter',-apple-system,sans-serif;background:#f0f4f8;color:var(-
 .eff-med{background:#fff3e0;color:#e65100;}
 .eff-high{background:#fce4ec;color:#c62828;}
 
-/* ZOOM CONTROLS */
-.zoom-wrap{position:absolute;bottom:12px;right:10px;display:flex;flex-direction:column;gap:4px;z-index:10;align-items:center;}
+/* Zoom controls */
+.zoom-wrap{position:absolute;bottom:56px;right:10px;display:flex;flex-direction:column;gap:4px;z-index:10;align-items:center;}
 .zoom-btn{width:34px;height:34px;border-radius:9px;border:1px solid var(--gray-300);background:rgba(255,255,255,.95);backdrop-filter:blur(4px);font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.15);font-family:inherit;font-weight:700;color:var(--gray-700);transition:.12s;}
 .zoom-btn:hover{background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.2);}
 .zoom-btn:active{background:var(--gray-100);}
 .zoom-level{font-size:9px;font-weight:700;color:var(--gray-500);background:rgba(255,255,255,.9);border-radius:6px;padding:2px 5px;text-align:center;min-width:34px;border:1px solid var(--gray-300);}
-.zoom-hint{font-size:8px;color:var(--gray-400);text-align:center;margin-top:2px;line-height:1.3;}
 
-/* ═══ MODALS ═══ */
+/* Sprint panel */
+.sprint-panel{background:#fff;border-top:2px solid var(--blue-200,#bee3f8);flex-shrink:0;overflow:hidden;transition:max-height .25s ease;}
+.sprint-panel.closed{max-height:40px;}
+.sprint-panel.open{max-height:220px;}
+.sprint-header{display:flex;align-items:center;padding:8px 12px;cursor:pointer;gap:8px;background:var(--blue-100);border-bottom:1px solid var(--gray-200);}
+.sprint-header-title{font-size:11px;font-weight:700;color:var(--blue-700);flex:1;}
+.sprint-dots{display:flex;gap:3px;}
+.sprint-dot{width:9px;height:9px;border-radius:50%;background:var(--gray-300);}
+.sprint-dot.filled{background:var(--blue-600);}
+.sprint-chevron{font-size:10px;color:var(--gray-500);}
+.sprint-body{overflow-y:auto;padding:0 12px 6px;max-height:178px;}
+.sprint-empty{font-size:11px;color:var(--gray-400);padding:10px 0;text-align:center;}
+.sprint-item{padding:7px 0;border-bottom:1px solid var(--gray-200);display:flex;gap:8px;align-items:flex-start;}
+.sprint-item:last-child{border-bottom:none;}
+.sprint-item-body{flex:1;min-width:0;}
+.sprint-item-title{font-size:10px;font-weight:700;color:var(--gray-800);line-height:1.3;}
+.sprint-item-opp{font-size:9px;color:var(--gray-500);margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.sprint-item-row{display:flex;align-items:center;gap:5px;margin-top:4px;}
+.sprint-input{flex:1;font-family:inherit;font-size:10px;padding:3px 7px;border:1px solid var(--gray-300);border-radius:6px;outline:none;color:var(--gray-800);}
+.sprint-input:focus{border-color:var(--blue-400);}
+.sprint-days{font-size:9px;font-weight:700;flex-shrink:0;}
+.sprint-remove{background:none;border:none;color:var(--gray-400);font-size:15px;cursor:pointer;padding:0 2px;flex-shrink:0;line-height:1;}
+.sprint-remove:hover{color:var(--red-600);}
+
+/* Modals */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;display:flex;align-items:flex-end;justify-content:center;animation:fadeIn .2s ease;}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-.modal{background:#fff;border-radius:18px 18px 0 0;width:100%;max-width:520px;padding:20px 18px;max-height:88vh;overflow-y:auto;animation:slideUp .25s ease;}
+.modal{background:#fff;border-radius:18px 18px 0 0;width:100%;max-width:520px;padding:20px 18px;max-height:90vh;overflow-y:auto;animation:slideUp .25s ease;}
 @keyframes slideUp{from{transform:translateY(30px)}to{transform:translateY(0)}}
 .modal-handle{width:36px;height:4px;background:var(--gray-300);border-radius:2px;margin:0 auto 16px;}
 .modal-title{font-size:16px;font-weight:800;color:var(--gray-900);}
@@ -170,7 +209,6 @@ body{font-family:'Inter',-apple-system,sans-serif;background:#f0f4f8;color:var(-
 .modal-btn-primary:disabled{background:var(--gray-300);cursor:not-allowed;}
 .modal-btn-ghost{background:none;color:var(--gray-500);font-weight:500;margin-top:4px;}
 .modal-divider{height:1px;background:var(--gray-200);margin:14px 0;}
-/* Analysis cards */
 .analysis-card{border-radius:9px;padding:10px 12px;margin-bottom:7px;cursor:pointer;transition:.15s;}
 .analysis-card.similar{background:var(--gray-100);border:1.5px solid var(--gray-300);}
 .analysis-card.similar:hover,.analysis-card.similar.sel{border-color:var(--blue-400);background:var(--blue-100);}
@@ -181,14 +219,25 @@ body{font-family:'Inter',-apple-system,sans-serif;background:#f0f4f8;color:var(-
 .analysis-sub{font-size:10px;color:var(--gray-500);margin-top:2px;}
 .match-bar{height:3px;border-radius:2px;background:var(--blue-400);margin-top:5px;}
 
-/* ═══ OUTCOME EDITOR MODAL ═══ */
-.outcome-modal-inner{padding:4px 0 8px;}
+/* Outcome editor */
 .outcome-field{margin-bottom:14px;}
-.outcome-field-label{font-size:11px;font-weight:700;color:var(--gray-700);margin-bottom:4px;display:flex;align-items:center;gap:5px;}
-.outcome-field-hint{font-size:10px;color:var(--gray-400);font-weight:400;margin-top:2px;line-height:1.4;}
+.outcome-field-label{font-size:11px;font-weight:700;color:var(--gray-700);margin-bottom:4px;}
+.outcome-field-hint{font-size:10px;color:var(--gray-400);margin-top:2px;line-height:1.4;}
 .outcome-example{font-size:10px;color:var(--teal-600);background:var(--teal-100);border-radius:6px;padding:5px 9px;margin-top:5px;line-height:1.4;}
-.impact-preview{background:linear-gradient(135deg,#e6fffa,#ebf8ff);border:1.5px solid var(--teal-600);border-radius:10px;padding:11px 13px;margin-top:10px;}
-.impact-preview-title{font-size:10px;font-weight:700;color:var(--teal-600);margin-bottom:4px;text-transform:uppercase;letter-spacing:.4px;}
+
+/* Canvas Semilla */
+.canvas-section{margin-bottom:14px;}
+.canvas-section-title{font-size:11px;font-weight:800;color:var(--gray-700);margin-bottom:6px;display:flex;align-items:center;gap:5px;padding:5px 8px;border-radius:7px;}
+.canvas-s1{background:#fff9c4;color:#92400e;}
+.canvas-s2{background:#fce4ec;color:#c62828;}
+.canvas-s3{background:#e8f5e9;color:#1b5e20;}
+.canvas-s4{background:#e3f2fd;color:#0d47a1;}
+.canvas-s5{background:#f3e5f5;color:#4a148c;}
+.canvas-s6{background:#e0f7fa;color:#006064;}
+.canvas-h-group{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:8px;}
+.canvas-mini-input{width:100%;font-family:inherit;font-size:11px;padding:6px 9px;border:1.5px solid var(--gray-300);border-radius:8px;outline:none;resize:vertical;min-height:50px;line-height:1.5;}
+.canvas-mini-input:focus{border-color:var(--purple-600);box-shadow:0 0 0 2px rgba(107,70,193,.1);}
+.canvas-link-badge{font-size:9px;background:var(--purple-100);color:var(--purple-700);padding:2px 7px;border-radius:10px;font-weight:600;margin-bottom:8px;display:inline-block;}
 </style>
 </head>
 <body>
@@ -212,21 +261,28 @@ body{font-family:'Inter',-apple-system,sans-serif;background:#f0f4f8;color:var(-
 <!-- PRIORITY VIEW -->
 <div id="view-prio" style="flex:1;overflow:hidden;display:flex;flex-direction:column;position:relative;">
   <div class="prio-scroll" id="prioList"></div>
-  <button class="add-fab" onclick="openAddModal()">＋ Agregar problema</button>
+  <button class="add-fab" onclick="openAddModal()">＋ Agregar desafío estratégico</button>
 </div>
 
 <!-- TREE VIEW -->
 <div id="view-tree" class="tree-view" style="display:none;">
   <div class="tree-controls">
-    <span class="tc-label">Capas</span>
-    <button class="tc-chip layer-ev on" id="tc-ev" onclick="toggleLayer('ev')">🟩 Evidencia</button>
-    <button class="tc-chip layer-sol on" id="tc-sol" onclick="toggleLayer('sol')">🔵 Hipótesis</button>
-    <button class="tc-chip layer-exp on" id="tc-exp" onclick="toggleLayer('exp')">🟣 Experimentos</button>
-    <div class="tc-sep"></div>
-    <span class="tc-label">Fases</span>
-    <button class="tc-chip ph1 on" id="tc-ph1" onclick="togglePhase(1)">📦</button>
-    <button class="tc-chip ph2 on" id="tc-ph2" onclick="togglePhase(2)">🏭</button>
-    <button class="tc-chip ph3 on" id="tc-ph3" onclick="togglePhase(3)">💊</button>
+    <!-- Row 1: Branch picker -->
+    <div class="branch-row" id="branchRow">
+      <button class="branch-btn active-ph1" data-b="1" onclick="selectBranch(1)">📦 Proveedores</button>
+      <button class="branch-btn" data-b="2" onclick="selectBranch(2)">🏭 Almacenamiento</button>
+      <button class="branch-btn" data-b="3" onclick="selectBranch(3)">💊 Dispensación</button>
+      <button class="branch-btn" data-b="0" onclick="selectBranch(0)">🌳 Ver todo</button>
+    </div>
+    <!-- Row 2: Layer toggles + sprint -->
+    <div class="layer-row">
+      <span class="tc-label">Ver</span>
+      <button class="tc-chip layer-ev on" id="tc-ev" onclick="toggleLayer('ev')">🟩 Evidencia</button>
+      <button class="tc-chip layer-sol on" id="tc-sol" onclick="toggleLayer('sol')">💡 Hip.</button>
+      <button class="tc-chip layer-exp on" id="tc-exp" onclick="toggleLayer('exp')">🧪 Exp.</button>
+      <div class="tc-sep"></div>
+      <button class="sprint-toggle" id="sprintToggle" onclick="toggleSprintPanel()">🎯 Sprint <span id="sprintBadge">0/3</span></button>
+    </div>
   </div>
   <div class="tree-stage" id="treeStage">
     <div class="tree-canvas" id="treeCanvas">
@@ -234,21 +290,31 @@ body{font-family:'Inter',-apple-system,sans-serif;background:#f0f4f8;color:var(-
       <div class="tree-nodes" id="treeNodes"></div>
     </div>
   </div>
-  <div class="zoom-wrap">
-    <button class="zoom-btn" onclick="doZoom(1.2,true)" title="Acercar">+</button>
-    <span class="zoom-level" id="zoomLevel">100%</span>
-    <button class="zoom-btn" onclick="doZoom(0.85,true)" title="Alejar">−</button>
-    <button class="zoom-btn" onclick="fitView(true)" style="font-size:12px;" title="Encuadrar todo">⌂</button>
+  <!-- Sprint panel -->
+  <div class="sprint-panel closed" id="sprintPanel">
+    <div class="sprint-header" onclick="toggleSprintPanel()">
+      <div class="sprint-header-title">🎯 Sprint 30 días</div>
+      <div class="sprint-dots" id="sprintDots"></div>
+      <span class="sprint-chevron" id="sprintChevron">▸</span>
+    </div>
+    <div class="sprint-body" id="sprintBody"></div>
   </div>
-  <div style="position:absolute;bottom:14px;left:10px;font-size:9px;color:rgba(0,0,0,.35);pointer-events:none;">Scroll para zoom · Arrastrá para mover · Doble clic para encuadrar</div>
+  <!-- Zoom controls -->
+  <div class="zoom-wrap">
+    <button class="zoom-btn" onclick="doZoom(1.2,true)">+</button>
+    <span class="zoom-level" id="zoomLevel">100%</span>
+    <button class="zoom-btn" onclick="doZoom(0.85,true)">−</button>
+    <button class="zoom-btn" onclick="fitView(true)" style="font-size:12px;">⌂</button>
+  </div>
+  <div style="position:absolute;bottom:14px;left:10px;font-size:8px;color:rgba(0,0,0,.3);pointer-events:none;">Scroll → zoom hacia cursor · Doble clic → encuadrar</div>
 </div>
 
 <!-- ADD PROBLEM MODAL -->
 <div id="addModal" style="display:none;">
-  <div class="modal-overlay" onclick="closeModalIfBg(event,'addModal')">
-    <div class="modal" id="modalBox">
+  <div class="modal-overlay" onclick="if(event.target===event.currentTarget)document.getElementById('addModal').style.display='none'">
+    <div class="modal">
       <div class="modal-handle"></div>
-      <div class="modal-title">Agregar un problema</div>
+      <div class="modal-title">Agregar desafío estratégico</div>
       <div class="modal-sub" id="modalSub"></div>
       <div class="step-bar" id="stepBar"></div>
       <div id="modalContent"></div>
@@ -258,20 +324,30 @@ body{font-family:'Inter',-apple-system,sans-serif;background:#f0f4f8;color:var(-
 
 <!-- OUTCOME EDITOR MODAL -->
 <div id="outcomeModal" style="display:none;">
-  <div class="modal-overlay" onclick="closeModalIfBg(event,'outcomeModal')">
+  <div class="modal-overlay" onclick="if(event.target===event.currentTarget)document.getElementById('outcomeModal').style.display='none'">
     <div class="modal">
       <div class="modal-handle"></div>
       <div class="modal-title">🎯 Definir el Outcome</div>
       <div class="modal-sub">El outcome es el resultado de negocio que queremos lograr. Definirlo bien orienta todo el árbol.</div>
-      <div class="outcome-modal-inner" id="outcomeForm"></div>
+      <div id="outcomeForm"></div>
+    </div>
+  </div>
+</div>
+
+<!-- CANVAS SEMILLA MODAL -->
+<div id="canvasModal" style="display:none;">
+  <div class="modal-overlay" onclick="if(event.target===event.currentTarget)document.getElementById('canvasModal').style.display='none'">
+    <div class="modal">
+      <div class="modal-handle"></div>
+      <div id="canvasContent"></div>
     </div>
   </div>
 </div>
 
 <script>
-// ══════════════════════════════════════════
+// ══════════════════════════════════
 // SUPABASE
-// ══════════════════════════════════════════
+// ══════════════════════════════════
 const SB_URL='https://tsckgbjxavfyrvyjvbix.supabase.co';
 const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRzY2tnYmp4YXZmeXJ2eWp2Yml4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMzMzQzNDcsImV4cCI6MjA4ODkxMDM0N30.HrEq6y-OiFDpndsJrXEjCGDOfFgic_o4S9QDLWJes88';
 function getVoterId(){let id=localStorage.getItem('ost_voter_id');if(!id){id='v_'+Math.random().toString(36).substr(2,12)+'_'+Date.now();localStorage.setItem('ost_voter_id',id);}return id;}
@@ -283,9 +359,9 @@ async function sbFetch(path,opts={}){
   return res.json();
 }
 
-// ══════════════════════════════════════════
+// ══════════════════════════════════
 // DATA
-// ══════════════════════════════════════════
+// ══════════════════════════════════
 const DATA={
   phases:[
     {id:1,name:"Proveedores",icon:"📦",color:"green",sprint:"30"},
@@ -295,62 +371,73 @@ const DATA={
   opportunities:[
     {id:"O1.1",phase:1,type:"pain",
      title:"Compras ciegas: sin datos reales de consumo",
-     desc:"Las compras de medicamentos se hacen sin datos de consumo histórico, dependiendo de estimaciones subjetivas o pedidos por costumbre.",
-     noResolve:"El hospital seguirá gastando el doble de lo necesario. Sin línea base, cualquier intento de eficiencia es a ciegas.",
+     desc:"Las compras se hacen sin datos de consumo histórico, dependiendo de estimaciones subjetivas.",
+     noResolve:"El hospital seguirá gastando el doble de lo necesario. Sin línea base, cualquier eficiencia es a ciegas.",
      quote:"Acomodando los proveedores sin sistema, sin nada, a los latigazos... el año siguiente gastamos 5 mil millones. La mitad redujimos.",
      source:"Entrevista Pablo",timestamp:"min 19:41",
      solutions:[
-       {id:"S1.1A",title:"Relevamiento del gasto histórico 12–24 meses",detail:"Construir línea base de consumo por insumo y proveedor, esperamos identificar ≥3 categorías de sobrecosto.",confidence:"high",effort:"low",impact:"high",experiments:[{id:"E1.1A",title:"Piloto: análisis patrones 3 meses, 1 hospital",detail:"Hipótesis: ≥3 insumos con sobreprecio >20%.",effort:"low",impact:"high",days:15}]},
-       {id:"S1.1B",title:"Renegociación de proveedores basada en datos",detail:"Usar evidencia de consumo para romper dependencia y lograr ahorro ≥15% en los 5 insumos de mayor gasto.",confidence:"high",effort:"medium",impact:"high",experiments:[{id:"E1.1B",title:"Renegociar los 5 insumos de mayor gasto en 30 días",detail:"Hipótesis: ahorro ≥15%.",effort:"low",impact:"high",days:30}]}
+       {id:"S1.1A",title:"Relevamiento del gasto histórico 12–24 meses",detail:"Construir línea base de consumo por insumo y proveedor. Esperamos identificar ≥3 categorías de sobrecosto.",confidence:"high",effort:"low",impact:"high",experiments:[
+         {id:"E1.1A",title:"Piloto: análisis patrones 3 meses, 1 hospital",detail:"Hipótesis: ≥3 insumos con sobreprecio >20%.",effort:"low",impact:"high",days:15}]},
+       {id:"S1.1B",title:"Renegociación de proveedores basada en datos",detail:"Usar evidencia de consumo para romper dependencia. Esperamos ahorro ≥15% en 5 insumos clave.",confidence:"high",effort:"medium",impact:"high",experiments:[
+         {id:"E1.1B",title:"Renegociar los 5 insumos de mayor gasto en 30 días",detail:"Hipótesis: ahorro ≥15%.",effort:"low",impact:"high",days:30}]}
      ]},
     {id:"O1.2",phase:1,type:"pain",
      title:"Mercado concentrado: dependencia de proveedores comunes",
-     desc:"Un grupo reducido de proveedores controla el abastecimiento, eliminando la competencia real y el poder de negociación.",
-     noResolve:"Los precios seguirán siendo inflados. Cualquier proveedor puede condicionar el acceso a insumos críticos sin consecuencias.",
+     desc:"Un grupo reducido de proveedores controla el abastecimiento, eliminando competencia y poder de negociación.",
+     noResolve:"Los precios seguirán inflados. Cualquier proveedor puede condicionar acceso a insumos críticos sin consecuencias.",
      quote:"Son nueve proveedores que están entongados... todos tienen el mismo problema.",
      source:"Entrevista Pablo",timestamp:"min 11:25",
      solutions:[
-       {id:"S1.2A",title:"Mapa de dependencia + estrategia de diversificación",detail:"Registro transparente de proveedores y nivel de concentración, esperamos detectar alternativas con precios >25% mejores.",confidence:"medium",effort:"low",impact:"medium",experiments:[{id:"E1.2A",title:"Benchmark inter-municipal (10 insumos, 2–3 municipios)",detail:"Hipótesis: variaciones >25%.",effort:"medium",impact:"medium",days:30}]},
-       {id:"S1.2B",title:"Compra consorciada entre municipios",detail:"Compras conjuntas para aumentar poder de negociación, esperamos reducir precio conjunto ≥10%.",confidence:"low",effort:"high",impact:"high",experiments:[{id:"E1.2B",title:"Mesa de trabajo con 2 municipios, 3 insumos",detail:"Hipótesis: precio conjunto ≥10% menor.",effort:"medium",impact:"medium",days:60}]}
+       {id:"S1.2A",title:"Mapa de dependencia + estrategia de diversificación",detail:"Registro transparente de proveedores y concentración. Esperamos detectar alternativas >25% más baratas.",confidence:"medium",effort:"low",impact:"medium",experiments:[
+         {id:"E1.2A",title:"Benchmark inter-municipal (10 insumos, 2–3 municipios)",detail:"Hipótesis: variaciones >25%.",effort:"medium",impact:"medium",days:30}]},
+       {id:"S1.2B",title:"Compra consorciada entre municipios",detail:"Compras conjuntas para aumentar poder de negociación. Esperamos precio conjunto ≥10% menor.",confidence:"low",effort:"high",impact:"high",experiments:[
+         {id:"E1.2B",title:"Mesa de trabajo con 2 municipios, 3 insumos",detail:"Hipótesis: precio conjunto ≥10% menor.",effort:"medium",impact:"medium",days:60}]}
      ]},
     {id:"O1.3",phase:1,type:"need",
      title:"Software arcaico en el punto de ingreso",
-     desc:"El sistema al recibir mercadería no registra datos confiables de lote, vencimiento ni proveedor, contaminando toda la cadena.",
-     noResolve:"Cualquier inversión en trazabilidad aguas abajo será inútil: sin datos limpios en el origen, todo se construye sobre arena.",
+     desc:"El sistema de recepción no registra datos confiables de lote, vencimiento ni proveedor, contaminando toda la cadena.",
+     noResolve:"Cualquier inversión en trazabilidad será inútil: sin datos limpios en el origen, todo se construye sobre arena.",
      quote:"Ese software inicial que es arcaico, se podría hacer más nuevo...",
      source:"Entrevista Pablo",timestamp:"min 5:08",
      solutions:[
-       {id:"S1.3A",title:"Registro digital mínimo viable de órdenes de compra",detail:"Campos obligatorios: lote, vencimiento, cantidad, proveedor. Esperamos ≥80% registros completos al mes.",confidence:"high",effort:"medium",impact:"high",experiments:[{id:"E1.3A",title:"Piloto registro digital en 1 depósito × 30 días",detail:"Hipótesis: ≥80% registros completos.",effort:"low",impact:"high",days:30}]},
-       {id:"S1.3B",title:"Estándar de dato de ingreso obligatorio",detail:"Definir campos mínimos como estándar de calidad. Esperamos revelar que >40% de registros actuales están incompletos.",confidence:"high",effort:"low",impact:"high",experiments:[{id:"E1.3B",title:"Auditoría: % registros con campos vacíos",detail:"Hipótesis: >40% incompletos.",effort:"low",impact:"medium",days:7}]}
+       {id:"S1.3A",title:"Registro digital mínimo viable de órdenes de compra",detail:"Campos obligatorios: lote, vencimiento, cantidad, proveedor. Esperamos ≥80% registros completos.",confidence:"high",effort:"medium",impact:"high",experiments:[
+         {id:"E1.3A",title:"Piloto registro digital en 1 depósito × 30 días",detail:"Hipótesis: ≥80% registros completos.",effort:"low",impact:"high",days:30}]},
+       {id:"S1.3B",title:"Estándar de dato de ingreso obligatorio",detail:"Definir campos mínimos como estándar de calidad. Esperamos revelar >40% de registros incompletos hoy.",confidence:"high",effort:"low",impact:"high",experiments:[
+         {id:"E1.3B",title:"Auditoría: % registros con campos vacíos",detail:"Hipótesis: >40% incompletos.",effort:"low",impact:"medium",days:7}]}
      ]},
     {id:"O2.1",phase:2,type:"need",
      title:"Medicamento anónimo: sin identidad unitaria",
      desc:"Los medicamentos circulan sin identificación individual. No se sabe qué unidad llegó a qué paciente, ni cuándo.",
-     noResolve:"Ante cualquier error o alerta de vencimiento, es imposible rastrear el origen o el alcance del problema.",
+     noResolve:"Ante cualquier error o alerta, es imposible rastrear el origen o el alcance del problema.",
      quote:"Sin identificación unitaria, el medicamento es anónimo.",
      source:"Framework Módulo C",timestamp:"Pág. 7",
      solutions:[
-       {id:"S2.1A",title:"Empacadora de unidosis + QR en depósito",detail:"Empaque individual con QR: lote, vencimiento, fecha. Esperamos tasa error lectura <1% y trazabilidad 100%.",confidence:"high",effort:"high",impact:"high",experiments:[{id:"E2.1A",title:"Piloto empaque: 5 insumos × 30 días",detail:"Medir tasa error lectura QR.",effort:"medium",impact:"high",days:30}]},
-       {id:"S2.1B",title:"Vinculación empacadora ↔ sistema",detail:"QR generado automáticamente desde el sistema. Esperamos 100% QR legibles en integración.",confidence:"high",effort:"medium",impact:"high",experiments:[{id:"E2.1B",title:"Test integración: 500 unidades, tasa error <1%",detail:"Validar 100% QR legibles.",effort:"low",impact:"high",days:14}]}
+       {id:"S2.1A",title:"Empacadora de unidosis + QR en depósito",detail:"Empaque individual con QR: lote, vencimiento, fecha. Esperamos tasa error lectura <1% y trazabilidad 100%.",confidence:"high",effort:"high",impact:"high",experiments:[
+         {id:"E2.1A",title:"Piloto empaque: 5 insumos × 30 días",detail:"Medir tasa error lectura QR.",effort:"medium",impact:"high",days:30}]},
+       {id:"S2.1B",title:"Vinculación empacadora ↔ sistema",detail:"QR generado automáticamente desde el sistema. Esperamos 100% QR legibles.",confidence:"high",effort:"medium",impact:"high",experiments:[
+         {id:"E2.1B",title:"Test integración: 500 unidades, tasa error <1%",detail:"Validar 100% QR legibles.",effort:"low",impact:"high",days:14}]}
      ]},
     {id:"O2.2",phase:2,type:"pain",
      title:"~30% de insumos se desperdician por vencimiento",
      desc:"Sin control de fechas, los medicamentos caducan en stock sin ser utilizados ni redistribuidos a tiempo.",
-     noResolve:"El desperdicio seguirá consumiendo entre 15–30% del presupuesto anual, mientras faltan medicamentos donde se necesitan.",
+     noResolve:"El desperdicio seguirá consumiendo 15–30% del presupuesto anual, mientras faltan medicamentos donde se necesitan.",
      quote:"En Estados Unidos hace años que se pierde el 30% de los insumos médicos...",
      source:"Entrevista Pablo",timestamp:"min 18:22",
      solutions:[
-       {id:"S2.2A",title:"Alertas automáticas de próximo vencimiento (30/60/90 días)",detail:"Dashboard o notificación móvil. Esperamos reducir desperdicios de 30% a <10%.",confidence:"medium",effort:"medium",impact:"high",experiments:[{id:"E2.2A",title:"Auditoría vencimientos: conteo físico 1 depósito",detail:"Hipótesis: >15% a <60 días de vencer.",effort:"low",impact:"medium",days:7}]},
-       {id:"S2.2B",title:"Distribución 100% etiquetada y trazada",detail:"Toda medicación que sale del depósito viaja con QR. Esperamos % dosis con QR legible >95%.",confidence:"high",effort:"medium",impact:"high",experiments:[{id:"E2.2B",title:"Piloto distribución trazada a 2 salas × 2 semanas",detail:"Medir % dosis con QR legible.",effort:"low",impact:"high",days:14}]}
+       {id:"S2.2A",title:"Alertas automáticas de próximo vencimiento (30/60/90 días)",detail:"Dashboard o notificación móvil. Esperamos reducir desperdicios de 30% a <10%.",confidence:"medium",effort:"medium",impact:"high",experiments:[
+         {id:"E2.2A",title:"Auditoría vencimientos: conteo físico 1 depósito",detail:"Hipótesis: >15% a <60 días de vencer.",effort:"low",impact:"medium",days:7}]},
+       {id:"S2.2B",title:"Distribución 100% etiquetada y trazada",detail:"Toda medicación que sale del depósito viaja con QR. Esperamos >95% dosis trazadas.",confidence:"high",effort:"medium",impact:"high",experiments:[
+         {id:"E2.2B",title:"Piloto distribución trazada a 2 salas × 2 semanas",detail:"Medir % dosis con QR legible.",effort:"low",impact:"high",days:14}]}
      ]},
     {id:"O2.3",phase:2,type:"pain",
      title:"Empaque manual propenso a errores",
-     desc:"El fraccionamiento y empaque de dosis individuales se hace a mano, generando errores de cantidad, identificación y destino.",
-     noResolve:"Los errores de empaque se traducen directamente en errores de medicación sin registro de qué se empacó ni para quién.",
+     desc:"El fraccionamiento de dosis individuales a mano genera errores de cantidad, identificación y destino.",
+     noResolve:"Los errores de empaque se traducen en errores de medicación sin registro de qué se empacó ni para quién.",
      quote:"De esa caja, fraccionar lo que hay dentro...",
      source:"Entrevista Pablo",timestamp:"min 2:40",
      solutions:[
-       {id:"S2.3A",title:"Depósito central como nodo único de empaque",detail:"Centralizar todo el empaque coordinado por sistema. Esperamos reducción ≥50% en errores vs empaque manual.",confidence:"high",effort:"high",impact:"high",experiments:[{id:"E2.3A",title:"Errores: empaque manual vs centralizado × 2 semanas",detail:"Hipótesis: reducción ≥50% errores.",effort:"medium",impact:"high",days:14}]}
+       {id:"S2.3A",title:"Depósito central como nodo único de empaque",detail:"Centralizar todo el empaque coordinado por sistema. Esperamos reducción ≥50% en errores.",confidence:"high",effort:"high",impact:"high",experiments:[
+         {id:"E2.3A",title:"Errores: empaque manual vs centralizado × 2 semanas",detail:"Hipótesis: reducción ≥50% errores.",effort:"medium",impact:"high",days:14}]}
      ]},
     {id:"O3.1",phase:3,type:"need",
      title:"Riesgo de error de medicación sin verificación cruzada",
@@ -359,8 +446,10 @@ const DATA={
      quote:"Al momento de dispensar va a escanear el medicamento y escanea la pulsera del paciente...",
      source:"Entrevista Pablo",timestamp:"min 0:36",
      solutions:[
-       {id:"S3.1A",title:"Match de Seguridad: doble escaneo QR al pie de la cama",detail:"Escaneo QR sobre + pulsera paciente. Sistema valida antes de habilitar. Esperamos >95% matches exitosos.",confidence:"high",effort:"medium",impact:"high",experiments:[{id:"E3.1A",title:"Piloto match QR en 1 sala × 2 semanas",detail:"Hipótesis: >95% matches exitosos.",effort:"medium",impact:"high",days:14}]},
-       {id:"S3.1B",title:"Confirmación digital de recepción por enfermería",detail:"La enfermera escanea y 'se hace dueña' del insumo. Esperamos reducción ≥40% en tiempo vs registro papel.",confidence:"high",effort:"low",impact:"high",experiments:[{id:"E3.1B",title:"Registro papel vs escaneo digital (1 turno)",detail:"Hipótesis: reducción ≥40% tiempo.",effort:"low",impact:"medium",days:3}]}
+       {id:"S3.1A",title:"Match de Seguridad: doble escaneo QR al pie de la cama",detail:"Escaneo QR sobre + pulsera paciente. Sistema valida antes de habilitar. Esperamos >95% matches exitosos.",confidence:"high",effort:"medium",impact:"high",experiments:[
+         {id:"E3.1A",title:"Piloto match QR en 1 sala × 2 semanas",detail:"Hipótesis: >95% matches exitosos.",effort:"medium",impact:"high",days:14}]},
+       {id:"S3.1B",title:"Confirmación digital de recepción por enfermería",detail:"La enfermera escanea y 'se hace dueña' del insumo. Esperamos reducción ≥40% tiempo vs papel.",confidence:"high",effort:"low",impact:"high",experiments:[
+         {id:"E3.1B",title:"Registro papel vs escaneo digital (1 turno)",detail:"Hipótesis: reducción ≥40% tiempo.",effort:"low",impact:"medium",days:3}]}
      ]},
     {id:"O3.2",phase:3,type:"desire",
      title:"Áreas críticas (Guardia, UTI, Cardio) sin fricciones",
@@ -369,7 +458,8 @@ const DATA={
      quote:"Imaginate tener varias máquinas dentro del hospital y no tener que hacer una cola...",
      source:"Entrevista Pablo",timestamp:"min 2:56",
      solutions:[
-       {id:"S3.2A",title:"Dispensadores automáticos en áreas semicerradas (PIC-1)",detail:"Máquinas tipo vending para Guardia, UTI, Cardiología. Esperamos medir tiempo dispensación antes/después.",confidence:"medium",effort:"high",impact:"high",experiments:[{id:"E3.2A",title:"Piloto dispensador en UTI × 60 días",detail:"Medir tiempo dispensación antes/después.",effort:"high",impact:"high",days:60}]},
+       {id:"S3.2A",title:"Dispensadores automáticos en áreas semicerradas (PIC-1)",detail:"Máquinas tipo vending para Guardia, UTI, Cardiología. Esperamos reducción measurable en tiempo de dispensación.",confidence:"medium",effort:"high",impact:"high",experiments:[
+         {id:"E3.2A",title:"Piloto dispensador en UTI × 60 días",detail:"Medir tiempo dispensación antes/después.",effort:"high",impact:"high",days:60}]},
        {id:"S3.2B",title:"Vinculación cero-fricción antes de salir del dispensador",detail:"Dispensador vincula al paciente antes de dispensar. Sin espera, sin cola.",confidence:"high",effort:"medium",impact:"high",experiments:[]}
      ]},
     {id:"O3.3",phase:3,type:"pain",
@@ -379,51 +469,62 @@ const DATA={
      quote:"La obra social te dice no, te falta un anexo que te lo tiene que firmar el médico...",
      source:"Entrevista Pablo",timestamp:"min 17:02",
      solutions:[
-       {id:"S3.3A",title:"Documentación automática del acto de administración",detail:"El match QR genera registro irrefutable para obras sociales. Esperamos cubrir ≥60% de rechazos actuales.",confidence:"high",effort:"low",impact:"high",experiments:[{id:"E3.3A",title:"Auditoría: 50 facturas rechazadas vs sistema digital",detail:"Hipótesis: ≥60% rechazos por falta de documentación.",effort:"low",impact:"high",days:7}]},
-       {id:"S3.3B",title:"Bonos por facturación al personal médico",detail:"Parte del valor recuperado como incentivo al equipo. Esperamos ≥20% más adopción del sistema.",confidence:"medium",effort:"medium",impact:"medium",experiments:[{id:"E3.3B",title:"Piloto incentivos en 1 sala × 1 trimestre",detail:"Hipótesis: ≥20% más adopción.",effort:"medium",impact:"medium",days:90}]}
+       {id:"S3.3A",title:"Documentación automática del acto de administración",detail:"El match QR genera registro irrefutable para obras sociales. Esperamos cubrir ≥60% de rechazos actuales.",confidence:"high",effort:"low",impact:"high",experiments:[
+         {id:"E3.3A",title:"Auditoría: 50 facturas rechazadas vs sistema digital",detail:"Hipótesis: ≥60% rechazos por falta de documentación.",effort:"low",impact:"high",days:7}]},
+       {id:"S3.3B",title:"Bonos por facturación al personal médico",detail:"Parte del valor recuperado como incentivo al equipo. Esperamos ≥20% más adopción.",confidence:"medium",effort:"medium",impact:"medium",experiments:[
+         {id:"E3.3B",title:"Piloto incentivos en 1 sala × 1 trimestre",detail:"Hipótesis: ≥20% más adopción.",effort:"medium",impact:"medium",days:90}]}
      ]},
     {id:"O3.4",phase:3,type:"pain",
      title:'Resistencia médica al sistema: "El Ojo de Sauron"',
-     desc:"El personal médico percibe el sistema de trazabilidad como vigilancia y control, generando resistencia activa.",
-     noResolve:"Sin adopción clínica, cualquier sistema implementado fracasará en campo. La tecnología sin cultura es hardware inutilizado.",
+     desc:"El personal médico percibe el sistema de trazabilidad como vigilancia, generando resistencia activa.",
+     noResolve:"Sin adopción clínica, cualquier sistema fracasará en campo. La tecnología sin cultura es hardware inutilizado.",
      quote:"Los tipos saben que hay control, el panóptico... El ojo de Sauron.",
      source:"Entrevista Pablo",timestamp:"min 23:33",
      solutions:[
-       {id:"S3.4A",title:'Reencuadre: de "control" a "protección profesional"',detail:"El sistema protege, no vigila. Mejor defensa ante demandas. Esperamos colegas que adoptan por influencia de pares.",confidence:"high",effort:"low",impact:"high",experiments:[{id:"E3.4A",title:"Sesiones con 3–5 early adopters × 30 días",detail:"Medir: colegas que adoptan por influencia de pares.",effort:"low",impact:"medium",days:30}]},
-       {id:"S3.4B",title:"Diagnóstico cultural previo a implementación",detail:"Mapear early adopters, escépticos y bloqueadores. Esperamos IA detecte ≥2 tensiones no vistas.",confidence:"high",effort:"medium",impact:"high",experiments:[{id:"E3.4B",title:"Autodiagnóstico web + entrevistas IA 'Voces'",detail:"Hipótesis: IA detecta ≥2 tensiones no vistas.",effort:"medium",impact:"high",days:21}]}
+       {id:"S3.4A",title:'Reencuadre: de "control" a "protección profesional"',detail:"El sistema protege, no vigila. Mejor defensa ante demandas. Esperamos colegas que adoptan por influencia de pares.",confidence:"high",effort:"low",impact:"high",experiments:[
+         {id:"E3.4A",title:"Sesiones con 3–5 early adopters × 30 días",detail:"Medir: colegas que adoptan por influencia de pares.",effort:"low",impact:"medium",days:30}]},
+       {id:"S3.4B",title:"Diagnóstico cultural previo a implementación",detail:"Mapear early adopters, escépticos y bloqueadores. Esperamos IA detecte ≥2 tensiones no vistas.",confidence:"high",effort:"medium",impact:"high",experiments:[
+         {id:"E3.4B",title:"Autodiagnóstico web + entrevistas IA 'Voces'",detail:"Hipótesis: IA detecta ≥2 tensiones no vistas.",effort:"medium",impact:"high",days:21}]}
      ]}
   ]
 };
 
-// ══════════════════════════════════════════
+// ══════════════════════════════════
 // OUTCOME STATE
-// ══════════════════════════════════════════
-const OUTCOME_DEFAULT={
-  text:'Reducir gasto ≥30% · Cero errores · Facturación +60%',
-  earlyResult:'Datos de consumo disponibles · Primeros QR en depósito · Reducción de rechazos de facturas',
-  lateResult:'Gasto reducido ≥30% · Cero errores de medicación · Facturación a obras sociales +60%',
-  positiveImpact:'Más presupuesto disponible para atención directa, cero riesgo legal por errores de medicación y un hospital con financiamiento sustentable.'
-};
+// ══════════════════════════════════
+const OUTCOME_DEFAULT={text:'Reducir gasto ≥30% · Cero errores · Facturación +60%',earlyIndicator:'',lateIndicator:'',positiveImpact:''};
 let outcomeData={...OUTCOME_DEFAULT};
-function loadOutcome(){
-  try{const s=localStorage.getItem('ost_outcome');if(s)outcomeData={...OUTCOME_DEFAULT,...JSON.parse(s)};}catch(e){}
-}
-function saveOutcome(){
-  try{localStorage.setItem('ost_outcome',JSON.stringify(outcomeData));}catch(e){}
-}
+function loadOutcome(){try{const s=localStorage.getItem('ost_outcome');if(s)outcomeData={...OUTCOME_DEFAULT,...JSON.parse(s)};}catch(e){}}
+function saveOutcome(){try{localStorage.setItem('ost_outcome',JSON.stringify(outcomeData));}catch(e){}}
 loadOutcome();
 
-// ══════════════════════════════════════════
+// ══════════════════════════════════
+// SPRINT STATE
+// ══════════════════════════════════
+let sprintExps=[];
+let sprintOpen=false;
+function loadSprint(){try{const s=localStorage.getItem('ost_sprint');if(s)sprintExps=JSON.parse(s);}catch(e){}}
+function saveSprint(){try{localStorage.setItem('ost_sprint',JSON.stringify(sprintExps));}catch(e){}}
+loadSprint();
+
+// ══════════════════════════════════
+// CANVAS SEMILLA STATE
+// ══════════════════════════════════
+let canvases={};
+function loadCanvases(){try{const s=localStorage.getItem('ost_canvases');if(s)canvases=JSON.parse(s);}catch(e){}}
+function saveCanvases(){try{localStorage.setItem('ost_canvases',JSON.stringify(canvases));}catch(e){}}
+loadCanvases();
+
+// ══════════════════════════════════
 // STATE
-// ══════════════════════════════════════════
+// ══════════════════════════════════
 let votes={};
 let activeTab='prio';
 let treeRoot=null;
 let _treeInited=false;
 let _treeFitted=false;
+let selectedBranch=1; // 1=Proveedores, 2=Alm, 3=Disp, 0=All
 const showLayers={ev:true,sol:true,exp:true};
-const showPhases={1:true,2:true,3:true};
-
 const phCols={1:{bg:'#276749',text:'#fff'},2:{bg:'#2b6cb0',text:'#fff'},3:{bg:'#c05621',text:'#fff'},0:{bg:'#2c7a7b',text:'#fff'}};
 const typeIcon={pain:'😖',desire:'✨',need:'🎯'};
 const typeLabel={pain:'Dolor',desire:'Deseo',need:'Necesidad'};
@@ -432,18 +533,15 @@ const confCss={high:'conf-high',medium:'conf-med',low:'conf-low'};
 const effLabel={low:'Esfuerzo ↓',medium:'Esfuerzo →',high:'Esfuerzo ↑↑'};
 const effCss={low:'eff-low',medium:'eff-med',high:'eff-high'};
 
-// Load user-added problems from localStorage
 function loadUserProblems(){
-  try{
-    const saved=JSON.parse(localStorage.getItem('ost_user_problems')||'[]');
-    saved.forEach(p=>{if(!DATA.opportunities.find(o=>o.id===p.id)) DATA.opportunities.push(p);});
-  }catch(e){}
+  try{const saved=JSON.parse(localStorage.getItem('ost_user_problems')||'[]');
+  saved.forEach(p=>{if(!DATA.opportunities.find(o=>o.id===p.id))DATA.opportunities.push(p);});}catch(e){}
 }
 loadUserProblems();
 
-// ══════════════════════════════════════════
+// ══════════════════════════════════
 // TABS
-// ══════════════════════════════════════════
+// ══════════════════════════════════
 function switchTab(tab){
   activeTab=tab;
   document.getElementById('tab-prio').classList.toggle('active',tab==='prio');
@@ -453,25 +551,43 @@ function switchTab(tab){
   if(tab==='tree') renderTree();
 }
 
-// ══════════════════════════════════════════
-// TOGGLE CONTROLS (tree)
-// ══════════════════════════════════════════
+// ══════════════════════════════════
+// BRANCH PICKER
+// ══════════════════════════════════
+function selectBranch(b){
+  selectedBranch=b;
+  // Update button states
+  document.querySelectorAll('.branch-btn').forEach(btn=>{
+    const bv=parseInt(btn.dataset.b);
+    btn.className='branch-btn'+(bv===b?' active-'+(b===0?'all':'ph'+b):'');
+  });
+  // Rebuild tree and auto-expand selected branch
+  if(treeRoot){
+    treeRoot.children.forEach(opp=>{
+      if(opp.type!=='opp') return;
+      const match=b===0||opp.opp.phase===b;
+      opp.collapsed=!match;
+      if(match) opp.children.forEach(child=>{if(child.type==='sol')child.collapsed=false;});
+    });
+    _treeFitted=false;
+    renderTree();
+    setTimeout(()=>fitView(true),50);
+  }
+}
+
+// ══════════════════════════════════
+// LAYER TOGGLES
+// ══════════════════════════════════
 function toggleLayer(layer){
   showLayers[layer]=!showLayers[layer];
   document.getElementById('tc-'+layer).classList.toggle('on',showLayers[layer]);
-  if(layer==='sol'&&!showLayers.sol&&showLayers.exp){showLayers.exp=false;document.getElementById('tc-exp').classList.remove('on');}
-  if(layer==='sol'&&!showLayers.sol&&showLayers.ev){showLayers.ev=false;document.getElementById('tc-ev').classList.remove('on');}
-  renderTree();fitView(true);
-}
-function togglePhase(ph){
-  showPhases[ph]=!showPhases[ph];
-  document.getElementById('tc-ph'+ph).classList.toggle('on',showPhases[ph]);
+  if(layer==='sol'&&!showLayers.sol){showLayers.exp=false;document.getElementById('tc-exp').classList.remove('on');showLayers.ev=false;document.getElementById('tc-ev').classList.remove('on');}
   renderTree();fitView(true);
 }
 
-// ══════════════════════════════════════════
-// SUPABASE VOTES
-// ══════════════════════════════════════════
+// ══════════════════════════════════
+// VOTES
+// ══════════════════════════════════
 async function loadVotes(){
   try{
     const opps=await sbFetch('/rest/v1/ost_opportunities?select=id,votes&order=id');
@@ -481,31 +597,24 @@ async function loadVotes(){
     (opps||[]).forEach(o=>{votes[o.id]={count:o.votes,voted:mySet.has(o.id)};});
     const existing=new Set((opps||[]).map(o=>o.id));
     const toInsert=DATA.opportunities.filter(o=>!existing.has(o.id)&&!o.isUserAdded).map(o=>({id:o.id,phase_id:String(o.phase),title:o.title,type:o.type,quote:o.quote||'',votes:0}));
-    if(toInsert.length) await sbFetch('/rest/v1/ost_opportunities',{method:'POST',body:JSON.stringify(toInsert),headers:{'Prefer':'resolution=ignore-duplicates,return=minimal'}});
+    if(toInsert.length)await sbFetch('/rest/v1/ost_opportunities',{method:'POST',body:JSON.stringify(toInsert),headers:{'Prefer':'resolution=ignore-duplicates,return=minimal'}});
     document.getElementById('syncDot').className='sync-dot';
   }catch(e){DATA.opportunities.forEach(o=>{if(!votes[o.id])votes[o.id]={count:0,voted:false};});}
   renderPrio();
 }
-
 async function doVote(oppId){
   const v=votes[oppId]||{count:0,voted:false};
   votes[oppId]={count:v.count+(v.voted?-1:1),voted:!v.voted};
-  renderPrio();
-  if(activeTab==='tree') renderTree();
+  renderPrio();if(activeTab==='tree')renderTree();
   try{
-    if(v.voted){
-      await sbFetch('/rest/v1/ost_votes?opportunity_id=eq.'+oppId+'&voter_id=eq.'+VOTER_ID,{method:'DELETE'});
-      await sbFetch('/rest/v1/rpc/decrement_vote',{method:'POST',body:JSON.stringify({opp_id:oppId})});
-    }else{
-      await sbFetch('/rest/v1/ost_votes',{method:'POST',body:JSON.stringify({opportunity_id:oppId,voter_id:VOTER_ID})});
-      await sbFetch('/rest/v1/rpc/increment_vote',{method:'POST',body:JSON.stringify({opp_id:oppId})});
-    }
+    if(v.voted){await sbFetch('/rest/v1/ost_votes?opportunity_id=eq.'+oppId+'&voter_id=eq.'+VOTER_ID,{method:'DELETE'});await sbFetch('/rest/v1/rpc/decrement_vote',{method:'POST',body:JSON.stringify({opp_id:oppId})});}
+    else{await sbFetch('/rest/v1/ost_votes',{method:'POST',body:JSON.stringify({opportunity_id:oppId,voter_id:VOTER_ID})});await sbFetch('/rest/v1/rpc/increment_vote',{method:'POST',body:JSON.stringify({opp_id:oppId})});}
   }catch(err){votes[oppId]=v;renderPrio();}
 }
 
-// ══════════════════════════════════════════
+// ══════════════════════════════════
 // PRIORITY VIEW
-// ══════════════════════════════════════════
+// ══════════════════════════════════
 function renderPrio(){
   const sorted=[...DATA.opportunities].sort((a,b)=>{
     const va=votes[a.id]||{count:0};const vb=votes[b.id]||{count:0};
@@ -513,8 +622,6 @@ function renderPrio(){
   });
   const totalVotes=Object.values(votes).reduce((s,v)=>s+(v.count||0),0);
   let html='';
-
-  // Impact banner
   if(outcomeData.positiveImpact){
     html+=`<div class="impact-banner">
       <div class="impact-banner-head" onclick="openOutcomeModal()">
@@ -524,25 +631,20 @@ function renderPrio(){
           <div class="impact-banner-title">${outcomeData.positiveImpact}</div>
         </div>
       </div>
-      ${outcomeData.earlyResult||outcomeData.lateResult?`<div class="impact-results">
-        ${outcomeData.earlyResult?`<div class="result-chip result-early">🌱 Temprano: ${outcomeData.earlyResult}</div>`:''}
-        ${outcomeData.lateResult?`<div class="result-chip result-late">🎯 Tardío: ${outcomeData.lateResult}</div>`:''}
+      ${outcomeData.earlyIndicator||outcomeData.lateIndicator?`<div class="impact-results">
+        ${outcomeData.earlyIndicator?`<div class="result-chip result-early">🌱 Indicador temprano: ${outcomeData.earlyIndicator}</div>`:''}
+        ${outcomeData.lateIndicator?`<div class="result-chip result-late">🎯 Indicador tardío: ${outcomeData.lateIndicator}</div>`:''}
       </div>`:''}
     </div>`;
   }
-
-  if(totalVotes===0){
-    html+=`<div class="prio-hint"><p><strong>¿Cuáles son los problemas más urgentes?</strong><br>Votá ❤️ los que más impactan. Los más votados guían la prioridad del árbol OST.</p></div>`;
-  }else{
-    html+=`<div class="prio-hint"><p><strong>${totalVotes} voto${totalVotes!==1?'s':''} registrados.</strong> Tocá 🌳 Ver árbol para explorar las hipótesis de solución a los problemas prioritarios.</p></div>`;
-  }
+  if(totalVotes===0){html+=`<div class="prio-hint"><p><strong>¿Cuáles son los problemas más urgentes?</strong><br>Votá ❤️ los que más impactan. Los más votados guían la prioridad del árbol OST.</p></div>`;}
+  else{html+=`<div class="prio-hint"><p><strong>${totalVotes} voto${totalVotes!==1?'s':''} registrados.</strong> Tocá 🌳 Ver árbol para explorar las hipótesis de solución.</p></div>`;}
   html+=`<div class="prio-section-hdr">Problemas — ordená por importancia</div>`;
   sorted.forEach((opp,i)=>{
     const v=votes[opp.id]||{count:0,voted:false};
     const isTop=v.count>0&&i<3;
     const ph=DATA.phases.find(p=>p.id===opp.phase);
-    const isUserAdded=opp.isUserAdded;
-    html+=`<div class="prio-card${isTop?' top':''}${isUserAdded?' user-added':''}" onclick="goToTree('${opp.id}')">
+    html+=`<div class="prio-card${isTop?' top':''}${opp.isUserAdded?' user-added':''}" onclick="goToTree('${opp.id}')">
       <div class="prio-card-row">
         <div class="prio-rank${isTop?' top':''}">${i+1}</div>
         <div class="prio-body">
@@ -552,12 +654,11 @@ function renderPrio(){
           <div class="prio-badges">
             <span class="tag tag-${opp.type}">${typeIcon[opp.type]} ${typeLabel[opp.type]}</span>
             ${ph?`<span class="tag tag-ph${opp.phase}">${ph.icon} ${ph.name}</span>`:`<span class="tag tag-new">🆕 Nueva rama</span>`}
-            ${isUserAdded?'<span class="tag tag-new">✏️ Agregado</span>':''}
+            ${opp.isUserAdded?'<span class="tag tag-new">✏️ Agregado</span>':''}
           </div>
         </div>
         <button class="vote-btn${v.voted?' voted':''}" onclick="event.stopPropagation();doVote('${opp.id}')">
-          <span class="heart">${v.voted?'❤️':'🤍'}</span>
-          <span class="vote-count">${v.count}</span>
+          <span class="heart">${v.voted?'❤️':'🤍'}</span><span class="vote-count">${v.count}</span>
         </button>
       </div>
     </div>`;
@@ -568,92 +669,217 @@ function renderPrio(){
 function goToTree(oppId){
   switchTab('tree');
   setTimeout(()=>{
-    if(!treeRoot) return;
+    if(!treeRoot)return;
     const opp=DATA.opportunities.find(o=>o.id===oppId);
-    if(opp&&opp.phase&&!showPhases[opp.phase]) return;
+    if(opp&&opp.phase)selectBranch(opp.phase);
     const node=findNode(treeRoot,oppId);
-    if(node&&showLayers.sol){node.collapsed=false;renderTree();centerNode(node,true);}
+    if(node){node.collapsed=false;renderTree();centerNode(node,true);}
   },120);
 }
 
-// ══════════════════════════════════════════
-// OUTCOME EDITOR MODAL
-// ══════════════════════════════════════════
+// ══════════════════════════════════
+// OUTCOME EDITOR
+// ══════════════════════════════════
 function openOutcomeModal(){
   document.getElementById('outcomeModal').style.display='block';
-  renderOutcomeForm();
-}
-function closeOutcomeModal(){
-  document.getElementById('outcomeModal').style.display='none';
-}
-
-function renderOutcomeForm(){
-  const html=`
+  document.getElementById('outcomeForm').innerHTML=`
     <div class="outcome-field">
       <div class="outcome-field-label">🎯 ¿Cuál es el resultado que buscamos?</div>
-      <div class="outcome-field-hint">Describí el outcome en una frase concisa. Este es el norte del árbol OST.</div>
       <textarea class="modal-textarea" id="oc-text" style="min-height:60px;">${outcomeData.text}</textarea>
     </div>
     <div class="modal-divider"></div>
     <div class="outcome-field">
-      <div class="outcome-field-label">🌱 Resultado temprano <span style="color:var(--gray-400);font-weight:400;">(señal de que vamos bien)</span></div>
-      <div class="outcome-field-hint">¿Qué veríamos en las primeras semanas si el outcome está funcionando? Son los indicadores líderes.</div>
+      <div class="outcome-field-label">🌱 Indicador temprano <span style="color:var(--gray-400);font-weight:400;">(señal de que vamos bien, en semanas)</span></div>
       <div class="outcome-example">Ej: "Primeros QR activos, 80% registros completos, 1 proveedor renegociado"</div>
-      <textarea class="modal-textarea" id="oc-early" style="min-height:55px;margin-top:7px;">${outcomeData.earlyResult}</textarea>
+      <textarea class="modal-textarea" id="oc-early" style="min-height:50px;margin-top:7px;">${outcomeData.earlyIndicator}</textarea>
     </div>
     <div class="outcome-field">
-      <div class="outcome-field-label">🎯 Resultado tardío <span style="color:var(--gray-400);font-weight:400;">(el impacto final)</span></div>
-      <div class="outcome-field-hint">¿Qué debería ocurrir en 3–6 meses si todo funciona? Son los indicadores rezagados.</div>
+      <div class="outcome-field-label">🎯 Indicador tardío <span style="color:var(--gray-400);font-weight:400;">(impacto final en 3–6 meses)</span></div>
       <div class="outcome-example">Ej: "Gasto reducido ≥30%, cero errores documentados, facturación +60%"</div>
-      <textarea class="modal-textarea" id="oc-late" style="min-height:55px;margin-top:7px;">${outcomeData.lateResult}</textarea>
+      <textarea class="modal-textarea" id="oc-late" style="min-height:50px;margin-top:7px;">${outcomeData.lateIndicator}</textarea>
     </div>
     <div class="modal-divider"></div>
     <div class="outcome-field">
       <div class="outcome-field-label">✨ ¿Qué impacto positivo generamos si lo logramos?</div>
-      <div class="outcome-field-hint">Describí el "para qué" de fondo: qué mejora para las personas, el hospital, la comunidad. Hacé atractivo este resultado.</div>
       <div class="outcome-example">Ej: "Más presupuesto para atención directa, protección legal al equipo médico y un hospital financieramente sustentable"</div>
-      <textarea class="modal-textarea" id="oc-impact" style="min-height:70px;margin-top:7px;">${outcomeData.positiveImpact}</textarea>
+      <textarea class="modal-textarea" id="oc-impact" style="min-height:65px;margin-top:7px;">${outcomeData.positiveImpact}</textarea>
     </div>
-    <button class="modal-btn modal-btn-primary" onclick="saveOutcomeForm()">Guardar outcome ✓</button>
-    <button class="modal-btn modal-btn-ghost" onclick="closeOutcomeModal()">Cancelar</button>
-  `;
-  document.getElementById('outcomeForm').innerHTML=html;
+    <button class="modal-btn modal-btn-primary" onclick="saveOutcomeForm()">Guardar ✓</button>
+    <button class="modal-btn modal-btn-ghost" onclick="document.getElementById('outcomeModal').style.display='none'">Cancelar</button>`;
 }
-
 function saveOutcomeForm(){
   outcomeData.text=document.getElementById('oc-text').value.trim()||OUTCOME_DEFAULT.text;
-  outcomeData.earlyResult=document.getElementById('oc-early').value.trim();
-  outcomeData.lateResult=document.getElementById('oc-late').value.trim();
+  outcomeData.earlyIndicator=document.getElementById('oc-early').value.trim();
+  outcomeData.lateIndicator=document.getElementById('oc-late').value.trim();
   outcomeData.positiveImpact=document.getElementById('oc-impact').value.trim();
   saveOutcome();
-  // Update header pill
   document.getElementById('outcomeText').textContent=outcomeData.text;
-  // Rebuild tree outcome node
   treeRoot=null;_treeFitted=false;
-  closeOutcomeModal();
-  renderPrio();
-  if(activeTab==='tree') renderTree();
+  document.getElementById('outcomeModal').style.display='none';
+  renderPrio();if(activeTab==='tree')renderTree();
   showToast('Outcome actualizado ✓');
 }
 
-// ══════════════════════════════════════════
+// ══════════════════════════════════
+// SPRINT
+// ══════════════════════════════════
+function toggleSprintPanel(){
+  sprintOpen=!sprintOpen;
+  document.getElementById('sprintPanel').className='sprint-panel '+(sprintOpen?'open':'closed');
+  document.getElementById('sprintChevron').textContent=sprintOpen?'▾':'▸';
+  renderSprintPanel();
+}
+function addToSprint(expId){
+  if(sprintExps.find(s=>s.expId===expId)){showToast('Ya está en el sprint');return;}
+  if(sprintExps.length>=3){showToast('Máximo 3 experimentos por sprint');return;}
+  sprintExps.push({expId,responsible:'',addedAt:new Date().toISOString()});
+  saveSprint();sprintOpen=true;
+  document.getElementById('sprintPanel').className='sprint-panel open';
+  document.getElementById('sprintChevron').textContent='▾';
+  updateSprintBadge();renderSprintPanel();renderTree();
+}
+function removeFromSprint(expId){
+  sprintExps=sprintExps.filter(s=>s.expId!==expId);
+  saveSprint();updateSprintBadge();renderSprintPanel();renderTree();
+}
+function updateSprintResponsible(expId,val){
+  const s=sprintExps.find(s=>s.expId===expId);if(s){s.responsible=val;saveSprint();}
+}
+function updateSprintBadge(){
+  const n=sprintExps.length;
+  document.getElementById('sprintBadge').textContent=n+'/3';
+  document.getElementById('sprintToggle').className='sprint-toggle'+(n>0?' has-items':'');
+  document.getElementById('sprintDots').innerHTML=[0,1,2].map(i=>`<span class="sprint-dot${i<n?' filled':''}"></span>`).join('');
+}
+function getDaysLeft(addedAt){
+  return Math.max(0,30-Math.floor((Date.now()-new Date(addedAt).getTime())/86400000));
+}
+function getExpContext(expId){
+  for(const opp of DATA.opportunities)for(const sol of opp.solutions)for(const exp of sol.experiments)if(exp.id===expId)return{exp,sol,opp};
+  return null;
+}
+function renderSprintPanel(){
+  updateSprintBadge();
+  if(!sprintOpen)return;
+  if(sprintExps.length===0){
+    document.getElementById('sprintBody').innerHTML=`<div class="sprint-empty">Tocá <strong>+ Sprint</strong> en un experimento del árbol para agregarlo aquí</div>`;
+    return;
+  }
+  document.getElementById('sprintBody').innerHTML=sprintExps.map(s=>{
+    const ctx=getExpContext(s.expId);if(!ctx)return'';
+    const days=getDaysLeft(s.addedAt);
+    return`<div class="sprint-item">
+      <div class="sprint-item-body">
+        <div class="sprint-item-title">${ctx.exp.title}</div>
+        <div class="sprint-item-opp">${ctx.opp.title}</div>
+        <div class="sprint-item-row">
+          <input class="sprint-input" placeholder="Responsable..." value="${s.responsible||''}"
+            oninput="updateSprintResponsible('${s.expId}',this.value)" onclick="event.stopPropagation()">
+          <span class="sprint-days" style="color:${days<7?'var(--red-600)':'var(--gray-500)'}">⏱${days}d</span>
+        </div>
+      </div>
+      <button class="sprint-remove" onclick="removeFromSprint('${s.expId}')">×</button>
+    </div>`;
+  }).join('');
+}
+
+// ══════════════════════════════════
+// CANVAS SEMILLA
+// ══════════════════════════════════
+function openCanvas(expId){
+  const ctx=getExpContext(expId);if(!ctx)return;
+  const cv=canvases[expId]||{};
+  const sol=ctx.sol;const exp=ctx.exp;
+  document.getElementById('canvasModal').style.display='block';
+  document.getElementById('canvasContent').innerHTML=`
+    <div class="modal-title" style="font-size:14px;">🧪 Canvas Semilla</div>
+    <div class="canvas-link-badge">↳ Hipótesis: ${sol.title}</div>
+    <div style="font-size:13px;font-weight:700;color:var(--gray-800);margin-bottom:14px;">${exp.title}</div>
+
+    <div class="canvas-section">
+      <div class="canvas-section-title canvas-s1">🎯 1. Objetivo</div>
+      <div style="font-size:10px;color:var(--gray-500);margin-bottom:5px;">¿Para qué hacemos este experimento? ¿Qué queremos aprender o validar?</div>
+      <textarea class="canvas-mini-input" id="cv-objetivo" style="min-height:60px;">${cv.objetivo||exp.detail||''}</textarea>
+    </div>
+
+    <div class="canvas-section">
+      <div class="canvas-section-title canvas-s2">💡 2. Hipótesis doble</div>
+      <div style="font-size:10px;color:var(--gray-500);margin-bottom:6px;"><strong>H1 — Output → Outcome</strong> (fácil de medir)</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px;">
+        <div><div style="font-size:9px;font-weight:700;color:var(--gray-600);margin-bottom:3px;">Si hacemos:</div><textarea class="canvas-mini-input" id="cv-h1a" placeholder="Acción concreta...">${cv.h1Action||sol.title}</textarea></div>
+        <div><div style="font-size:9px;font-weight:700;color:var(--gray-600);margin-bottom:3px;">Obtendremos:</div><textarea class="canvas-mini-input" id="cv-h1o" placeholder="Resultado tangible...">${cv.h1Outcome||exp.detail||''}</textarea></div>
+      </div>
+      <div style="font-size:10px;color:var(--gray-500);margin-bottom:6px;"><strong>H2 — Outcome → Impacto</strong> (difícil de medir)</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+        <div><div style="font-size:9px;font-weight:700;color:var(--gray-600);margin-bottom:3px;">Si logramos:</div><textarea class="canvas-mini-input" id="cv-h2o" placeholder="Outcome esperado...">${cv.h2Outcome||''}</textarea></div>
+        <div><div style="font-size:9px;font-weight:700;color:var(--gray-600);margin-bottom:3px;">Impacto de negocio:</div><textarea class="canvas-mini-input" id="cv-h2i" placeholder="Beneficio mayor...">${cv.h2Impact||''}</textarea></div>
+      </div>
+    </div>
+
+    <div class="canvas-section">
+      <div class="canvas-section-title canvas-s3">👥 3. ¿Quiénes?</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;">
+        <div><div style="font-size:9px;font-weight:700;color:var(--gray-600);margin-bottom:3px;">Impulsores</div><textarea class="canvas-mini-input" id="cv-impulsor" placeholder="Quién diseña y ejecuta" style="min-height:44px;">${cv.impulsores||''}</textarea></div>
+        <div><div style="font-size:9px;font-weight:700;color:var(--gray-600);margin-bottom:3px;">Involucrados</div><textarea class="canvas-mini-input" id="cv-involuc" placeholder="Quién participa" style="min-height:44px;">${cv.involucrados||''}</textarea></div>
+        <div><div style="font-size:9px;font-weight:700;color:var(--gray-600);margin-bottom:3px;">Impactados</div><textarea class="canvas-mini-input" id="cv-impact" placeholder="Quién recibe el efecto" style="min-height:44px;">${cv.impactados||''}</textarea></div>
+      </div>
+    </div>
+
+    <div class="canvas-section">
+      <div class="canvas-section-title canvas-s4">⚡ 4. Acciones</div>
+      <div style="font-size:10px;color:var(--gray-500);margin-bottom:5px;">¿Qué hacemos? ¿Cómo? ¿Cuándo? ¿Cuál es el primer paso concreto?</div>
+      <textarea class="canvas-mini-input" id="cv-acciones" style="min-height:70px;">${cv.acciones||''}</textarea>
+    </div>
+
+    <div class="canvas-section">
+      <div class="canvas-section-title canvas-s5">📅 5. Fechas</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;">
+        <div><div style="font-size:9px;font-weight:700;color:var(--gray-600);margin-bottom:3px;">Inicio</div><input class="canvas-mini-input" id="cv-inicio" type="date" value="${cv.inicio||''}" style="min-height:auto;padding:5px 8px;"></div>
+        <div><div style="font-size:9px;font-weight:700;color:var(--gray-600);margin-bottom:3px;">Fin (${exp.days}d estimados)</div><input class="canvas-mini-input" id="cv-fin" type="date" value="${cv.fin||''}" style="min-height:auto;padding:5px 8px;"></div>
+        <div><div style="font-size:9px;font-weight:700;color:var(--gray-600);margin-bottom:3px;">Ciclos de revisión</div><textarea class="canvas-mini-input" id="cv-ciclos" placeholder="Ej: semanal" style="min-height:44px;">${cv.ciclos||''}</textarea></div>
+      </div>
+    </div>
+
+    <div class="canvas-section">
+      <div class="canvas-section-title canvas-s6">📊 6. Resultados</div>
+      <div style="font-size:10px;color:var(--gray-500);margin-bottom:5px;">¿Cómo medimos? ¿Cuándo sabremos que fue exitoso?</div>
+      <textarea class="canvas-mini-input" id="cv-resultados" style="min-height:65px;">${cv.resultados||''}</textarea>
+    </div>
+
+    <button class="modal-btn modal-btn-primary" onclick="saveCanvas('${expId}')">Guardar canvas ✓</button>
+    <button class="modal-btn modal-btn-ghost" onclick="document.getElementById('canvasModal').style.display='none'">Cerrar</button>
+  `;
+}
+function saveCanvas(expId){
+  canvases[expId]={
+    objetivo:document.getElementById('cv-objetivo').value.trim(),
+    h1Action:document.getElementById('cv-h1a').value.trim(),
+    h1Outcome:document.getElementById('cv-h1o').value.trim(),
+    h2Outcome:document.getElementById('cv-h2o').value.trim(),
+    h2Impact:document.getElementById('cv-h2i').value.trim(),
+    impulsores:document.getElementById('cv-impulsor').value.trim(),
+    involucrados:document.getElementById('cv-involuc').value.trim(),
+    impactados:document.getElementById('cv-impact').value.trim(),
+    acciones:document.getElementById('cv-acciones').value.trim(),
+    inicio:document.getElementById('cv-inicio').value,
+    fin:document.getElementById('cv-fin').value,
+    ciclos:document.getElementById('cv-ciclos').value.trim(),
+    resultados:document.getElementById('cv-resultados').value.trim()
+  };
+  saveCanvases();
+  document.getElementById('canvasModal').style.display='none';
+  renderTree();showToast('Canvas guardado ✓');
+}
+
+// ══════════════════════════════════
 // ADD PROBLEM MODAL
-// ══════════════════════════════════════════
+// ══════════════════════════════════
 let modalStep=0;
 const modalState={title:'',phaseId:null,type:'',quote:'',source:''};
 let selectedAnalysis=null;
 const TOTAL_STEPS=4;
-
-function openAddModal(){
-  modalStep=0;
-  Object.assign(modalState,{title:'',phaseId:null,type:'',quote:'',source:''});
-  selectedAnalysis=null;
-  document.getElementById('addModal').style.display='block';
-  renderModalStep();
-}
+function openAddModal(){modalStep=0;Object.assign(modalState,{title:'',phaseId:null,type:'',quote:'',source:''});selectedAnalysis=null;document.getElementById('addModal').style.display='block';renderModalStep();}
 function closeModal(){document.getElementById('addModal').style.display='none';}
-function closeModalIfBg(e,id){if(e.target===e.currentTarget)document.getElementById(id).style.display='none';}
-
 function renderModalStep(){
   const bar=document.getElementById('stepBar');
   bar.innerHTML=[...Array(TOTAL_STEPS)].map((_,i)=>`<div class="step-dot${i<modalStep?' done':i===modalStep?' active':''}"></div>`).join('');
@@ -662,71 +888,39 @@ function renderModalStep(){
   let html='';
   if(modalStep===0){
     html=`<div class="modal-q">¿Qué problema querés registrar?</div>
-          <div class="modal-qsub">Describilo en una oración desde la perspectiva de quien lo vive. Ej: "La enfermera no puede confirmar que entregó el medicamento correcto".</div>
           <textarea class="modal-textarea" id="m-title" placeholder="Describí el problema...">${modalState.title}</textarea>
-          <button class="modal-btn modal-btn-primary" id="m-next1" onclick="stepNext1()">Continuar →</button>
+          <button class="modal-btn modal-btn-primary" onclick="stepNext1()">Continuar →</button>
           <button class="modal-btn modal-btn-ghost" onclick="closeModal()">Cancelar</button>`;
   }else if(modalStep===1){
-    const phases=[
-      {id:1,icon:'📦',name:'Proveedores',desc:'Compras, precios, ingreso',cls:'g'},
-      {id:2,icon:'🏭',name:'Almacenamiento',desc:'Depósito, empaque, QR',cls:'b'},
-      {id:3,icon:'💊',name:'Dispensación',desc:'Entrega al paciente',cls:'o'},
-      {id:0,icon:'🆕',name:'Nueva rama',desc:'No encaja en las existentes',cls:'t'}
-    ];
-    const types=[
-      {k:'pain',icon:'😖',name:'Dolor',desc:'Frustra o duele hoy'},
-      {k:'desire',icon:'✨',name:'Deseo',desc:'Mejoraría mucho la situación'},
-      {k:'need',icon:'🎯',name:'Necesidad',desc:'Algo falta y bloquea el sistema'}
-    ];
+    const phases=[{id:1,icon:'📦',name:'Proveedores',desc:'Compras, precios, ingreso',cls:'g'},{id:2,icon:'🏭',name:'Almacenamiento',desc:'Depósito, empaque, QR',cls:'b'},{id:3,icon:'💊',name:'Dispensación',desc:'Entrega al paciente',cls:'o'},{id:0,icon:'🆕',name:'Nueva rama',desc:'No encaja en las existentes',cls:'t'}];
+    const types=[{k:'pain',icon:'😖',name:'Dolor',desc:'Frustra o duele hoy'},{k:'desire',icon:'✨',name:'Deseo',desc:'Mejoraría mucho la situación'},{k:'need',icon:'🎯',name:'Necesidad',desc:'Algo falta y bloquea el sistema'}];
     html=`<div class="modal-q">¿En qué parte del proceso ocurre?</div>
           <div class="opts-grid cols2">${phases.map(p=>`<div class="opt${modalState.phaseId===p.id?' sel '+p.cls:''}" onclick="selPhase(${p.id})"><span class="opt-icon">${p.icon}</span><div class="opt-body"><div class="opt-name">${p.name}</div><div class="opt-desc">${p.desc}</div></div></div>`).join('')}</div>
           <div class="modal-divider"></div>
           <div class="modal-q">¿Cómo clasificarías este problema?</div>
           <div class="opts-grid">${types.map(t=>`<div class="opt${modalState.type===t.k?' sel '+t.k:''}" onclick="selType('${t.k}')"><span class="opt-icon">${t.icon}</span><div class="opt-body"><div class="opt-name">${t.name}</div><div class="opt-desc">${t.desc}</div></div></div>`).join('')}</div>
-          <button class="modal-btn modal-btn-primary" id="m-next2" onclick="stepNext2()" ${!modalState.type||modalState.phaseId===null?'disabled':''}>Continuar →</button>
+          <button class="modal-btn modal-btn-primary" onclick="stepNext2()" ${!modalState.type||modalState.phaseId===null?'disabled':''}>Continuar →</button>
           <button class="modal-btn modal-btn-ghost" onclick="modalStep=0;renderModalStep()">← Volver</button>`;
   }else if(modalStep===2){
     html=`<div class="modal-q">¿Hay evidencia de este problema? <span style="color:var(--gray-400);font-weight:500;">(opcional)</span></div>
-          <div class="modal-qsub">¿Alguien lo mencionó en entrevistas? ¿Existe un registro, queja o incidente documentado?</div>
-          <textarea class="modal-textarea" id="m-quote" placeholder='Ej: "El médico me dijo que a veces no sabe si entregó el medicamento o no..."' style="min-height:70px;">${modalState.quote}</textarea>
+          <textarea class="modal-textarea" id="m-quote" style="min-height:70px;">${modalState.quote}</textarea>
           <input class="modal-input" id="m-source" placeholder="Fuente (quién, cuándo, dónde)" style="margin-top:7px;" value="${modalState.source}">
           <button class="modal-btn modal-btn-primary" onclick="stepNext3()" style="margin-top:10px;">Analizar encaje →</button>
           <button class="modal-btn modal-btn-ghost" onclick="modalStep=1;renderModalStep()">← Volver</button>`;
   }else if(modalStep===3){
-    const similar=findSimilar();
-    const isNewBranch=modalState.phaseId===0;
-    const selId=selectedAnalysis;
+    const similar=findSimilar();const isNewBranch=modalState.phaseId===0;const selId=selectedAnalysis;
     html=`<div class="modal-q">🔍 Análisis de encaje en el árbol</div>`;
     if(isNewBranch){
-      html+=`<div class="modal-qsub">Marcaste esto como una <strong>nueva rama</strong> que no está en el árbol actual.</div>
+      html+=`<div class="modal-qsub">Marcaste esto como una <strong>nueva rama</strong>.</div>
              <div class="analysis-card new-branch${selId==='new'?' sel':''}" onclick="selectedAnalysis='new';renderModalStep()">
                <div class="analysis-label" style="color:var(--teal-600);">🆕 Nueva rama no mapeada</div>
-               <div class="analysis-title">"${modalState.title}"</div>
-               <div class="analysis-sub">Se agrega al árbol como problema nuevo sin hipótesis todavía</div>
-             </div>`;
+               <div class="analysis-title">"${modalState.title}"</div></div>`;
     }else if(similar.length){
-      html+=`<div class="modal-qsub">Encontramos problemas similares en el árbol. ¿Este problema es parte de uno existente o es distinto?</div>`;
-      similar.forEach(s=>{
-        const pct=Math.round(s.score*100);
-        html+=`<div class="analysis-card similar${selId===s.opp.id?' sel':''}" onclick="selectedAnalysis='${s.opp.id}';renderModalStep()">
-          <div class="analysis-label" style="color:var(--blue-600);">Encaje ${pct}% — ${s.opp.id}</div>
-          <div class="analysis-title">${s.opp.title}</div>
-          <div class="analysis-sub">${s.opp.desc||''}</div>
-          <div class="match-bar" style="width:${pct}%"></div>
-        </div>`;
-      });
-      html+=`<div class="analysis-card new-branch${selId==='new'?' sel':''}" onclick="selectedAnalysis='new';renderModalStep()">
-               <div class="analysis-label" style="color:var(--teal-600);">➕ Es un problema diferente</div>
-               <div class="analysis-title">Agregar como nuevo problema</div>
-               <div class="analysis-sub">No encaja con los anteriores — se agrega como problema independiente</div>
-             </div>`;
+      html+=`<div class="modal-qsub">Encontramos problemas similares. ¿Es parte de uno existente o es distinto?</div>`;
+      similar.forEach(s=>{const pct=Math.round(s.score*100);html+=`<div class="analysis-card similar${selId===s.opp.id?' sel':''}" onclick="selectedAnalysis='${s.opp.id}';renderModalStep()"><div class="analysis-label" style="color:var(--blue-600);">Encaje ${pct}%</div><div class="analysis-title">${s.opp.title}</div><div class="match-bar" style="width:${pct}%"></div></div>`;});
+      html+=`<div class="analysis-card new-branch${selId==='new'?' sel':''}" onclick="selectedAnalysis='new';renderModalStep()"><div class="analysis-label" style="color:var(--teal-600);">➕ Es diferente</div><div class="analysis-title">Agregar como nuevo problema</div></div>`;
     }else{
-      html+=`<div class="modal-qsub">No encontramos un problema similar en el árbol. Este sería un problema nuevo.</div>
-             <div class="analysis-card new-branch${selId==='new'?' sel':''}" onclick="selectedAnalysis='new';renderModalStep()">
-               <div class="analysis-label" style="color:var(--teal-600);">➕ Problema nuevo</div>
-               <div class="analysis-title">"${modalState.title}"</div>
-               <div class="analysis-sub">Se agrega al árbol en la fase seleccionada</div>
-             </div>`;
+      html+=`<div class="analysis-card new-branch${selId==='new'?' sel':''}" onclick="selectedAnalysis='new';renderModalStep()"><div class="analysis-label" style="color:var(--teal-600);">➕ Problema nuevo</div><div class="analysis-title">"${modalState.title}"</div></div>`;
     }
     html+=`<div class="modal-divider"></div>
            <button class="modal-btn modal-btn-primary" onclick="confirmAdd()" ${!selId?'disabled':''}>Agregar al árbol ✓</button>
@@ -734,284 +928,175 @@ function renderModalStep(){
   }
   document.getElementById('modalContent').innerHTML=html;
 }
-
 function selPhase(id){modalState.phaseId=id;renderModalStep();}
 function selType(k){modalState.type=k;renderModalStep();}
-
 function stepNext1(){const v=document.getElementById('m-title').value.trim();if(!v)return;modalState.title=v;modalStep=1;renderModalStep();}
 function stepNext2(){if(!modalState.type||modalState.phaseId===null)return;modalStep=2;renderModalStep();}
 function stepNext3(){modalState.quote=document.getElementById('m-quote').value.trim();modalState.source=document.getElementById('m-source').value.trim();selectedAnalysis=null;modalStep=3;renderModalStep();}
-
 function findSimilar(){
-  if(modalState.phaseId===0) return [];
+  if(modalState.phaseId===0)return[];
   const words=modalState.title.toLowerCase().split(/[\s,.:;]+/).filter(w=>w.length>3);
-  return DATA.opportunities
-    .filter(o=>!o.isUserAdded&&(modalState.phaseId===null||o.phase===modalState.phaseId))
+  return DATA.opportunities.filter(o=>!o.isUserAdded&&(modalState.phaseId===null||o.phase===modalState.phaseId))
     .map(opp=>{const hay=(opp.title+' '+(opp.desc||'')).toLowerCase();const hits=words.filter(w=>hay.includes(w)).length;return{opp,score:hits/Math.max(words.length,1)};})
     .filter(x=>x.score>=0.15).sort((a,b)=>b.score-a.score).slice(0,3);
 }
-
 function confirmAdd(){
-  if(!selectedAnalysis) return;
-  const id='U'+Date.now();
-  const phaseId=modalState.phaseId===0?null:modalState.phaseId;
-  const ph=DATA.phases.find(p=>p.id===phaseId);
-  const newOpp={id,phase:phaseId||0,type:modalState.type,title:modalState.title,desc:'Agregado por el equipo.',noResolve:'',quote:modalState.quote,source:modalState.source||'Agregado por el equipo',timestamp:new Date().toLocaleDateString('es-AR'),isUserAdded:true,isNewBranch:!phaseId,linkedTo:selectedAnalysis==='new'?null:selectedAnalysis,solutions:[]};
-  DATA.opportunities.push(newOpp);
-  votes[id]={count:0,voted:false};
+  if(!selectedAnalysis)return;
+  const id='U'+Date.now();const phaseId=modalState.phaseId===0?null:modalState.phaseId;const ph=DATA.phases.find(p=>p.id===phaseId);
+  const newOpp={id,phase:phaseId||0,type:modalState.type,title:modalState.title,desc:'Agregado por el equipo.',noResolve:'',quote:modalState.quote,source:modalState.source||'Equipo',timestamp:new Date().toLocaleDateString('es-AR'),isUserAdded:true,isNewBranch:!phaseId,linkedTo:selectedAnalysis==='new'?null:selectedAnalysis,solutions:[]};
+  DATA.opportunities.push(newOpp);votes[id]={count:0,voted:false};
   try{const saved=JSON.parse(localStorage.getItem('ost_user_problems')||'[]');saved.push(newOpp);localStorage.setItem('ost_user_problems',JSON.stringify(saved));}catch(e){}
-  treeRoot=buildTreeData();_treeFitted=false;
-  closeModal();renderPrio();
-  if(activeTab==='tree') renderTree();
+  treeRoot=buildTreeData();_treeFitted=false;closeModal();renderPrio();
+  if(activeTab==='tree')renderTree();
   showToast(ph?`Agregado en ${ph.icon} ${ph.name}`:'Agregado como nueva rama 🆕');
 }
+function showToast(msg){const t=document.createElement('div');t.style.cssText='position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#1a365d;color:#fff;padding:8px 18px;border-radius:20px;font-size:12px;font-weight:600;z-index:300;box-shadow:0 4px 12px rgba(0,0,0,.2);white-space:nowrap;';t.textContent='✓ '+msg;document.body.appendChild(t);setTimeout(()=>t.remove(),2500);}
 
-function showToast(msg){
-  const t=document.createElement('div');
-  t.style.cssText='position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#1a365d;color:#fff;padding:8px 18px;border-radius:20px;font-size:12px;font-weight:600;z-index:300;box-shadow:0 4px 12px rgba(0,0,0,.2);';
-  t.textContent='✓ '+msg;document.body.appendChild(t);setTimeout(()=>t.remove(),2500);
-}
-
-// ══════════════════════════════════════════
+// ══════════════════════════════════
 // TREE ENGINE
-// ══════════════════════════════════════════
-const NW=196,VG=50,HG=12;
-const NH={outcome:52,opp:72,evidence:54,sol:80,exp:58};
+// ══════════════════════════════════
+const NW=200,VG=48,HG=14;
+const NH={outcome:50,opp:70,evidence:52,sol:88,exp:72};
 
 function buildTreeData(){
-  // Flat structure: Outcome > Opportunities > [Evidence, Solutions > Experiments]
   const oppNodes=DATA.opportunities.map(opp=>{
     const children=[];
-    // Evidence node (if quote exists and layer is on)
-    if(opp.quote){
-      children.push({id:opp.id+'_ev',type:'evidence',opp,collapsed:true,children:[]});
-    }
-    // Solution/hypothesis nodes
+    if(opp.quote)children.push({id:opp.id+'_ev',type:'evidence',opp,collapsed:true,children:[]});
     opp.solutions.forEach(sol=>{
-      children.push({
-        id:sol.id,type:'sol',sol,collapsed:true,
-        children:sol.experiments.map(exp=>({id:exp.id,type:'exp',exp,collapsed:true,children:[]}))
-      });
+      children.push({id:sol.id,type:'sol',sol,collapsed:true,
+        children:sol.experiments.map(exp=>({id:exp.id,type:'exp',exp,collapsed:true,children:[]}))});
     });
-    return {id:opp.id,type:'opp',opp,collapsed:true,children};
+    return{id:opp.id,type:'opp',opp,collapsed:true,children};
   });
-  return {id:'outcome',type:'outcome',collapsed:false,children:oppNodes};
+  return{id:'outcome',type:'outcome',collapsed:false,children:oppNodes};
 }
-
 function isCollapsed(node){
-  if(node.collapsed) return true;
-  if(node.type==='opp'&&!showLayers.sol) return true;
-  if(node.type==='sol'&&!showLayers.exp) return true;
+  if(node.collapsed)return true;
+  if(node.type==='opp'&&!showLayers.sol)return true;
+  if(node.type==='sol'&&!showLayers.exp)return true;
   return false;
 }
 function isVisible(node){
-  if(node.type==='opp'){const phId=node.opp.phase;if(phId>0&&!showPhases[phId]) return false;}
-  if(node.type==='evidence'){
-    if(!showLayers.ev) return false;
-    const phId=node.opp.phase;if(phId>0&&!showPhases[phId]) return false;
-  }
+  if(node.type==='opp'){const phId=node.opp.phase;if(selectedBranch!==0&&phId!==0&&phId!==selectedBranch)return false;}
+  if(node.type==='evidence'){if(!showLayers.ev)return false;const phId=node.opp.phase;if(selectedBranch!==0&&phId!==0&&phId!==selectedBranch)return false;}
   return true;
 }
-function getVisChildren(node){
-  if(isCollapsed(node)) return [];
-  return node.children.filter(c=>isVisible(c));
-}
+function getVisChildren(node){if(isCollapsed(node))return[];return node.children.filter(c=>isVisible(c));}
 function nh(node){return NH[node.type]||66;}
-
 function layout(node,startX,y){
   if(!isVisible(node)){node.x=startX;node._w=0;return 0;}
-  node.y=y;
-  const vis=getVisChildren(node);
+  node.y=y;const vis=getVisChildren(node);
   if(!vis.length){node.x=startX;node._w=NW+HG;return NW+HG;}
   let cx=startX,totalW=0;
   vis.forEach(child=>{const w=layout(child,cx,y+nh(node)+VG);cx+=w;totalW+=w;});
-  node.x=startX+(totalW-HG)/2-NW/2;
-  node._w=Math.max(totalW,NW+HG);
-  return node._w;
+  node.x=startX+(totalW-HG)/2-NW/2;node._w=Math.max(totalW,NW+HG);return node._w;
 }
-function allVisNodes(node,acc=[]){
-  if(!isVisible(node)) return acc;
-  acc.push(node);
-  getVisChildren(node).forEach(c=>allVisNodes(c,acc));
-  return acc;
-}
-function findNode(node,id){
-  if(node.id===id) return node;
-  for(const c of node.children){const f=findNode(c,id);if(f) return f;}
-  return null;
-}
+function allVisNodes(node,acc=[]){if(!isVisible(node))return acc;acc.push(node);getVisChildren(node).forEach(c=>allVisNodes(c,acc));return acc;}
+function findNode(node,id){if(node.id===id)return node;for(const c of node.children){const f=findNode(c,id);if(f)return f;}return null;}
 
-// ══════════════════════════════════════════
-// PAN / ZOOM — Miro-like
-// ══════════════════════════════════════════
+// PAN / ZOOM
 let zoom=1,panX=20,panY=20,isDragging=false,dragStart={x:0,y:0};
-let lastTD=null,lastTM=null,prevT=[];
-let _spaceDown=false;
-
-function applyT(){
-  document.getElementById('treeCanvas').style.transform=`translate(${panX}px,${panY}px) scale(${zoom})`;
-  document.getElementById('zoomLevel').textContent=Math.round(zoom*100)+'%';
-}
-
+let lastTD=null,lastTM=null,prevT=[];let _spaceDown=false;
+function applyT(){document.getElementById('treeCanvas').style.transform=`translate(${panX}px,${panY}px) scale(${zoom})`;document.getElementById('zoomLevel').textContent=Math.round(zoom*100)+'%';}
 function doZoom(factor,animate=false){
   const stage=document.getElementById('treeStage');
   const cx=stage.clientWidth/2,cy=stage.clientHeight/2;
   const nz=Math.max(0.1,Math.min(3.5,zoom*factor));
-  panX=cx-(cx-panX)*(nz/zoom);
-  panY=cy-(cy-panY)*(nz/zoom);
-  zoom=nz;
-  if(animate){
-    const c=document.getElementById('treeCanvas');
-    c.style.transition='transform 0.22s cubic-bezier(0.25,0.1,0.25,1)';
-    applyT();setTimeout(()=>{c.style.transition='';},230);
-  }else{applyT();}
+  panX=cx-(cx-panX)*(nz/zoom);panY=cy-(cy-panY)*(nz/zoom);zoom=nz;
+  if(animate){const c=document.getElementById('treeCanvas');c.style.transition='transform 0.22s cubic-bezier(.25,.1,.25,1)';applyT();setTimeout(()=>{c.style.transition='';},230);}else applyT();
 }
-
 function fitView(animate=false){
-  if(!treeRoot) return;
-  const stage=document.getElementById('treeStage');
-  const sw=stage.clientWidth,sh=stage.clientHeight;
-  const nodes=allVisNodes(treeRoot);if(!nodes.length) return;
-  const minX=Math.min(...nodes.map(n=>n.x));const maxX=Math.max(...nodes.map(n=>n.x+NW));
-  const minY=Math.min(...nodes.map(n=>n.y));const maxY=Math.max(...nodes.map(n=>n.y+nh(n)));
+  if(!treeRoot)return;
+  const stage=document.getElementById('treeStage');const sw=stage.clientWidth,sh=stage.clientHeight;
+  const nodes=allVisNodes(treeRoot);if(!nodes.length)return;
+  const minX=Math.min(...nodes.map(n=>n.x)),maxX=Math.max(...nodes.map(n=>n.x+NW));
+  const minY=Math.min(...nodes.map(n=>n.y)),maxY=Math.max(...nodes.map(n=>n.y+nh(n)));
   const tw=maxX-minX+60,th=maxY-minY+60;
-  zoom=Math.min(sw/tw,sh/th,1.4)*0.87;
-  panX=(sw-(maxX-minX)*zoom)/2-minX*zoom;panY=20;
-  if(animate){
-    const c=document.getElementById('treeCanvas');
-    c.style.transition='transform 0.38s cubic-bezier(0.25,0.1,0.25,1)';
-    applyT();setTimeout(()=>{c.style.transition='';},400);
-  }else{applyT();}
+  zoom=Math.min(sw/tw,sh/th,1.4)*0.87;panX=(sw-(maxX-minX)*zoom)/2-minX*zoom;panY=20;
+  if(animate){const c=document.getElementById('treeCanvas');c.style.transition='transform 0.38s cubic-bezier(.25,.1,.25,1)';applyT();setTimeout(()=>{c.style.transition='';},400);}else applyT();
 }
-
 function centerNode(node,animate=false){
   const stage=document.getElementById('treeStage');
-  const npX=stage.clientWidth/2-(node.x+NW/2)*zoom;
-  const npY=stage.clientHeight/3-node.y*zoom;
-  if(animate){
-    const c=document.getElementById('treeCanvas');
-    c.style.transition='transform 0.35s cubic-bezier(0.25,0.1,0.25,1)';
-    panX=npX;panY=npY;applyT();setTimeout(()=>{c.style.transition='';},370);
-  }else{panX=npX;panY=npY;applyT();}
+  const npX=stage.clientWidth/2-(node.x+NW/2)*zoom,npY=stage.clientHeight/3-node.y*zoom;
+  if(animate){const c=document.getElementById('treeCanvas');c.style.transition='transform 0.35s cubic-bezier(.25,.1,.25,1)';panX=npX;panY=npY;applyT();setTimeout(()=>{c.style.transition='';},370);}else{panX=npX;panY=npY;applyT();}
 }
-
 function initPanZoom(){
   const stage=document.getElementById('treeStage');
-
-  // Space key for pan mode
   document.addEventListener('keydown',e=>{if(e.code==='Space'&&activeTab==='tree'){_spaceDown=true;stage.style.cursor='grab';e.preventDefault();}});
   document.addEventListener('keyup',e=>{if(e.code==='Space'){_spaceDown=false;if(!isDragging)stage.style.cursor='';}});
-
-  // Mouse drag
-  stage.addEventListener('mousedown',e=>{
-    if(e.button===1||_spaceDown||!e.target.closest('.tn')){
-      isDragging=true;dragStart={x:e.clientX-panX,y:e.clientY-panY};stage.classList.add('panning');e.preventDefault();
-    }
-  });
-  document.addEventListener('mousemove',e=>{
-    if(!isDragging)return;panX=e.clientX-dragStart.x;panY=e.clientY-dragStart.y;applyT();
-  });
-  document.addEventListener('mouseup',()=>{
-    isDragging=false;const s=document.getElementById('treeStage');
-    if(s){s.classList.remove('panning');if(!_spaceDown)s.style.cursor='';}
-  });
-
-  // Wheel zoom → toward cursor
+  stage.addEventListener('mousedown',e=>{if(e.button===1||_spaceDown||!e.target.closest('.tn')){isDragging=true;dragStart={x:e.clientX-panX,y:e.clientY-panY};stage.classList.add('panning');e.preventDefault();}});
+  document.addEventListener('mousemove',e=>{if(!isDragging)return;panX=e.clientX-dragStart.x;panY=e.clientY-dragStart.y;applyT();});
+  document.addEventListener('mouseup',()=>{isDragging=false;const s=document.getElementById('treeStage');if(s){s.classList.remove('panning');if(!_spaceDown)s.style.cursor='';}});
   stage.addEventListener('wheel',e=>{
     e.preventDefault();
-    const rect=stage.getBoundingClientRect();
-    const mx=e.clientX-rect.left,my=e.clientY-rect.top;
-    const factor=e.deltaY<0?1.12:0.9;
-    const nz=Math.max(0.1,Math.min(3.5,zoom*factor));
-    panX=mx-(mx-panX)*(nz/zoom);
-    panY=my-(my-panY)*(nz/zoom);
-    zoom=nz;applyT();
+    const rect=stage.getBoundingClientRect();const mx=e.clientX-rect.left,my=e.clientY-rect.top;
+    const factor=e.deltaY<0?1.12:0.9;const nz=Math.max(0.1,Math.min(3.5,zoom*factor));
+    panX=mx-(mx-panX)*(nz/zoom);panY=my-(my-panY)*(nz/zoom);zoom=nz;applyT();
   },{passive:false});
-
-  // Double-click on empty area → fit view
-  stage.addEventListener('dblclick',e=>{
-    if(!e.target.closest('.tn')) fitView(true);
-  });
-
-  // Touch: pinch-zoom + pan (Miro-like)
-  stage.addEventListener('touchstart',e=>{
-    prevT=[...e.touches].map(t=>({x:t.clientX,y:t.clientY}));
-    if(e.touches.length===2){
-      lastTD=Math.hypot(e.touches[1].clientX-e.touches[0].clientX,e.touches[1].clientY-e.touches[0].clientY);
-      lastTM={x:(e.touches[0].clientX+e.touches[1].clientX)/2,y:(e.touches[0].clientY+e.touches[1].clientY)/2};
-    }
-  },{passive:true});
+  stage.addEventListener('dblclick',e=>{if(!e.target.closest('.tn'))fitView(true);});
+  stage.addEventListener('touchstart',e=>{prevT=[...e.touches].map(t=>({x:t.clientX,y:t.clientY}));if(e.touches.length===2){lastTD=Math.hypot(e.touches[1].clientX-e.touches[0].clientX,e.touches[1].clientY-e.touches[0].clientY);lastTM={x:(e.touches[0].clientX+e.touches[1].clientX)/2,y:(e.touches[0].clientY+e.touches[1].clientY)/2};}},{passive:true});
   stage.addEventListener('touchmove',e=>{
     e.preventDefault();const tArr=[...e.touches];
     if(tArr.length===2){
       const dist=Math.hypot(tArr[1].clientX-tArr[0].clientX,tArr[1].clientY-tArr[0].clientY);
       const mid={x:(tArr[0].clientX+tArr[1].clientX)/2,y:(tArr[0].clientY+tArr[1].clientY)/2};
-      const rect=document.getElementById('treeStage').getBoundingClientRect();
-      const mx=mid.x-rect.left,my=mid.y-rect.top;
-      if(lastTD){
-        const factor=dist/lastTD;
-        const nz=Math.max(0.1,Math.min(3.5,zoom*factor));
-        panX=mx-(mx-panX)*(nz/zoom);panY=my-(my-panY)*(nz/zoom);zoom=nz;
-      }
+      const rect=stage.getBoundingClientRect();const mx=mid.x-rect.left,my=mid.y-rect.top;
+      if(lastTD){const factor=dist/lastTD;const nz=Math.max(0.1,Math.min(3.5,zoom*factor));panX=mx-(mx-panX)*(nz/zoom);panY=my-(my-panY)*(nz/zoom);zoom=nz;}
       if(lastTM){panX+=mid.x-lastTM.x;panY+=mid.y-lastTM.y;}
       lastTD=dist;lastTM=mid;applyT();
-    }else if(tArr.length===1&&prevT.length){
-      panX+=tArr[0].clientX-prevT[0].x;panY+=tArr[0].clientY-prevT[0].y;applyT();
-    }
+    }else if(tArr.length===1&&prevT.length){panX+=tArr[0].clientX-prevT[0].x;panY+=tArr[0].clientY-prevT[0].y;applyT();}
     prevT=tArr.map(t=>({x:t.clientX,y:t.clientY}));
   },{passive:false});
-  stage.addEventListener('touchend',e=>{
-    prevT=[...e.touches].map(t=>({x:t.clientX,y:t.clientY}));
-    if(e.touches.length<2){lastTD=null;lastTM=null;}
-  },{passive:true});
+  stage.addEventListener('touchend',e=>{prevT=[...e.touches].map(t=>({x:t.clientX,y:t.clientY}));if(e.touches.length<2){lastTD=null;lastTM=null;}},{passive:true});
 }
-
 function toggleNode(nodeId){
-  if(!treeRoot) return;
+  if(!treeRoot)return;
   const node=findNode(treeRoot,nodeId);
   if(node&&node.type!=='evidence'&&node.children.length){
-    if(node.type==='opp'&&!showLayers.sol) return;
-    if(node.type==='sol'&&!showLayers.exp) return;
+    if(node.type==='opp'&&!showLayers.sol)return;
+    if(node.type==='sol'&&!showLayers.exp)return;
     node.collapsed=!node.collapsed;renderTree();
   }
 }
 
-// ══════════════════════════════════════════
+// ══════════════════════════════════
 // RENDER TREE
-// ══════════════════════════════════════════
+// ══════════════════════════════════
 function renderTree(){
-  if(!treeRoot) treeRoot=buildTreeData();
+  if(!treeRoot){
+    treeRoot=buildTreeData();
+    // Auto-expand selected branch on first build
+    treeRoot.children.forEach(opp=>{
+      if(opp.type!=='opp')return;
+      const match=selectedBranch===0||opp.opp.phase===selectedBranch;
+      opp.collapsed=!match;
+      if(match)opp.children.forEach(c=>{if(c.type==='sol')c.collapsed=false;});
+    });
+  }
   if(!_treeInited){_treeInited=true;initPanZoom();}
   const totalW=layout(treeRoot,20,20);
   const nodes=allVisNodes(treeRoot);
   const maxY=nodes.length?Math.max(...nodes.map(n=>n.y+nh(n)))+30:400;
   const canvasW=Math.max(totalW+40,700);
   const svg=document.getElementById('treeSvg');
-  svg.setAttribute('width',canvasW);svg.setAttribute('height',maxY);
-  svg.style.width=canvasW+'px';svg.style.height=maxY+'px';
-
-  // Draw edges
+  svg.setAttribute('width',canvasW);svg.setAttribute('height',maxY);svg.style.width=canvasW+'px';svg.style.height=maxY+'px';
   let lines='';
   function drawEdges(node){
-    if(!isVisible(node)) return;
-    const vis=getVisChildren(node);if(!vis.length) return;
+    if(!isVisible(node))return;const vis=getVisChildren(node);if(!vis.length)return;
     const px=node.x+NW/2,py=node.y+nh(node);
-    let col='#cbd5e0';
-    if(node.type==='outcome') col='#4a5568';
+    let col='#94a3b8';
+    if(node.type==='outcome')col='#4a5568';
     else if(node.type==='opp'){const pc=phCols[node.opp.phase];col=pc?pc.bg:'#94a3b8';}
-    else if(node.type==='evidence') col='#2c7a7b';
+    else if(node.type==='evidence')col='#2c7a7b';
     const dashed=node.type==='sol'?'stroke-dasharray="5,4"':'';
     vis.forEach(child=>{
-      if(!isVisible(child)) return;
+      if(!isVisible(child))return;
       const cx=child.x+NW/2,cy=child.y,my=(py+cy)/2;
-      lines+=`<path d="M${px} ${py} C${px} ${my},${cx} ${my},${cx} ${cy}" fill="none" stroke="${col}" stroke-width="2" ${dashed} opacity="0.45"/>`;
+      lines+=`<path d="M${px} ${py} C${px} ${my},${cx} ${my},${cx} ${cy}" fill="none" stroke="${col}" stroke-width="1.8" ${dashed} opacity="0.45"/>`;
       drawEdges(child);
     });
   }
-  drawEdges(treeRoot);
-  svg.innerHTML=lines;
-
-  // Draw nodes
+  drawEdges(treeRoot);svg.innerHTML=lines;
   let html='';
   nodes.forEach(node=>{
     const h=nh(node);
@@ -1026,62 +1111,60 @@ function renderTree(){
       inner=`<div style="font-size:7px;font-weight:700;text-transform:uppercase;opacity:.75;margin-bottom:2px;letter-spacing:.4px;">🎯 Outcome</div>
              <div style="font-size:10px;font-weight:700;line-height:1.3;">${outcomeData.text}</div>`;
       style+=`background:linear-gradient(135deg,#1a365d,#2b6cb0);color:#fff;padding:9px 12px;cursor:pointer;`;
-      html+=`<div class="${cls}" style="${style}" onclick="openOutcomeModal()">${inner}</div>`;
-      return;
+      html+=`<div class="${cls}" style="${style}" onclick="openOutcomeModal()">${inner}</div>`;return;
     }
-
     if(node.type==='opp'){
-      if(!node.collapsed) cls+=' expanded-border';
-      if(v.count>0) cls+=' voted-node';
-      // Phase badge
-      const ph=DATA.phases.find(p=>p.id===node.opp.phase);
-      const pc=phCols[node.opp.phase]||{bg:'#2c7a7b',text:'#fff'};
+      if(!node.collapsed)cls+=' expanded-border';if(v.count>0)cls+=' voted-node';
+      const ph=DATA.phases.find(p=>p.id===node.opp.phase);const pc=phCols[node.opp.phase]||{bg:'#2c7a7b',text:'#fff'};
       inner=`<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:3px;margin-bottom:3px;">
         <div style="display:flex;gap:2px;flex-wrap:wrap;align-items:center;">
           <span class="tag tag-${node.opp.type}" style="font-size:7px;">${typeIcon[node.opp.type]} ${typeLabel[node.opp.type]}</span>
-          ${ph?`<span class="tag" style="background:${pc.bg}20;color:${pc.bg};font-size:7px;border:1px solid ${pc.bg}40;">${ph.icon} ${ph.name}</span>`:`<span class="tag tag-new" style="font-size:7px;">🆕</span>`}
+          ${ph?`<span class="tag" style="background:${pc.bg}20;color:${pc.bg};font-size:7px;border:1px solid ${pc.bg}40;">${ph.icon} ${ph.name}</span>`:''}
           ${isUA?`<span class="tag tag-new" style="font-size:7px;">✏️</span>`:''}
         </div>
         <button class="vote-btn${v.voted?' voted':''}" onclick="event.stopPropagation();doVote('${node.id}')" style="padding:2px 3px;border-radius:5px;margin-top:-1px;">
-          <span class="heart" style="font-size:12px;">${v.voted?'❤️':'🤍'}</span>
-          <span class="vote-count">${v.count}</span>
+          <span class="heart" style="font-size:12px;">${v.voted?'❤️':'🤍'}</span><span class="vote-count">${v.count}</span>
         </button>
       </div>
       <div style="font-size:10px;font-weight:700;line-height:1.3;color:#1a202c;">${node.opp.title}</div>
       ${canExpand?`<div style="font-size:7px;color:#a0aec0;margin-top:3px;">${hint}</div>`:''}`;
       style+=`background:#fff;border:1.5px solid ${isUA?'#2c7a7b':'#e2e8f0'};padding:8px 9px;`;
-
     }else if(node.type==='evidence'){
       cls+=' ev-node';
-      const quote=node.opp.quote||'';
-      const src=node.opp.source?(node.opp.source+(node.opp.timestamp?' · '+node.opp.timestamp:'')):'';
+      const q=node.opp.quote||'';
+      const src=node.opp.source+(node.opp.timestamp?' · '+node.opp.timestamp:'');
       inner=`<div style="font-size:7px;font-weight:700;color:#2c7a7b;margin-bottom:3px;text-transform:uppercase;letter-spacing:.4px;">📣 Evidencia</div>
-             <div style="font-size:9px;color:#2d3748;line-height:1.45;font-style:italic;">"${quote.length>90?quote.slice(0,90)+'…':quote}"</div>
-             ${src?`<div style="font-size:8px;color:#a0aec0;margin-top:4px;font-weight:500;">— ${src}</div>`:''}`;
-      style+=`background:#f0faf9;border:1.5px solid #b2f5ea;padding:7px 10px;`;
-
+             <div style="font-size:9px;color:#2d3748;line-height:1.45;font-style:italic;">"${q.length>85?q.slice(0,85)+'…':q}"</div>
+             <div style="font-size:8px;color:#a0aec0;margin-top:4px;">— ${src}</div>`;
+      style+=`background:#f0faf9;border:1.5px solid #b2f5ea;padding:7px 10px;cursor:default;`;
     }else if(node.type==='sol'){
-      if(!node.collapsed&&node.children.length) cls+=' expanded-border';
+      if(!node.collapsed&&node.children.length)cls+=' expanded-border';
       const sol=node.sol;
-      inner=`<div style="font-size:7px;font-weight:700;color:#553c9a;margin-bottom:2px;text-transform:uppercase;letter-spacing:.4px;">💡 Hipótesis de solución</div>
-             <div style="font-size:9px;color:#718096;margin-bottom:3px;line-height:1.3;">Si hacemos:</div>
+      inner=`<div style="font-size:7px;font-weight:700;color:#553c9a;margin-bottom:2px;text-transform:uppercase;letter-spacing:.4px;">💡 Hipótesis</div>
+             <div style="font-size:9px;color:#718096;margin-bottom:2px;">Si hacemos:</div>
              <div style="font-size:10px;font-weight:700;line-height:1.3;color:#1a202c;">${sol.title}</div>
-             ${sol.detail?`<div style="font-size:8px;color:#4a5568;margin-top:3px;line-height:1.35;border-top:1px solid #e2e8f0;padding-top:3px;">→ ${sol.detail.length>80?sol.detail.slice(0,80)+'…':sol.detail}</div>`:''}
+             ${sol.detail?`<div style="font-size:8px;color:#4a5568;margin-top:3px;line-height:1.35;border-top:1px solid #e2e8f0;padding-top:3px;">→ ${sol.detail.length>75?sol.detail.slice(0,75)+'…':sol.detail}</div>`:''}
              <div style="display:flex;gap:2px;margin-top:5px;flex-wrap:wrap;">
                <span class="badge ${confCss[sol.confidence]}">${confLabel[sol.confidence]}</span>
                <span class="badge ${effCss[sol.effort]}">${effLabel[sol.effort]}</span>
              </div>
              ${canExpand?`<div style="font-size:7px;color:#a0aec0;margin-top:3px;">${hint} · ${node.children.length} exp.</div>`:''}`;
       style+=`background:#fff;border:1.5px solid #e9d8fd;padding:7px 9px;`;
-
     }else if(node.type==='exp'){
       const exp=node.exp;
+      const inSprint=sprintExps.find(s=>s.expId===node.id);
+      const hasCanvas=canvases[node.id]&&(canvases[node.id].objetivo||canvases[node.id].acciones);
+      if(inSprint)cls+=' sprint-node';else if(hasCanvas)cls+=' canvas-filled';
       inner=`<div style="font-size:7px;font-weight:700;color:#805ad5;margin-bottom:2px;text-transform:uppercase;letter-spacing:.4px;">🧪 Experimento · ⏱ ${exp.days}d</div>
-             <div style="font-size:9px;font-weight:600;line-height:1.3;color:#2d3748;">${exp.title}</div>
-             ${exp.detail?`<div style="font-size:8px;color:#718096;margin-top:2px;line-height:1.3;">${exp.detail}</div>`:''}`;
-      style+=`background:#faf5ff;border:1px solid #e9d8fd;padding:6px 8px;`;
+             <div style="font-size:9px;font-weight:700;line-height:1.3;color:#2d3748;">${exp.title}</div>
+             ${exp.detail?`<div style="font-size:8px;color:#718096;margin-top:2px;line-height:1.3;">${exp.detail}</div>`:''}
+             <div style="display:flex;gap:4px;margin-top:5px;flex-wrap:wrap;align-items:center;">
+               <button onclick="event.stopPropagation();openCanvas('${node.id}')" style="font-family:inherit;font-size:8px;font-weight:700;padding:2px 7px;border-radius:5px;border:1px solid #805ad5;background:${hasCanvas?'#805ad5':'#faf5ff'};color:${hasCanvas?'#fff':'#805ad5'};cursor:pointer;">${hasCanvas?'✏️ Canvas':'+ Canvas'}</button>
+               ${inSprint?`<span style="font-size:8px;font-weight:700;color:var(--blue-700);">🎯 Sprint · ⏱${getDaysLeft(inSprint.addedAt)}d</span>`
+                :sprintExps.length<3?`<button onclick="event.stopPropagation();addToSprint('${node.id}')" style="font-family:inherit;font-size:8px;font-weight:700;padding:2px 7px;border-radius:5px;border:1px solid var(--blue-400);background:var(--blue-100);color:var(--blue-700);cursor:pointer;">+ Sprint</button>`:''}
+             </div>`;
+      style+=`background:${inSprint?'#eff6ff':hasCanvas?'#faf5ff':'#f8f6ff'};border:1px solid ${inSprint?'#93c5fd':hasCanvas?'#d6bcfa':'#e9d8fd'};padding:7px 9px;`;
     }
-
     html+=`<div class="${cls}" style="${style}" onclick="toggleNode('${node.id}')">${inner}</div>`;
   });
   document.getElementById('treeNodes').innerHTML=html;
@@ -1089,6 +1172,7 @@ function renderTree(){
 }
 
 // INIT
+updateSprintBadge();
 loadVotes();
 </script>
 </body>
