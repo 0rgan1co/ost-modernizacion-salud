@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OST — Modernización en Salud Municipal</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+  :root{
+    --blue-900:#1a365d;--blue-800:#2c5282;--blue-700:#2b6cb0;--blue-600:#3182ce;
+    --blue-500:#4299e1;--blue-400:#63b3ed;--blue-200:#bee3f8;--blue-100:#ebf8ff;
+    --green-800:#22543d;--green-700:#276749;--green-600:#38a169;--green-500:#48bb78;--green-100:#f0fff4;
+    --orange-700:#c05621;--orange-600:#dd6b20;--orange-500:#ed8936;--orange-100:#fffaf0;
+    --purple-700:#553c9a;--purple-600:#805ad5;--purple-100:#faf5ff;
+    --red-700:#c53030;--red-600:#e53e3e;--red-300:#feb2b2;--red-100:#fff5f5;
+    --gray-900:#1a202c;--gray-800:#2d3748;--gray-700:#4a5568;--gray-600:#718096;
+    --gray-500:#a0aec0;--gray-400:#cbd5e0;--gray-300:#e2e8f0;--gray-200:#edf2f7;--gray-100:#f7fafc;
+    --shadow-sm:0 1px 2px rgba(0,0,0,.05);
+    --shadow:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -1px rgba(0,0,0,.06);
+    --radius:10px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Inter',-apple-system,sans-serif;background:#f0f4f8;color:var(--gray-900);line-height:1.5;overflow:hidden;height:100vh;display:flex;flex-direction:column;}
+
+  /* ── HEADER ── */
+  .header{background:linear-gradient(135deg,var(--blue-900) 0%,var(--blue-700) 60%,var(--blue-500) 100%);color:#fff;padding:16px 28px 14px;position:relative;overflow:hidden;flex-shrink:0;}
+  .header::before{content:'';position:absolute;top:-60px;right:-40px;width:220px;height:220px;background:radial-gradient(circle,rgba(255,255,255,.07) 0%,transparent 70%);border-radius:50%;}
+  .header-row{display:flex;align-items:center;justify-content:space-between;gap:16px;position:relative;}
+  .header-left h1{font-size:18px;font-weight:800;letter-spacing:-.3px;}
+  .header-left .sub{font-size:11px;opacity:.7;margin-top:1px;}
+  .outcome-pill{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:600;display:flex;align-items:center;gap:8px;white-space:nowrap;}
+  .outcome-pill .label{background:rgba(255,255,255,.2);border-radius:10px;padding:1px 7px;font-size:9px;text-transform:uppercase;letter-spacing:.5px;}
+
+  /* ── TOOLBAR ── */
+  .toolbar{background:#fff;padding:9px 24px;border-bottom:1px solid var(--gray-300);display:flex;flex-wrap:wrap;gap:7px;align-items:center;flex-shrink:0;box-shadow:var(--shadow-sm);}
+  .chip{font-family:inherit;font-size:11px;font-weight:600;padding:4px 11px;border-radius:20px;border:1.5px solid var(--gray-300);background:#fff;color:var(--gray-600);cursor:pointer;transition:all .15s;}
+  .chip:hover{border-color:var(--blue-400);color:var(--blue-700);}
+  .chip.active{background:var(--blue-600);border-color:var(--blue-600);color:#fff;}
+  .chip.phase-1.active{background:var(--green-600);border-color:var(--green-600);}
+  .chip.phase-2.active{background:var(--blue-600);border-color:var(--blue-600);}
+  .chip.phase-3.active{background:var(--orange-600);border-color:var(--orange-600);}
+  .chip.pain.active{background:var(--red-700);border-color:var(--red-700);}
+  .chip.desire.active{background:var(--green-700);border-color:var(--green-700);}
+  .chip.need.active{background:var(--purple-700);border-color:var(--purple-700);}
+  .sep{width:1px;height:24px;background:var(--gray-300);margin:0 2px;}
+  .search-box{font-family:inherit;font-size:11px;padding:4px 11px;border:1.5px solid var(--gray-300);border-radius:20px;outline:none;width:160px;transition:.15s;}
+  .search-box:focus{border-color:var(--blue-400);box-shadow:0 0 0 2px rgba(66,153,225,.12);}
+  .toolbar-right{margin-left:auto;display:flex;align-items:center;gap:8px;}
+  .counter-badge{font-size:10px;color:var(--gray-500);background:var(--gray-100);padding:3px 9px;border-radius:10px;}
+  .sync-dot{width:7px;height:7px;border-radius:50%;background:var(--green-500);flex-shrink:0;}
+  .sync-dot.offline{background:var(--gray-400);}
+
+  /* ── 2-COLUMN WORKSPACE ── */
+  .workspace{display:grid;grid-template-columns:380px 1fr;flex:1;overflow:hidden;min-height:0;}
+  .panel{overflow-y:auto;height:100%;}
+  .panel::-webkit-scrollbar{width:4px;}
+  .panel::-webkit-scrollbar-track{background:transparent;}
+  .panel::-webkit-scrollbar-thumb{background:var(--gray-300);border-radius:2px;}
+
+  /* ── LEFT PANEL ── */
+  .panel-left{background:#f5f7fb;border-right:2px solid var(--gray-300);}
+  .panel-header{padding:14px 18px 10px;background:#fff;border-bottom:1px solid var(--gray-200);position:sticky;top:0;z-index:10;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+  .panel-header h2{font-size:12px;font-weight:700;color:var(--gray-800);text-transform:uppercase;letter-spacing:.7px;}
+  .panel-header .hint{font-size:10px;color:var(--gray-400);margin-top:2px;}
+  .opp-list{padding:10px 12px 20px;}
+
+  /* PHASE GROUP */
+  .phase-group-header{display:flex;align-items:center;gap:7px;padding:8px 4px 4px;margin-top:6px;}
+  .phase-group-header .icon{font-size:14px;}
+  .phase-group-header .name{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;}
+  .phase-group-header .count{font-size:9px;background:var(--gray-200);color:var(--gray-600);padding:1px 6px;border-radius:8px;}
+
+  /* OPP CARD */
+  .opp-card{background:#fff;border-radius:9px;border:2px solid transparent;margin-bottom:7px;cursor:pointer;transition:all .16s;box-shadow:var(--shadow-sm);}
+  .opp-card:hover{border-color:var(--blue-300);box-shadow:var(--shadow);}
+  .opp-card.selected{border-color:var(--blue-500);box-shadow:0 0 0 3px rgba(66,153,225,.12);}
+  .opp-card.phase-1.selected{border-color:var(--green-500);}
+  .opp-card.phase-2.selected{border-color:var(--blue-500);}
+  .opp-card.phase-3.selected{border-color:var(--orange-500);}
+  .opp-inner{padding:10px 12px;}
+  .opp-top{display:flex;align-items:flex-start;justify-content:space-between;gap:6px;}
+  .opp-tags{display:flex;gap:4px;flex-wrap:wrap;}
+  .tag{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:2px 6px;border-radius:4px;}
+  .tag-pain{background:var(--red-100);color:var(--red-700);}
+  .tag-desire{background:var(--green-100);color:var(--green-700);}
+  .tag-need{background:var(--purple-100);color:var(--purple-700);}
+  .tag-id{background:var(--gray-200);color:var(--gray-600);}
+
+  /* HEART VOTE */
+  .vote-btn{display:flex;flex-direction:column;align-items:center;gap:1px;flex-shrink:0;background:none;border:none;cursor:pointer;padding:3px 7px;border-radius:7px;transition:all .15s;}
+  .vote-btn:hover{background:var(--red-100);}
+  .vote-btn.voted{background:var(--red-100);}
+  .heart{font-size:16px;line-height:1;transition:transform .2s;}
+  .vote-btn.voted .heart{animation:heartPop .3s ease;}
+  .vote-count{font-size:9px;font-weight:700;color:var(--gray-500);}
+  .vote-btn.voted .vote-count{color:var(--red-600);}
+  @keyframes heartPop{0%{transform:scale(1)}40%{transform:scale(1.45)}70%{transform:scale(.9)}100%{transform:scale(1)}}
+
+  .opp-title{font-size:12px;font-weight:700;color:var(--gray-900);margin-top:5px;line-height:1.3;}
+  .opp-quote{font-size:11px;color:var(--gray-500);font-style:italic;margin-top:5px;padding:5px 9px;background:var(--gray-100);border-radius:5px;border-left:2px solid var(--gray-300);line-height:1.4;}
+  .opp-meta{font-size:9px;color:var(--gray-400);margin-top:4px;display:flex;gap:5px;}
+  .dot{color:var(--gray-300);}
+
+  /* ── RIGHT PANEL ── */
+  .panel-right{background:#f8fafc;}
+  .reco-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:10px;color:var(--gray-400);}
+  .reco-empty .icon{font-size:40px;opacity:.4;}
+  .reco-empty p{font-size:13px;font-weight:500;}
+
+  .reco-content{padding:20px 26px 32px;}
+
+  /* EVIDENCE BLOCK */
+  .ev-block{background:#fff;border-radius:9px;padding:12px 16px;margin-bottom:14px;border-left:4px solid var(--blue-400);box-shadow:var(--shadow-sm);}
+  .ev-label{font-size:9px;font-weight:700;color:var(--blue-600);text-transform:uppercase;letter-spacing:.7px;margin-bottom:3px;}
+  .ev-quote{font-size:13px;font-style:italic;color:var(--gray-700);line-height:1.55;}
+  .ev-source{font-size:10px;color:var(--gray-400);margin-top:5px;}
+
+  /* SECTION LABEL */
+  .sec-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--gray-500);margin:14px 0 7px;}
+
+  /* SOLUTION BLOCK */
+  .sol-block{background:#fff;border-radius:9px;padding:14px 16px;margin-bottom:9px;border:1px solid var(--gray-200);box-shadow:var(--shadow-sm);}
+  .sol-id{font-size:9px;font-weight:700;color:var(--blue-600);text-transform:uppercase;letter-spacing:.6px;}
+  .sol-title{font-size:13px;font-weight:700;color:var(--gray-900);margin-top:2px;}
+  .sol-detail{font-size:11px;color:var(--gray-600);margin-top:4px;line-height:1.5;}
+  .badge-row{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px;}
+  .badge{font-size:10px;font-weight:600;padding:2px 8px;border-radius:4px;}
+  .conf-high{background:var(--green-100);color:var(--green-700);}
+  .conf-med{background:var(--orange-100);color:var(--orange-700);}
+  .conf-low{background:var(--red-100);color:var(--red-600);}
+  .eff-low{background:#e0f7fa;color:#00695c;}
+  .eff-med{background:#fff3e0;color:#e65100;}
+  .eff-high{background:#fce4ec;color:#c62828;}
+  .imp-low{background:var(--gray-200);color:var(--gray-600);}
+  .imp-med{background:var(--blue-100);color:var(--blue-700);}
+  .imp-high{background:var(--purple-100);color:var(--purple-700);}
+  .days-badge{background:var(--blue-100);color:var(--blue-700);font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;}
+
+  /* EXPERIMENT ROW */
+  .exp-list{margin-top:9px;border-top:1px solid var(--gray-200);padding-top:9px;}
+  .exp-list-label{font-size:9px;font-weight:700;color:var(--gray-400);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px;}
+  .exp-row{display:flex;gap:8px;padding:7px 9px;background:var(--gray-100);border-radius:7px;margin-bottom:5px;}
+  .exp-num{width:18px;height:18px;border-radius:50%;background:var(--blue-600);color:#fff;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+  .exp-title{font-size:11px;font-weight:600;color:var(--gray-800);}
+  .exp-detail{font-size:10px;color:var(--gray-500);margin-top:2px;line-height:1.4;}
+  .exp-badges{display:flex;gap:3px;margin-top:4px;flex-wrap:wrap;}
+
+  /* ALL-VIEW */
+  .all-wrap{padding:18px 24px 32px;}
+  .all-intro{margin-bottom:14px;}
+  .all-intro h3{font-size:14px;font-weight:700;color:var(--gray-800);}
+  .all-intro p{font-size:11px;color:var(--gray-500);margin-top:2px;}
+  .all-phase{margin-bottom:22px;}
+  .all-phase-hdr{display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:9px;margin-bottom:8px;}
+  .all-opp{background:#fff;border-radius:9px;border:1px solid var(--gray-200);margin-bottom:7px;overflow:hidden;box-shadow:var(--shadow-sm);}
+  .all-opp-hdr{padding:10px 14px;display:flex;align-items:center;gap:8px;cursor:pointer;}
+  .all-opp-hdr:hover{background:var(--gray-100);}
+  .all-opp-body{display:none;padding:0 14px 12px;}
+  .all-opp.open .all-opp-body{display:block;}
+  .chev{font-size:10px;color:var(--gray-400);transition:transform .2s;}
+  .all-opp.open .chev{transform:rotate(90deg);}
+
+  /* RECO HEADER */
+  .reco-hdr{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:12px;}
+  .reco-hdr-vote{border:1.5px solid var(--gray-200);border-radius:9px;padding:4px 10px;display:flex;flex-direction:column;align-items:center;gap:1px;cursor:pointer;background:none;transition:.15s;}
+  .reco-hdr-vote:hover{background:var(--red-100);border-color:var(--red-300);}
+  .reco-hdr-vote.voted{background:var(--red-100);border-color:var(--red-300);}
+  .reco-hdr-vote .heart{font-size:20px;}
+  .reco-hdr-vote .vote-count{font-size:11px;font-weight:700;color:var(--gray-500);}
+  .reco-hdr-vote.voted .vote-count{color:var(--red-600);}
+
+  .fade-in{animation:fadeIn .22s ease;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-row">
+    <div class="header-left">
+      <h1>🏥 Opportunity Solution Tree — Modernización en Salud Municipal</h1>
+      <div class="sub">Caso San Miguel · Metodología Teresa Torres · Evidencia de entrevistas y documentos de trazabilidad</div>
+    </div>
+    <div class="outcome-pill">
+      <span class="label">Outcome</span>
+      Reducir gasto farmacia ≥30% · Cero errores · Facturación +60%
+    </div>
+  </div>
+</div>
+
+<!-- TOOLBAR -->
+<div class="toolbar">
+  <button class="chip active" id="c-all" onclick="filterPhase('all',this)">Todas</button>
+  <button class="chip phase-1" id="c-1" onclick="filterPhase(1,this)">📦 Proveedores</button>
+  <button class="chip phase-2" id="c-2" onclick="filterPhase(2,this)">🏭 Almacenamiento</button>
+  <button class="chip phase-3" id="c-3" onclick="filterPhase(3,this)">💊 Dispensación</button>
+  <div class="sep"></div>
+  <button class="chip pain" id="c-pain" onclick="filterType('pain',this)">😖 Dolor</button>
+  <button class="chip desire" id="c-desire" onclick="filterType('desire',this)">✨ Deseo</button>
+  <button class="chip need" id="c-need" onclick="filterType('need',this)">🎯 Necesidad</button>
+  <div class="sep"></div>
+  <input class="search-box" type="text" placeholder="🔍 Buscar..." oninput="filterSearch(this.value)">
+  <div class="toolbar-right">
+    <span class="counter-badge" id="counter">10 oportunidades</span>
+    <span class="sync-dot offline" id="syncDot" title="Estado Supabase"></span>
+  </div>
+</div>
+
+<!-- 2-COLUMN WORKSPACE -->
+<div class="workspace">
+
+  <!-- LEFT: PROBLEMAS -->
+  <div class="panel panel-left">
+    <div class="panel-header">
+      <h2>¿Qué problemas queremos resolver?</h2>
+      <div class="hint">Tocá un problema para ver las recomendaciones del OST →</div>
+    </div>
+    <div class="opp-list" id="oppList"></div>
+  </div>
+
+  <!-- RIGHT: RECOMENDACIONES -->
+  <div class="panel panel-right" id="panelRight">
+    <div class="reco-empty" id="recoEmpty">
+      <div class="icon">🎯</div>
+      <p>Seleccioná un problema para ver las recomendaciones OST</p>
+    </div>
+    <div id="recoContent" style="display:none;"></div>
+  </div>
+
+</div>
+
+<script>
+// ── SUPABASE ──
+const SB_URL = 'https://tsckgbjxavfyrvyjvbix.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRzY2tnYmp4YXZmeXJ2eWp2Yml4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMzMzQzNDcsImV4cCI6MjA4ODkxMDM0N30.HrEq6y-OiFDpndsJrXEjCGDOfFgic_o4S9QDLWJes88';
+
+function getVoterId() {
+  let id = localStorage.getItem('ost_voter_id');
+  if (!id) { id = 'v_' + Math.random().toString(36).substr(2,12) + '_' + Date.now(); localStorage.setItem('ost_voter_id', id); }
+  return id;
+}
+const VOTER_ID = getVoterId();
+
+async function sbFetch(path, opts={}) {
+  const res = await fetch(SB_URL + path, { ...opts, headers: { 'apikey':SB_KEY, 'Authorization':'Bearer '+SB_KEY, 'Content-Type':'application/json', ...(opts.headers||{}) } });
+  if (res.status === 204 || res.status === 409) return null;
+  if (!res.ok) throw new Error(await res.text());
+  return res.json();
+}
+
+// ── DATA ──
+const DATA = {
+  phases: [
+    { id:1, name:"Proveedores", fullName:"Proveedores — Inteligencia de Ingreso", icon:"📦", color:"green",
+      desc:"Ordenar proveedores y digitalizar el ingreso.", sprint:"30" },
+    { id:2, name:"Almacenamiento", fullName:"Almacenamiento — Depósito Central y QR", icon:"🏭", color:"blue",
+      desc:"Centralizar fraccionamiento e identidad digital por dosis.", sprint:"60" },
+    { id:3, name:"Dispensación", fullName:"Dispensación — Match de Seguridad", icon:"💊", color:"orange",
+      desc:"Cerrar el ciclo al pie de la cama con doble escaneo QR.", sprint:"90" }
+  ],
+  opportunities: [
+    { id:"O1.1", phase:1, type:"pain", title:"Compras ciegas: sin datos reales de consumo",
+      quote:"Acomodando los proveedores sin sistema, sin nada, a los latigazos... el año siguiente gastamos 5 mil millones. La mitad redujimos.",
+      source:"Entrevista Pablo", timestamp:"min 19:41",
+      solutions:[
+        { id:"S1.1A", title:"Relevamiento del gasto histórico 12–24 meses",
+          detail:"Construir línea base de consumo por insumo y proveedor. Identificar los 10–15 insumos que representan el 70–80% del gasto.",
+          confidence:"high", effort:"low", impact:"high",
+          experiments:[{ id:"E1.1A", title:"Piloto: análisis patrones de consumo 3 meses, 1 hospital", detail:"Hipótesis: se identificarán ≥3 insumos con sobreprecio >20%.", effort:"low", impact:"high", days:15 }]},
+        { id:"S1.1B", title:"Renegociación de proveedores basada en datos",
+          detail:"Usar evidencia de consumo para romper dependencia. San Miguel redujo gasto de $10.000M a $5.000M (50%).",
+          confidence:"high", effort:"medium", impact:"high",
+          experiments:[{ id:"E1.1B", title:"Renegociar los 5 insumos de mayor gasto en 30 días", detail:"Hipótesis: ahorro ≥15% en esos ítems.", effort:"low", impact:"high", days:30 }]}
+      ]},
+    { id:"O1.2", phase:1, type:"pain", title:"Mercado concentrado: dependencia de proveedores comunes",
+      quote:"Son nueve proveedores que están entongados... todos tienen el mismo problema y están atados a las mismas personas.",
+      source:"Entrevista Pablo", timestamp:"min 11:25",
+      solutions:[
+        { id:"S1.2A", title:"Mapa de dependencia + estrategia de diversificación",
+          detail:"Registro transparente de qué proveedor abastece qué insumo, a qué precio, y nivel de concentración.",
+          confidence:"medium", effort:"low", impact:"medium",
+          experiments:[{ id:"E1.2A", title:"Benchmark inter-municipal de precios (10 insumos, 2–3 municipios)", detail:"Hipótesis: variaciones >25% para el mismo insumo.", effort:"medium", impact:"medium", days:30 }]},
+        { id:"S1.2B", title:"Compra consorciada entre municipios",
+          detail:"Compras conjuntas para aumentar el poder de negociación colectivo.",
+          confidence:"low", effort:"high", impact:"high",
+          experiments:[{ id:"E1.2B", title:"Mesa de trabajo con 2 municipios para 3 insumos críticos", detail:"Hipótesis: precio conjunto ≥10% menor que individual.", effort:"medium", impact:"medium", days:60 }]}
+      ]},
+    { id:"O1.3", phase:1, type:"need", title:"Software arcaico en el punto de ingreso",
+      quote:"Ese software inicial que es arcaico, se podría hacer más nuevo... la modernización debe comenzar desde el ingreso para que la trazabilidad nazca con datos precisos.",
+      source:"Entrevista Pablo + Framework", timestamp:"min 5:08",
+      solutions:[
+        { id:"S1.3A", title:"Registro digital mínimo viable de órdenes de compra",
+          detail:"Campos obligatorios: lote, vencimiento, cantidad, proveedor, fecha. Validación cruzada con remitos.",
+          confidence:"high", effort:"medium", impact:"high",
+          experiments:[{ id:"E1.3A", title:"Piloto registro digital en 1 depósito × 30 días", detail:"Hipótesis: ≥80% registros completos en 30 días.", effort:"low", impact:"high", days:30 }]},
+        { id:"S1.3B", title:"Estándar de dato de ingreso obligatorio",
+          detail:"Definir campos mínimos como estándar de calidad. Sin dato limpio en ingreso, todo se construye sobre datos sucios.",
+          confidence:"high", effort:"low", impact:"high",
+          experiments:[{ id:"E1.3B", title:"Auditoría: % de registros actuales con campos vacíos", detail:"Hipótesis: >40% de registros tienen datos incompletos.", effort:"low", impact:"medium", days:7 }]}
+      ]},
+    { id:"O2.1", phase:2, type:"need", title:"Medicamento anónimo: sin identidad unitaria",
+      quote:"Sin identificación unitaria, el medicamento es anónimo. Cuando algo sale mal, es imposible rastrear qué ocurrió y dónde.",
+      source:"Framework Módulo C", timestamp:"Pág. 7",
+      solutions:[
+        { id:"S2.1A", title:"Empauchadora + QR unitario en depósito central",
+          detail:"Empauchado de ampollas y comprimidos con QR: lote, vencimiento, fecha procesamiento. San Miguel ya inició la compra.",
+          confidence:"high", effort:"high", impact:"high",
+          experiments:[{ id:"E2.1A", title:"Piloto empauchado: 5 insumos de mayor rotación × 30 días", detail:"Medir tasa error lectura QR, tiempo procesamiento/unidad, % unidades trazadas.", effort:"medium", impact:"high", days:30 }]},
+        { id:"S2.1B", title:"Vinculación empauchadora ↔ sistema de gestión",
+          detail:"QR generado automáticamente desde el sistema, no manualmente. Elimina errores de carga.",
+          confidence:"high", effort:"medium", impact:"high",
+          experiments:[{ id:"E2.1B", title:"Test integración: 500 unidades, tasa error <1%", detail:"Validar que 100% de QR generados sean legibles y correspondan al registro.", effort:"low", impact:"high", days:14 }]}
+      ]},
+    { id:"O2.2", phase:2, type:"pain", title:"~30% de insumos se desperdician por vencimiento",
+      quote:"En Estados Unidos hace años que se pierde el 30% de los insumos médicos... imaginate lo que debe ser en nuestro sistema.",
+      source:"Entrevista Pablo", timestamp:"min 18:22",
+      solutions:[
+        { id:"S2.2A", title:"Alertas automáticas de próximo vencimiento (30/60/90 días)",
+          detail:"Dashboard o notificación móvil. Objetivo: reducir desperdicio del 30% histórico a <10%.",
+          confidence:"medium", effort:"medium", impact:"high",
+          experiments:[{ id:"E2.2A", title:"Auditoría vencimientos pre-QR: conteo físico 1 depósito", detail:"Hipótesis: >15% del stock a <60 días de vencer.", effort:"low", impact:"medium", days:7 }]},
+        { id:"S2.2B", title:"Distribución 100% etiquetada y trazada desde el centro",
+          detail:"Toda medicación que sale del depósito central viaja empauchada con QR. Cero distribución sin identidad.",
+          confidence:"high", effort:"medium", impact:"high",
+          experiments:[{ id:"E2.2B", title:"Piloto distribución trazada a 2 salas × 2 semanas", detail:"Medir: % de dosis recibidas con QR legible vs total.", effort:"low", impact:"high", days:14 }]}
+      ]},
+    { id:"O2.3", phase:2, type:"pain", title:"Fraccionamiento manual propenso a errores",
+      quote:"De esa caja, fraccionar lo que hay dentro... la máquina no lo va a poder hacer, pero te puede ahorrar que agarre la caja y te dé lo que tiene que ir a buscar.",
+      source:"Entrevista Pablo", timestamp:"min 2:40",
+      solutions:[
+        { id:"S2.3A", title:"Depósito central como nodo único de fraccionamiento",
+          detail:"Centralizar todo fraccionamiento. Software vinculado coordina empauchadora eliminando carga manual.",
+          confidence:"high", effort:"high", impact:"high",
+          experiments:[{ id:"E2.3A", title:"Comparar errores: fraccionamiento manual vs centralizado × 2 semanas", detail:"Hipótesis: reducción ≥50% de errores de distribución.", effort:"medium", impact:"high", days:14 }]}
+      ]},
+    { id:"O3.1", phase:3, type:"need", title:"Riesgo de error de medicación sin verificación cruzada",
+      quote:"Al momento de dispensar va a escanear el medicamento y escanea la pulsera del paciente... ahí matcheó el lote, vencimiento, medicación con el paciente.",
+      source:"Entrevista Pablo", timestamp:"min 0:36",
+      solutions:[
+        { id:"S3.1A", title:"Match de Seguridad: doble escaneo QR al pie de la cama",
+          detail:"Escaneo QR sobre + pulsera QR paciente. Sistema valida coincidencia antes de habilitar administración y baja el stock.",
+          confidence:"high", effort:"medium", impact:"high",
+          experiments:[{ id:"E3.1A", title:"Piloto match QR en 1 sala × 2 semanas", detail:"Hipótesis: >95% matches exitosos. Medir tiempo promedio de dispensación.", effort:"medium", impact:"high", days:14 }]},
+        { id:"S3.1B", title:"Confirmación digital de recepción por enfermería",
+          detail:"La enfermera escanea y 'se hace dueña' del insumo. Elimina los 'cuadritos del truco' manuales.",
+          confidence:"high", effort:"low", impact:"high",
+          experiments:[{ id:"E3.1B", title:"Comparar tiempo: cuadritos del truco vs escaneo digital (1 turno)", detail:"Hipótesis: reducción ≥40% del tiempo administrativo.", effort:"low", impact:"medium", days:3 }]}
+      ]},
+    { id:"O3.2", phase:3, type:"desire", title:"Áreas críticas (Guardia, UTI, Cardio) sin fricciones",
+      quote:"Imaginate vos, tener varias máquinas de eso dentro del hospital y no tener que hacer una cola... tiki, tiki, tiki, tiki.",
+      source:"Entrevista Pablo", timestamp:"min 2:56",
+      solutions:[
+        { id:"S3.2A", title:"Dispensadoras PIC-1 en áreas semicerradas",
+          detail:"Máquinas tipo vending para Guardia, UTI, Cardiología. Enfermera ingresa con legajo, vincula paciente, retira. Cero colas.",
+          confidence:"medium", effort:"high", impact:"high",
+          experiments:[{ id:"E3.2A", title:"Piloto PIC-1 en UTI × 60 días", detail:"Medir: tiempo dispensación antes/después, % trazabilidad completa, satisfacción enfermería.", effort:"high", impact:"high", days:60 }]},
+        { id:"S3.2B", title:"Vinculación cero-fricción: medicación ligada antes de salir de la máquina",
+          detail:"PIC-1 vincula al paciente antes de dispensar físicamente. Trazabilidad garantizada.",
+          confidence:"high", effort:"medium", impact:"high",
+          experiments:[] }
+      ]},
+    { id:"O3.3", phase:3, type:"pain", title:"Pérdida masiva de facturación a obras sociales",
+      quote:"La obra social te dice no, te falta acá un anexo que te lo tiene que firmar el médico. Vas al médico y el médico te dice, no, ese no es mi trabajo.",
+      source:"Entrevista Pablo", timestamp:"min 17:02",
+      solutions:[
+        { id:"S3.3A", title:"Documentación automática del acto de administración",
+          detail:"El match QR genera registro irrefutable: quién, cuándo, qué, a quién, con qué lote. Exactamente lo que obras sociales requieren.",
+          confidence:"high", effort:"low", impact:"high",
+          experiments:[{ id:"E3.3A", title:"Auditoría retrospectiva: 50 facturas rechazadas vs sistema digital", detail:"Hipótesis: ≥60% rechazos se debían a falta de documentación que el sistema generaría.", effort:"low", impact:"high", days:7 }]},
+        { id:"S3.3B", title:"Bonos por facturación y eficiencia al personal médico",
+          detail:"Parte del valor recuperado se distribuye como incentivo. Alinea interés individual con objetivos del sistema.",
+          confidence:"medium", effort:"medium", impact:"medium",
+          experiments:[{ id:"E3.3B", title:"Piloto incentivos en 1 sala × 1 trimestre", detail:"Hipótesis: aumento ≥20% en adopción voluntaria del sistema.", effort:"medium", impact:"medium", days:90 }]}
+      ]},
+    { id:"O3.4", phase:3, type:"pain", title:'Resistencia médica al sistema: "El Ojo de Sauron"',
+      quote:"Los tipos saben que hay control, el panóptico... El ojo de Sauron, digamos, lo perciben. Allá lo usan y nadie se queja, y está perfecto. Y acá no.",
+      source:"Entrevista Pablo", timestamp:"min 23:33",
+      solutions:[
+        { id:"S3.4A", title:'Reencuadre: de "control" a "protección profesional"',
+          detail:"El sistema protege, no vigila. Registro irrefutable = mejor defensa ante demandas. Permite dormir más tranquilo.",
+          confidence:"high", effort:"low", impact:"high",
+          experiments:[{ id:"E3.4A", title:"Sesiones con 3–5 early adopters como multiplicadores × 30 días", detail:"Medir: colegas que adoptan por influencia de pares.", effort:"low", impact:"medium", days:30 }]},
+        { id:"S3.4B", title:"Diagnóstico cultural previo a implementación",
+          detail:"Mapear early adopters, escépticos y bloqueadores. Estrategia de comunicación diferenciada por perfil.",
+          confidence:"high", effort:"medium", impact:"high",
+          experiments:[{ id:"E3.4B", title:"Autodiagnóstico web + entrevistas IA 'Voces' en 1 hospital", detail:"Hipótesis: IA identifica ≥2 tensiones no detectadas por formulario.", effort:"medium", impact:"high", days:21 }]}
+      ]}
+  ]
+};
+
+// ── STATE ──
+let activePhase = 'all', activeType = null, searchQ = '', selectedId = null;
+let votes = {};
+
+// Labels & css
+const typeLabel={pain:'Dolor',desire:'Deseo',need:'Necesidad'};
+const typeIcon={pain:'😖',desire:'✨',need:'🎯'};
+const phaseColor={green:['var(--green-100)','var(--green-700)'],blue:['var(--blue-100)','var(--blue-700)'],orange:['var(--orange-100)','var(--orange-700)']};
+const confLabel={high:'✅ Validado en San Miguel',medium:'🔶 Hipótesis fundamentada',low:'🧪 Experimental'};
+const confCss={high:'conf-high',medium:'conf-med',low:'conf-low'};
+const effLabel={low:'Esfuerzo Bajo',medium:'Esfuerzo Medio',high:'Esfuerzo Alto'};
+const effCss={low:'eff-low',medium:'eff-med',high:'eff-high'};
+const impLabel={low:'Impacto Bajo',medium:'Impacto Medio',high:'Impacto Alto'};
+const impCss={low:'imp-low',medium:'imp-med',high:'imp-high'};
+
+// ── SUPABASE SYNC ──
+async function loadVotes() {
+  try {
+    const opps = await sbFetch('/rest/v1/ost_opportunities?select=id,votes&order=id');
+    const myVotes = await sbFetch('/rest/v1/ost_votes?select=opportunity_id&voter_id=eq.' + VOTER_ID);
+    const mySet = new Set((myVotes||[]).map(v=>v.opportunity_id));
+    votes = {};
+    (opps||[]).forEach(o => { votes[o.id] = {count:o.votes, voted:mySet.has(o.id)}; });
+    // Seed missing
+    const existing = new Set((opps||[]).map(o=>o.id));
+    const toInsert = DATA.opportunities.filter(o=>!existing.has(o.id)).map(o=>({id:o.id,phase_id:String(o.phase),title:o.title,type:o.type,quote:o.quote,votes:0}));
+    if (toInsert.length) await sbFetch('/rest/v1/ost_opportunities',{method:'POST',body:JSON.stringify(toInsert),headers:{'Prefer':'resolution=ignore-duplicates,return=minimal'}});
+    document.getElementById('syncDot').className = 'sync-dot';
+  } catch(e) {
+    console.warn('Supabase offline:', e.message);
+    DATA.opportunities.forEach(o => { if(!votes[o.id]) votes[o.id]={count:0,voted:false}; });
+  }
+  render();
+}
+
+async function toggleVote(oppId, ev) {
+  ev.stopPropagation();
+  const v = votes[oppId]||{count:0,voted:false};
+  votes[oppId] = {count: v.count+(v.voted?-1:1), voted:!v.voted};
+  render();
+  try {
+    if (v.voted) {
+      await sbFetch('/rest/v1/ost_votes?opportunity_id=eq.'+oppId+'&voter_id=eq.'+VOTER_ID,{method:'DELETE'});
+      await sbFetch('/rest/v1/rpc/decrement_vote',{method:'POST',body:JSON.stringify({opp_id:oppId})});
+    } else {
+      await sbFetch('/rest/v1/ost_votes',{method:'POST',body:JSON.stringify({opportunity_id:oppId,voter_id:VOTER_ID})});
+      await sbFetch('/rest/v1/rpc/increment_vote',{method:'POST',body:JSON.stringify({opp_id:oppId})});
+    }
+  } catch(e) { votes[oppId]=v; render(); }
+}
+
+// ── FILTERS ──
+function filterPhase(ph, btn) {
+  activePhase = ph;
+  document.querySelectorAll('[id^="c-"]').forEach(c => { if(['c-all','c-1','c-2','c-3'].includes(c.id)) c.classList.remove('active'); });
+  btn.classList.add('active');
+  render();
+}
+function filterType(type, btn) {
+  if (activeType===type) { activeType=null; btn.classList.remove('active'); }
+  else { activeType=type; document.querySelectorAll('.chip.pain,.chip.desire,.chip.need').forEach(c=>c.classList.remove('active')); btn.classList.add('active'); }
+  render();
+}
+function filterSearch(v) { searchQ=v.toLowerCase(); render(); }
+
+function getFiltered() {
+  return DATA.opportunities.filter(o => {
+    if (activePhase!=='all' && o.phase!==activePhase) return false;
+    if (activeType && o.type!==activeType) return false;
+    if (searchQ) {
+      const hay=(o.title+o.quote+o.solutions.map(s=>s.title+s.detail).join('')).toLowerCase();
+      if(!hay.includes(searchQ)) return false;
+    }
+    return true;
+  });
+}
+
+// ── RENDER ──
+function render() { renderLeft(); renderRight(); }
+
+function renderLeft() {
+  const opps = getFiltered();
+  document.getElementById('counter').textContent = opps.length + ' oportunidad' + (opps.length!==1?'es':'');
+  const byPhase = {};
+  opps.forEach(o => { if(!byPhase[o.phase]) byPhase[o.phase]=[]; byPhase[o.phase].push(o); });
+  const fgMap = {green:'var(--green-700)',blue:'var(--blue-700)',orange:'var(--orange-700)'};
+  let html = '';
+  DATA.phases.forEach(phase => {
+    const po = byPhase[phase.id]; if(!po||!po.length) return;
+    html += `<div class="phase-group-header"><span class="icon">${phase.icon}</span><span class="name" style="color:${fgMap[phase.color]}">${phase.name}</span><span class="count">${po.length}</span></div>`;
+    po.forEach(opp => {
+      const v = votes[opp.id]||{count:0,voted:false};
+      const sel = selectedId===opp.id;
+      html += `<div class="opp-card phase-${opp.phase}${sel?' selected':''}" onclick="selectOpp('${opp.id}')">
+        <div class="opp-inner">
+          <div class="opp-top">
+            <div class="opp-tags"><span class="tag tag-${opp.type}">${typeIcon[opp.type]} ${typeLabel[opp.type]}</span><span class="tag tag-id">${opp.id}</span></div>
+            <button class="vote-btn${v.voted?' voted':''}" onclick="toggleVote('${opp.id}',event)" title="${v.voted?'Quitar voto':'Votar'}">
+              <span class="heart">${v.voted?'❤️':'🤍'}</span><span class="vote-count">${v.count}</span>
+            </button>
+          </div>
+          <div class="opp-title">${opp.title}</div>
+          <div class="opp-quote">"${opp.quote}"</div>
+          <div class="opp-meta"><span>${opp.source}</span><span class="dot">·</span><span>${opp.timestamp}</span><span class="dot">·</span><span>${opp.solutions.length} sol.</span></div>
+        </div>
+      </div>`;
+    });
+  });
+  if (!html) html = `<div style="text-align:center;padding:40px 16px;color:var(--gray-400);"><div style="font-size:28px;margin-bottom:8px;">🔍</div><div style="font-size:12px;">Sin resultados para esos filtros</div></div>`;
+  document.getElementById('oppList').innerHTML = html;
+}
+
+function selectOpp(id) {
+  selectedId = (selectedId===id) ? null : id;
+  renderLeft(); renderRight();
+}
+
+function renderRight() {
+  const empty = document.getElementById('recoEmpty');
+  const content = document.getElementById('recoContent');
+  if (!selectedId) {
+    const opps = getFiltered();
+    if (!opps.length) { empty.style.display='flex'; content.style.display='none'; return; }
+    empty.style.display='none'; content.style.display='block';
+    content.innerHTML = renderAllView(opps);
+  } else {
+    const opp = DATA.opportunities.find(o=>o.id===selectedId);
+    if (!opp) { empty.style.display='flex'; content.style.display='none'; return; }
+    empty.style.display='none'; content.style.display='block';
+    content.innerHTML = renderDetail(opp);
+  }
+}
+
+function renderDetail(opp) {
+  const phase = DATA.phases.find(p=>p.id===opp.phase);
+  const [bg,fg] = phaseColor[phase.color];
+  const v = votes[opp.id]||{count:0,voted:false};
+  const totalExp = opp.solutions.reduce((a,s)=>a+s.experiments.length,0);
+  let html = `<div class="reco-content fade-in">
+    <div class="reco-hdr">
+      <div>
+        <div style="display:flex;gap:5px;margin-bottom:7px;">
+          <span class="tag" style="background:${bg};color:${fg};">${phase.icon} Fase ${phase.id} · ${phase.name}</span>
+          <span class="tag tag-${opp.type}">${typeIcon[opp.type]} ${typeLabel[opp.type]}</span>
+        </div>
+        <div style="font-size:17px;font-weight:800;color:var(--gray-900);line-height:1.3;">${opp.title}</div>
+        <div style="font-size:11px;color:var(--gray-500);margin-top:3px;">${opp.solutions.length} hipótesis de solución · ${totalExp} experimentos</div>
+      </div>
+      <button class="reco-hdr-vote${v.voted?' voted':''}" onclick="toggleVote('${opp.id}',event)">
+        <span class="heart">${v.voted?'❤️':'🤍'}</span>
+        <span class="vote-count">${v.count}</span>
+      </button>
+    </div>
+    <div class="ev-block">
+      <div class="ev-label">Evidencia — Voz del usuario</div>
+      <div class="ev-quote">"${opp.quote}"</div>
+      <div class="ev-source">${opp.source} · ${opp.timestamp}</div>
+    </div>
+    <div class="sec-label">Hipótesis de Solución recomendadas por el OST</div>`;
+  opp.solutions.forEach(sol => {
+    html += `<div class="sol-block">
+      <div class="sol-id">${sol.id}</div>
+      <div class="sol-title">${sol.title}</div>
+      <div class="sol-detail">${sol.detail}</div>
+      <div class="badge-row">
+        <span class="badge ${confCss[sol.confidence]}">${confLabel[sol.confidence]}</span>
+        <span class="badge ${effCss[sol.effort]}">${effLabel[sol.effort]}</span>
+        <span class="badge ${impCss[sol.impact]}">${impLabel[sol.impact]}</span>
+      </div>`;
+    if (sol.experiments.length) {
+      html += `<div class="exp-list"><div class="exp-list-label">Experimentos sugeridos</div>`;
+      sol.experiments.forEach((exp,i) => {
+        html += `<div class="exp-row"><div class="exp-num">${i+1}</div><div>
+          <div class="exp-title">${exp.title}</div>
+          <div class="exp-detail">${exp.detail}</div>
+          <div class="exp-badges">
+            <span class="badge ${effCss[exp.effort]}">${effLabel[exp.effort]}</span>
+            <span class="badge ${impCss[exp.impact]}">${impLabel[exp.impact]}</span>
+            <span class="days-badge">⏱ ${exp.days} días</span>
+          </div>
+        </div></div>`;
+      });
+      html += `</div>`;
+    }
+    html += `</div>`;
+  });
+  html += `</div>`;
+  return html;
+}
+
+function renderAllView(opps) {
+  const byPhase = {};
+  opps.forEach(o => { if(!byPhase[o.phase]) byPhase[o.phase]=[]; byPhase[o.phase].push(o); });
+  let html = `<div class="all-wrap fade-in">
+    <div class="all-intro"><h3>Recomendaciones del OST</h3><p>Seleccioná un problema a la izquierda para ver el detalle completo</p></div>`;
+  DATA.phases.forEach(phase => {
+    const po = byPhase[phase.id]; if(!po||!po.length) return;
+    const [bg,fg] = phaseColor[phase.color];
+    html += `<div class="all-phase">
+      <div class="all-phase-hdr" style="background:${bg};color:${fg};">
+        <span style="font-size:16px;">${phase.icon}</span>
+        <div style="flex:1"><div style="font-size:12px;font-weight:700;">${phase.fullName}</div><div style="font-size:10px;opacity:.8;">${phase.desc}</div></div>
+        <span style="background:rgba(0,0,0,.1);padding:2px 9px;border-radius:10px;font-size:10px;font-weight:700;">Sprint ${phase.sprint}d</span>
+      </div>`;
+    po.forEach(opp => {
+      const v = votes[opp.id]||{count:0,voted:false};
+      const expCount = opp.solutions.reduce((a,s)=>a+s.experiments.length,0);
+      const maxDays = opp.solutions.reduce((m,s)=>Math.max(m,...s.experiments.map(e=>e.days)),0);
+      html += `<div class="all-opp" id="ao-${opp.id}">
+        <div class="all-opp-hdr" onclick="toggleAllOpp('${opp.id}')">
+          <span class="chev">▶</span>
+          <div style="flex:1">
+            <div style="display:flex;gap:4px;margin-bottom:3px;"><span class="tag tag-${opp.type}">${typeIcon[opp.type]} ${typeLabel[opp.type]}</span><span class="tag tag-id">${opp.id}</span></div>
+            <div style="font-size:12px;font-weight:600;">${opp.title}</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
+            <span style="font-size:10px;color:var(--gray-400);">${opp.solutions.length}s · ${expCount}e${maxDays?' · ⏱'+maxDays+'d':''}</span>
+            <button class="vote-btn${v.voted?' voted':''}" onclick="toggleVote('${opp.id}',event)">
+              <span class="heart">${v.voted?'❤️':'🤍'}</span><span class="vote-count">${v.count}</span>
+            </button>
+          </div>
+        </div>
+        <div class="all-opp-body">
+          <div class="ev-block" style="margin-bottom:8px;">
+            <div class="ev-label">Evidencia</div>
+            <div class="ev-quote">"${opp.quote}"</div>
+            <div class="ev-source">${opp.source} · ${opp.timestamp}</div>
+          </div>`;
+      opp.solutions.forEach(sol => {
+        html += `<div class="sol-block" style="margin-bottom:7px;">
+          <div class="sol-id">${sol.id}</div>
+          <div class="sol-title">${sol.title}</div>
+          <div class="sol-detail">${sol.detail}</div>
+          <div class="badge-row">
+            <span class="badge ${confCss[sol.confidence]}">${confLabel[sol.confidence]}</span>
+            <span class="badge ${effCss[sol.effort]}">${effLabel[sol.effort]}</span>
+            <span class="badge ${impCss[sol.impact]}">${impLabel[sol.impact]}</span>
+            ${sol.experiments.length?`<span class="days-badge">⏱ max ${Math.max(...sol.experiments.map(e=>e.days))}d</span>`:''}
+          </div>
+        </div>`;
+      });
+      html += `</div></div>`;
+    });
+    html += `</div>`;
+  });
+  html += `</div>`;
+  return html;
+}
+
+function toggleAllOpp(id) {
+  const el = document.getElementById('ao-'+id);
+  if(el) el.classList.toggle('open');
+}
+
+// ── INIT ──
+loadVotes();
+</script>
+</body>
+</html>
