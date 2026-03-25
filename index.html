@@ -272,6 +272,43 @@ body{overflow:hidden;}
 .oc-hint{font-size:10px;color:var(--gray-400);background:var(--gray-50,#f9fafb);border-radius:8px;padding:12px;text-align:center;line-height:1.5;border:1.5px dashed var(--gray-300);}
 .oc-divider{height:1px;background:var(--gray-200);margin:10px 0;}
 .oc-meta{font-size:9px;color:var(--gray-500);line-height:1.5;background:var(--gray-100);border-radius:7px;padding:8px 10px;}
+
+/* ═══════════════════════════════
+   RESIZABLE DIVIDERS
+═══════════════════════════════ */
+.col-divider{width:5px;background:var(--gray-300);cursor:col-resize;flex-shrink:0;transition:background .12s;position:relative;z-index:5;}
+.col-divider:hover,.col-divider.dragging{background:var(--blue-400);}
+.col-divider::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:2px;height:40px;border-radius:1px;background:rgba(66,153,225,.55);opacity:0;transition:opacity .12s;}
+.col-divider:hover::after,.col-divider.dragging::after{opacity:1;}
+
+/* Col header actions wrapper */
+.col-hdr-actions{display:flex;align-items:center;gap:4px;flex-shrink:0;}
+
+/* Collapse button */
+.col-collapse-btn{background:none;border:none;cursor:pointer;color:var(--gray-400);font-size:11px;padding:2px 5px;border-radius:4px;flex-shrink:0;transition:.12s;line-height:1;font-family:inherit;}
+.col-collapse-btn:hover{color:var(--gray-700);background:var(--gray-200);}
+
+/* ═══════════════════════════════
+   COLLAPSED COLUMN STATE
+═══════════════════════════════ */
+.col.col-collapsed{flex-shrink:0 !important;overflow:hidden;}
+.col-outcome.col-collapsed{width:32px !important;min-width:32px !important;cursor:pointer;}
+.col-challenges.col-collapsed{width:32px !important;min-width:32px !important;cursor:pointer;}
+.col-tree.col-collapsed{width:36px !important;min-width:36px !important;flex:none !important;cursor:pointer;}
+
+/* Hide content when collapsed */
+.col.col-collapsed .col-body,
+.col.col-collapsed .tree-controls,
+.col.col-collapsed .tree-stage,
+.col.col-collapsed .sprint-panel,
+.col.col-collapsed .zoom-wrap,
+.col.col-collapsed .tree-hint{display:none !important;}
+
+/* Collapsed header becomes vertical strip */
+.col.col-collapsed .col-hdr{flex-direction:column;padding:14px 4px;height:100%;justify-content:flex-start;align-items:center;cursor:pointer;background:var(--gray-100);border-bottom:none;gap:0;width:32px;}
+.col-tree.col-collapsed .col-hdr{width:36px;}
+.col.col-collapsed .col-hdr-title{writing-mode:vertical-rl;transform:rotate(180deg);font-size:9px;margin-top:10px;letter-spacing:.8px;white-space:nowrap;color:var(--gray-500);}
+.col.col-collapsed .col-hdr-actions{display:none;}
 </style>
 </head>
 <body>
@@ -288,28 +325,44 @@ body{overflow:hidden;}
 </div>
 
 <!-- BOARD: 3 COLUMNS -->
-<div class="board">
+<div class="board" id="board">
 
   <!-- COL 1: OUTCOME -->
-  <div class="col col-outcome">
+  <div class="col col-outcome" id="colOutcome" onclick="if(this.classList.contains('col-collapsed'))toggleColCollapse('outcome')">
     <div class="col-hdr">
       <span class="col-hdr-title">🎯 Outcome</span>
-      <button class="col-hdr-btn" onclick="openOutcomeModal()">✏️ Editar</button>
+      <div class="col-hdr-actions">
+        <button class="col-hdr-btn" onclick="event.stopPropagation();openOutcomeModal()">✏️ Editar</button>
+        <button class="col-collapse-btn" id="collapseBtn-outcome" onclick="event.stopPropagation();toggleColCollapse('outcome')" title="Colapsar columna">◀</button>
+      </div>
     </div>
     <div class="col-body" id="outcomeCol"></div>
   </div>
 
+  <div class="col-divider" id="divider1" data-col="outcome" title="Arrastrar · Doble clic para resetear"></div>
+
   <!-- COL 2: DESAFÍOS ESTRATÉGICOS -->
-  <div class="col col-challenges">
+  <div class="col col-challenges" id="colChallenges" onclick="if(this.classList.contains('col-collapsed'))toggleColCollapse('challenges')">
     <div class="col-hdr">
       <span class="col-hdr-title">⚡ Desafíos Estratégicos</span>
-      <button class="col-hdr-btn add-btn" onclick="openAddModal()">＋ Nuevo</button>
+      <div class="col-hdr-actions">
+        <button class="col-hdr-btn add-btn" onclick="event.stopPropagation();openAddModal()">＋ Nuevo</button>
+        <button class="col-collapse-btn" id="collapseBtn-challenges" onclick="event.stopPropagation();toggleColCollapse('challenges')" title="Colapsar columna">◀</button>
+      </div>
     </div>
     <div class="col-body" id="prioList"></div>
   </div>
 
+  <div class="col-divider" id="divider2" data-col="challenges" title="Arrastrar · Doble clic para resetear"></div>
+
   <!-- COL 3: ÁRBOL DE SOLUCIONES -->
-  <div class="col col-tree">
+  <div class="col col-tree" id="colTree" onclick="if(this.classList.contains('col-collapsed'))toggleColCollapse('tree')">
+    <div class="col-hdr" style="background:rgba(221,227,236,.95);border-bottom:1.5px solid var(--gray-300);">
+      <span class="col-hdr-title" style="color:var(--gray-700);">🌳 Árbol de Soluciones</span>
+      <div class="col-hdr-actions">
+        <button class="col-collapse-btn" id="collapseBtn-tree" onclick="event.stopPropagation();toggleColCollapse('tree')" title="Colapsar columna">▶</button>
+      </div>
+    </div>
     <div class="tree-controls">
       <!-- Branch picker -->
       <div class="branch-row" id="branchRow">
@@ -350,7 +403,7 @@ body{overflow:hidden;}
       <button class="zoom-btn" onclick="doZoom(0.85,true)">−</button>
       <button class="zoom-btn" onclick="fitView(true)" style="font-size:12px;">⌂</button>
     </div>
-    <div style="position:absolute;bottom:14px;left:10px;font-size:8px;color:rgba(0,0,0,.3);pointer-events:none;">Scroll → zoom · Doble clic → encuadrar</div>
+    <div class="tree-hint" style="position:absolute;bottom:14px;left:10px;font-size:8px;color:rgba(0,0,0,.3);pointer-events:none;">Scroll → zoom · Doble clic → encuadrar</div>
   </div>
 
 </div>
@@ -1222,8 +1275,113 @@ function renderTree(){
   if(!_treeFitted){_treeFitted=true;setTimeout(()=>fitView(true),60);}
 }
 
+// ══════════════════════════════════
+// RESIZABLE + COLLAPSIBLE COLUMNS
+// ══════════════════════════════════
+const COL_DEFAULTS={outcome:240,challenges:310};
+let colWidths={...COL_DEFAULTS};
+let colCollapsed={outcome:false,challenges:false,tree:false};
+
+function loadColState(){
+  try{const s=localStorage.getItem('ost_col_state');if(s){const d=JSON.parse(s);if(d.widths)Object.assign(colWidths,d.widths);if(d.collapsed)Object.assign(colCollapsed,d.collapsed);}}catch(e){}
+}
+function saveColState(){
+  try{localStorage.setItem('ost_col_state',JSON.stringify({widths:colWidths,collapsed:colCollapsed}));}catch(e){}
+}
+function applyColWidths(){
+  const oc=document.getElementById('colOutcome');
+  const cc=document.getElementById('colChallenges');
+  if(oc&&!colCollapsed.outcome){oc.style.width=colWidths.outcome+'px';oc.style.minWidth=colWidths.outcome+'px';}
+  if(cc&&!colCollapsed.challenges){cc.style.width=colWidths.challenges+'px';cc.style.minWidth=colWidths.challenges+'px';}
+}
+function toggleColCollapse(colId){
+  colCollapsed[colId]=!colCollapsed[colId];
+  const cap=colId.charAt(0).toUpperCase()+colId.slice(1);
+  const el=document.getElementById('col'+cap);
+  if(el){
+    el.classList.toggle('col-collapsed',colCollapsed[colId]);
+    if(!colCollapsed[colId]){
+      // Restore saved width
+      if(colId==='outcome'){el.style.width=colWidths.outcome+'px';el.style.minWidth=colWidths.outcome+'px';}
+      else if(colId==='challenges'){el.style.width=colWidths.challenges+'px';el.style.minWidth=colWidths.challenges+'px';}
+      else{el.style.width='';el.style.minWidth='';}
+    }
+  }
+  updateCollapseButtons();
+  saveColState();
+  setTimeout(()=>fitView(true),120);
+}
+function updateCollapseButtons(){
+  const icons={outcome:['◀','▶'],challenges:['◀','▶'],tree:['▶','◀']};
+  Object.keys(icons).forEach(id=>{
+    const btn=document.getElementById('collapseBtn-'+id);
+    if(!btn)return;
+    const [iconOpen,iconClosed]=icons[id];
+    btn.textContent=colCollapsed[id]?iconClosed:iconOpen;
+    btn.title=colCollapsed[id]?'Expandir':'Colapsar';
+  });
+}
+function initResize(){
+  loadColState();
+  // Restore widths and collapsed states
+  Object.keys(colCollapsed).forEach(id=>{
+    if(colCollapsed[id]){
+      const cap=id.charAt(0).toUpperCase()+id.slice(1);
+      const el=document.getElementById('col'+cap);
+      if(el)el.classList.add('col-collapsed');
+    }
+  });
+  applyColWidths();
+  updateCollapseButtons();
+
+  let resizing=null;
+  document.querySelectorAll('.col-divider').forEach(div=>{
+    // Drag to resize
+    div.addEventListener('mousedown',e=>{
+      const colId=div.dataset.col;
+      if(colCollapsed[colId])return; // can't resize collapsed col
+      const cap=colId.charAt(0).toUpperCase()+colId.slice(1);
+      const colEl=document.getElementById('col'+cap);
+      resizing={div,colId,colEl,startX:e.clientX,startW:colEl.getBoundingClientRect().width};
+      div.classList.add('dragging');
+      document.body.style.cursor='col-resize';
+      document.body.style.userSelect='none';
+      e.preventDefault();
+    });
+    // Double-click to reset
+    div.addEventListener('dblclick',()=>{
+      const colId=div.dataset.col;
+      colWidths[colId]=COL_DEFAULTS[colId];
+      applyColWidths();
+      saveColState();
+      setTimeout(()=>fitView(true),80);
+    });
+  });
+
+  document.addEventListener('mousemove',e=>{
+    if(!resizing)return;
+    const dx=e.clientX-resizing.startX;
+    const nw=Math.max(100,Math.min(700,resizing.startW+dx));
+    colWidths[resizing.colId]=nw;
+    resizing.colEl.style.width=nw+'px';
+    resizing.colEl.style.minWidth=nw+'px';
+  });
+
+  document.addEventListener('mouseup',()=>{
+    if(resizing){
+      resizing.div.classList.remove('dragging');
+      document.body.style.cursor='';
+      document.body.style.userSelect='';
+      saveColState();
+      resizing=null;
+      setTimeout(()=>fitView(true),80);
+    }
+  });
+}
+
 // INIT
 activeTab='tree'; // layout is always 3 columns, tree is always visible
+initResize();
 updateSprintBadge();
 renderOutcomeCol();
 renderTree();
